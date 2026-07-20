@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}{% if user %}Edit{% else %}Create{% endif %} User{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="bi bi-person-gear"></i> {% if user %}Edit{% else %}Create{% endif %} User</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="username" value="{{ user.username if user else '' }}" required>
+                        <small class="text-muted">Unique username for login</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" name="phone_number" value="{{ user.phone_number if user else '' }}" placeholder="e.g. 0712345678" required>
+                        <small class="text-muted">Enter phone number without spaces</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password {% if not user %}<span class="text-danger">*</span>{% endif %}</label>
+                        <input type="password" class="form-control" name="password" {% if not user %}required{% endif %}>
+                        {% if user %}<small class="text-muted">Leave blank to keep current password</small>{% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Role <span class="text-danger">*</span></label>
+                        <select class="form-select" name="role" required>
+                            <option value="super_admin" {% if user and user.role == 'super_admin' %}selected{% endif %}>Super Admin</option>
+                            <option value="admin" {% if user and user.role == 'admin' %}selected{% endif %}>Admin</option>
+                            <option value="manager" {% if user and user.role == 'manager' %}selected{% endif %}>Manager</option>
+                            <option value="cashier" {% if user and user.role == 'cashier' %}selected{% endif %}>Cashier</option>
+                            <option value="viewer" {% if user and user.role == 'viewer' %}selected{% endif %}>Viewer</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Assign Merchant</label>
+                        <select class="form-select" name="merchant_id">
+                            <option value="">-- No Merchant Assigned --</option>
+                            {% for merchant in merchants %}
+                            <option value="{{ merchant.id }}" {% if user and user.merchant_id == merchant.id %}selected{% endif %}>
+                                {{ merchant.name }} ({{ merchant.network }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Assign this user to a specific merchant. Cashier will only see this merchant.</small>
+                    </div>
+                    {% if user %}
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if user.is_active %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">Active</label>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> {% if user %}Update{% else %}Create{% endif %} User
+                        </button>
+                        <a href="{{ url_for('users.index') }}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #0f172a, #1d4ed8);
+        border-bottom: none;
+        padding: 1.25rem 1.5rem;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .card-header h4 {
+        color: white;
+        margin: 0;
+    }
+
+    .form-label {
+        color: #94a3b8;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .form-control, .form-select {
+        background: #0f172a;
+        color: #f1f5f9;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 0.65rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        background: #0f172a;
+        color: #f1f5f9;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        outline: none;
+    }
+
+    .form-control::placeholder {
+        color: #64748b;
+    }
+
+    .form-check-label {
+        color: #94a3b8;
+    }
+
+    .text-muted {
+        color: #64748b !important;
+    }
+
+    .text-danger {
+        color: #f87171 !important;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-secondary {
+        background: #334155;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        color: #f1f5f9;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: #475569;
+        color: white;
+    }
+
+    .form-check-input {
+        background-color: #0f172a;
+        border-color: #334155;
+    }
+
+    .form-check-input:checked {
+        background-color: #2563eb;
+        border-color: #2563eb;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 30px #0f172a inset !important;
+        -webkit-text-fill-color: #f1f5f9 !important;
+    }
+
+    select option {
+        background: #1e293b;
+        color: #f1f5f9;
+    }
+</style>
+{% endblock %}

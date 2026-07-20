@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h2 class="mb-4">
+✏️ Edit Operator
+</h2>
+
+
+<div class="card shadow">
+
+<div class="card-body">
+
+
+<form method="POST">
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Operator Name
+</label>
+
+<input
+class="form-control"
+name="name"
+value="{{ operator.name }}"
+required>
+
+</div>
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Operator Type
+</label>
+
+
+<select 
+class="form-select"
+name="operator_type">
+
+
+<option 
+{% if operator.operator_type == "Mobile Money" %}
+selected
+{% endif %}
+>
+Mobile Money
+</option>
+
+
+<option
+{% if operator.operator_type == "Bank" %}
+selected
+{% endif %}
+>
+Bank
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Balance
+</label>
+
+
+<input
+class="form-control"
+type="number"
+name="balance"
+value="{{ operator.balance }}"
+required>
+
+
+</div>
+
+
+
+
+<h5>
+Commission Settings (%)
+</h5>
+
+
+
+<div class="row g-3">
+
+
+
+<div class="col-md-4">
+
+
+<input
+class="form-control"
+type="number"
+step="0.01"
+name="deposit_commission"
+value="{{ operator.deposit_commission }}"
+placeholder="Deposit %">
+
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+
+<input
+class="form-control"
+type="number"
+step="0.01"
+name="withdraw_commission"
+value="{{ operator.withdraw_commission }}"
+placeholder="Withdraw %">
+
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+
+<input
+class="form-control"
+type="number"
+step="0.01"
+name="airtime_commission"
+value="{{ operator.airtime_commission }}"
+placeholder="Airtime %">
+
+
+</div>
+
+
+</div>
+
+
+
+
+<br>
+
+
+<button class="btn btn-success">
+
+Save Changes
+
+</button>
+
+
+
+<a href="{{ url_for('operators.index') }}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+
+
+</form>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

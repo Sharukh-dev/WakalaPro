@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h2><i class="bi bi-shop"></i> {{ merchant.name }} - Details</h2>
+
+    <div class="card p-3 mb-4 shadow">
+        <h4>{{ merchant.name }}</h4>
+        <p><b>Phone:</b> {{ merchant.phone_number }}</p>
+        <p><b>Location:</b> {{ merchant.location or 'N/A' }}</p>
+        <p><b>Network:</b> {{ merchant.network }}</p>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-3">
+                <h6>Cash in Hand</h6>
+                <h4>{{ "{:,.0f}".format(merchant.cash_in_hand) }} TZS</h4>
+            </div>
+            <div class="col-md-3">
+                <h6>CRDB Bank</h6>
+                <h4>{{ "{:,.0f}".format(merchant.crdb_balance) }} TZS</h4>
+            </div>
+            <div class="col-md-3">
+                <h6>NMB Bank</h6>
+                <h4>{{ "{:,.0f}".format(merchant.nmb_balance) }} TZS</h4>
+            </div>
+            <div class="col-md-3">
+                <h6>Total Balance</h6>
+                <h4>{{ "{:,.0f}".format(merchant.current_balance) }} TZS</h4>
+            </div>
+        </div>
+
+        <hr>
+
+        <h5>Operator Balances</h5>
+        <div class="row g-3">
+            {% for balance in operator_balances %}
+            <div class="col-12 col-md-4">
+                <div class="card shadow p-3">
+                    <h6>{{ balance.operator.full_name }}</h6>
+                    <h4>{{ "{:,.0f}".format(balance.balance) }} TZS</h4>
+                    <p>{{ balance.operator.status }}</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">No operator float allocated.</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <h6>Total Deposits</h6>
+                <p>{{ "{:,.0f}".format(total_deposits) }} TZS</p>
+            </div>
+            <div class="col-md-3">
+                <h6>Total Withdrawals</h6>
+                <p>{{ "{:,.0f}".format(total_withdrawals) }} TZS</p>
+            </div>
+            <div class="col-md-3">
+                <h6>Total Airtime</h6>
+                <p>{{ "{:,.0f}".format(total_airtime) }} TZS</p>
+            </div>
+            <div class="col-md-3">
+                <h6>Net Movement</h6>
+                <p>{{ "{:,.0f}".format(net_movement) }} TZS</p>
+            </div>
+        </div>
+    </div>
+
+    <h4>Transaction History</h4>
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Operator</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Commission</th>
+                            <th>Phone</th>
+                            <th>Reference</th>
+                            <th>Date</th>
+                            <th>Receipt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in transactions %}
+                        <tr>
+                            <td>{{ t.id }}</td>
+                            <td>{{ t.operator.full_name if t.operator else 'N/A' }}</td>
+                            <td>{{ t.transaction_type }}</td>
+                            <td>{{ "{:,.0f}".format(t.amount) }} TZS</td>
+                            <td>
+                                {% if t.commission %}
+                                {{ "{:,.0f}".format(t.commission) }} TZS
+                                {% else %}
+                                0.00 TZS
+                                {% endif %}
+                            </td>
+                            <td>{{ t.customer_phone }}</td>
+                            <td>{{ t.reference_number }}</td>
+                            <td>{{ t.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                <a href="{{ url_for('receipts.view', transaction_id=t.id) }}" class="btn btn-success btn-sm">
+                                    Receipt
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">No transactions found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ url_for('merchants.index') }}" class="btn btn-secondary mt-3">
+        <i class="bi bi-arrow-left"></i> Back
+    </a>
+</div>
+
+{% endblock %}

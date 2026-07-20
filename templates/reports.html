@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+<h2 class="mb-4">
+📊 Business Reports
+</h2>
+
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+
+<a href="{{ url_for('reports.export_pdf') }}"
+class="btn btn-danger">
+
+📄 Export PDF
+
+</a>
+
+
+<a href="{{ url_for('reports.export_excel') }}"
+class="btn btn-success">
+
+📊 Export Excel
+
+</a>
+
+</div>
+
+
+
+
+<div class="row g-3">
+
+
+<div class="col-12 col-sm-6 col-lg-3">
+
+<div class="card p-3 shadow h-100">
+
+<h5>Total Transactions</h5>
+
+<h3>
+{{ total_transactions }}
+</h3>
+
+</div>
+
+</div>
+
+
+
+<div class="col-12 col-sm-6 col-lg-3">
+
+<div class="card p-3 shadow h-100">
+
+<h5>Total Amount</h5>
+
+<h3>
+{{ "%.2f"|format(total_amount) }} TZS
+</h3>
+
+</div>
+
+</div>
+
+
+
+<div class="col-12 col-sm-6 col-lg-3">
+
+<div class="card p-3 shadow h-100">
+
+<h5>Total Commission</h5>
+
+<h3>
+{{ "%.2f"|format(total_commission) }} TZS
+</h3>
+
+</div>
+
+</div>
+
+
+
+<div class="col-12 col-sm-6 col-lg-3">
+
+<div class="card p-3 shadow h-100">
+
+<h5>Total Merchants</h5>
+
+<h3>
+{{ total_merchants }}
+</h3>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<hr class="my-4">
+
+
+<h4>
+📅 Today's Performance
+</h4>
+
+
+<div class="row g-3">
+
+
+<div class="col-12 col-md-4">
+
+<div class="card shadow p-3 h-100">
+
+<h5>Transactions Today</h5>
+
+<h3>
+{{ today_transactions }}
+</h3>
+
+</div>
+
+</div>
+
+
+
+<div class="col-12 col-md-4">
+
+<div class="card shadow p-3 h-100">
+
+<h5>Today's Amount</h5>
+
+<h3>
+{{ "%.2f"|format(today_amount) }} TZS
+</h3>
+
+</div>
+
+</div>
+
+
+
+<div class="col-12 col-md-4">
+
+<div class="card shadow p-3 h-100">
+
+<h5>Today's Commission</h5>
+
+<h3>
+{{ "%.2f"|format(today_commission) }} TZS
+</h3>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<hr class="my-4">
+
+
+<h4>
+💰 Financial Summary
+</h4>
+
+
+<div class="row g-3">
+
+
+<div class="col-12 col-md-6">
+
+<div class="card shadow p-3">
+
+<h5>Total Expenses</h5>
+
+<h3>
+{{ "%.2f"|format(total_expenses) }} TZS
+</h3>
+
+</div>
+
+</div>
+
+
+
+<div class="col-12 col-md-6">
+
+<div class="card shadow p-3">
+
+<h5>Net Profit</h5>
+
+<h3>
+{{ "%.2f"|format(profit) }} TZS
+</h3>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<hr class="my-4">
+
+
+
+<h4>
+Transaction Types
+</h4>
+
+
+<div class="table-responsive">
+
+<table class="table table-bordered">
+
+
+<thead>
+
+<tr>
+
+<th>Type</th>
+
+<th>Total Amount</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td>Deposits</td>
+
+<td>
+{{ "%.2f"|format(deposit_total) }} TZS
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>Withdrawals</td>
+
+<td>
+{{ "%.2f"|format(withdrawal_total) }} TZS
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>Airtime</td>
+
+<td>
+{{ "%.2f"|format(airtime_total) }} TZS
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+</div>
+
+
+
+
+
+
+
+<hr class="my-4">
+
+
+
+<h4>
+🕒 Recent Transactions
+</h4>
+
+
+<div class="table-responsive">
+
+<table class="table table-striped">
+
+
+<thead class="table-dark">
+
+<tr>
+
+<th>ID</th>
+
+<th>Merchant</th>
+
+<th>Type</th>
+
+<th>Amount</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for t in recent_transactions %}
+
+
+<tr>
+
+<td>
+{{ t.id }}
+</td>
+
+
+<td>
+
+{% if t.merchant %}
+
+{{ t.merchant.name }}
+
+{% else %}
+
+Unknown
+
+{% endif %}
+
+</td>
+
+
+<td>
+{{ t.transaction_type }}
+</td>
+
+
+<td>
+{{ "%.2f"|format(t.amount) }} TZS
+</td>
+
+
+<td>
+
+{% if t.created_at %}
+
+{{ t.created_at.strftime('%Y-%m-%d %H:%M') }}
+
+{% else %}
+
+No date
+
+{% endif %}
+
+</td>
+
+
+</tr>
+
+
+{% else %}
+
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No transactions found
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+</tbody>
+
+
+</table>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

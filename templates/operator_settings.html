@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Commission Settings - {{ operator.full_name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="bi bi-percent"></i> Commission Settings for <strong>{{ operator.full_name }}</strong></h4>
+                <p class="text-muted mb-0">Enter commission rates as decimals (e.g. 1.5 for 1.5%, 0.75 for 0.75%)</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <!-- Network Commissions -->
+                    <h5 class="text-success"><i class="bi bi-wifi"></i> Network Commissions (%)</h5>
+                    <hr>
+                    <p class="text-muted">Set commission rates (%) for each network and transaction type</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Network</th>
+                                    <th>Deposit (%)</th>
+                                    <th>Withdraw (%)</th>
+                                    <th>Airtime (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for network in networks %}
+                                <tr>
+                                    <td><strong>{{ network }}</strong></td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="{{ network.lower() }}_deposit" 
+                                               value="{{ operator.get_network_commission(network, 'deposit') }}"
+                                               placeholder="0.00">
+                                    </td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="{{ network.lower() }}_withdraw" 
+                                               value="{{ operator.get_network_commission(network, 'withdraw') }}"
+                                               placeholder="0.00">
+                                    </td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="{{ network.lower() }}_airtime" 
+                                               value="{{ operator.get_network_commission(network, 'airtime') }}"
+                                               placeholder="0.00">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Bank Commissions -->
+                    <h5 class="text-primary mt-4"><i class="bi bi-bank"></i> Bank Commissions (%)</h5>
+                    <hr>
+                    <p class="text-muted">Set commission rates (%) for each bank and transaction type</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Bank</th>
+                                    <th>Deposit (%)</th>
+                                    <th>Withdraw (%)</th>
+                                    <th>Payment (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for bank in banks %}
+                                <tr>
+                                    <td><strong>{{ bank }}</strong></td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="{{ bank.lower() }}_deposit" 
+                                               value="{{ operator.get_bank_commission(bank, 'deposit') }}"
+                                               placeholder="0.00">
+                                    </td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="{{ bank.lower() }}_withdraw" 
+                                               value="{{ operator.get_bank_commission(bank, 'withdraw') }}"
+                                               placeholder="0.00">
+                                    </td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" 
+                                               name="{{ bank.lower() }}_payment" 
+                                               value="{{ operator.get_bank_commission(bank, 'payment') }}"
+                                               placeholder="0.00">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-info-circle"></i>
+                        <strong>Note:</strong> Commission rates are in percentage (%). For example, 1.5 means 1.5%, 0.75 means 0.75%. Decimals are preserved exactly as entered.
+                    </div>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Save Settings
+                        </button>
+                        <a href="{{ url_for('operators.index') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

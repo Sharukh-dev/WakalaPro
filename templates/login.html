@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - WakalaPro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e1a;
+            color: #e6edf3;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+        }
+
+        .login-wrapper {
+            display: flex;
+            background: #141b2d;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid #2a3a5c;
+            min-height: 600px;
+        }
+
+        /* ========== LEFT SIDE ========== */
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #1a1a3e 0%, #2563eb 100%);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .login-left::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -30%;
+            width: 80%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+        }
+
+        .login-left-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .login-logo {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 18px 22px;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-logo i {
+            font-size: 2.5rem;
+            color: #60a5fa;
+        }
+
+        .login-left h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+            color: white;
+        }
+
+        .login-left .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 300;
+        }
+
+        .welcome-text h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .welcome-text p {
+            opacity: 0.85;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            color: white;
+        }
+
+        .login-features {
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .feature-item i {
+            color: #34d399;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* ========== RIGHT SIDE ========== */
+        .login-right {
+            flex: 0 0 45%;
+            padding: 50px 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #141b2d;
+        }
+
+        .login-form-container {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .login-header {
+            margin-bottom: 2rem;
+        }
+
+        .login-header h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e6edf3;
+            margin-bottom: 0.3rem;
+        }
+
+        .login-header p {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #8b949e;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+        }
+
+        .form-group label i {
+            margin-right: 6px;
+        }
+
+        .form-group .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            color: #e6edf3;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            outline: none;
+        }
+
+        .form-group .form-control::placeholder {
+            color: #64748b;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper .form-control {
+            padding-right: 50px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .password-toggle:hover {
+            color: #8b949e;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #2563eb;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            color: #8b949e;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #93bbfc;
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .login-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .login-footer p {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .login-footer a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .login-footer .version {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: #475569;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .login-wrapper {
+                flex-direction: column;
+                max-width: 500px;
+                min-height: auto;
+            }
+
+            .login-left {
+                padding: 30px 25px;
+                min-height: 200px;
+            }
+
+            .login-left h1 {
+                font-size: 1.8rem;
+            }
+
+            .login-logo {
+                padding: 12px 16px;
+            }
+
+            .login-logo i {
+                font-size: 2rem;
+            }
+
+            .login-features {
+                display: none;
+            }
+
+            .welcome-text h2 {
+                font-size: 1.2rem;
+            }
+
+            .welcome-text p {
+                font-size: 0.85rem;
+            }
+
+            .login-right {
+                flex: 1;
+                padding: 30px 25px;
+            }
+
+            .login-form-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-right {
+                padding: 20px 15px;
+            }
+
+            .login-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .login-left {
+                padding: 20px 15px;
+            }
+
+            .login-left h1 {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Fix for dark mode */
+        .login-container input:-webkit-autofill,
+        .login-container input:-webkit-autofill:hover,
+        .login-container input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 30px #0d1117 inset !important;
+            -webkit-text-fill-color: #e6edf3 !important;
+        }
+
+        /* Flash messages */
+        .alert {
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border-left: 4px solid #10b981;
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-left: 4px solid #ef4444;
+        }
+
+        .alert-info {
+            background: rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
+            border-left: 4px solid #2563eb;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border-left: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-wrapper">
+
+            <!-- ===== LEFT SIDE ===== -->
+            <div class="login-left">
+                <div class="login-left-content">
+                    <div class="login-logo">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <h1>WakalaPro</h1>
+                    <p class="tagline">Mobile Money Agent Management System</p>
+
+                    <div class="welcome-text">
+                        <h2>Welcome Back!</h2>
+                        <p>Sign in to manage your mobile money business efficiently. Track transactions, manage merchants, and monitor your profits all in one place.</p>
+                    </div>
+
+                    <div class="login-features">
+                        <div class="feature-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Manage Multiple Operators</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Real-time Transaction Tracking</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span>Comprehensive Reports & Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RIGHT SIDE ===== -->
+            <div class="login-right">
+                <div class="login-form-container">
+
+                    <div class="login-header">
+                        <h3>Sign In</h3>
+                        <p>Enter your credentials to access your dashboard</p>
+                    </div>
+
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="username"><i class="bi bi-person"></i> Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required autofocus>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password"><i class="bi bi-lock"></i> Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword()">
+                                    <i class="bi bi-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-login">
+                            <i class="bi bi-box-arrow-in-right"></i> Sign In
+                        </button>
+                    </form>
+
+                    <div class="login-footer">
+                        <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register Now</a></p>
+                        <p class="version">WakalaPro v1.0.0</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'bi bi-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'bi bi-eye';
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

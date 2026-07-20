@@ -1,0 +1,473 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Page Header with Gradient -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1 class="dashboard-title"><i class="bi bi-speedometer2"></i> Dashboard</h1>
+        <hr class="dashboard-divider">
+    </div>
+</div>
+
+<!-- Stats Cards - Row 1 -->
+<div class="row" id="dashboard-stats">
+    <div class="col-md-3 mb-3">
+        <div class="glass-card">
+            <div class="card-body">
+                <h6><i class="bi bi-shop"></i> Total Merchants</h6>
+                <h2 id="total-merchants">{{ merchants_count|default(0) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="glass-card">
+            <div class="card-body">
+                <h6><i class="bi bi-people"></i> Total Operators</h6>
+                <h2 id="total-operators">{{ operators_count|default(0) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="glass-card">
+            <div class="card-body">
+                <h6><i class="bi bi-arrow-left-right"></i> Today's Transactions</h6>
+                <h2 id="today-transactions">{{ today_transactions|default(0) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="glass-card gold-border">
+            <div class="card-body">
+                <h6 style="color: #b45309 !important;"><i class="bi bi-cash-stack"></i> Total Balance</h6>
+                <h2 id="total-balance" style="color: #b45309 !important;">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards - Row 2 -->
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="glass-card green-border">
+            <div class="card-body">
+                <h6 style="color: #10b981 !important;"><i class="bi bi-arrow-up"></i> Today's Deposits</h6>
+                <h2 id="today-deposits" style="color: #10b981 !important;">TSh {{ "{:,.0f}".format(today_deposits|default(0)) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="glass-card red-border">
+            <div class="card-body">
+                <h6 style="color: #ef4444 !important;"><i class="bi bi-arrow-down"></i> Today's Withdrawals</h6>
+                <h2 id="today-withdrawals" style="color: #ef4444 !important;">TSh {{ "{:,.0f}".format(today_withdrawals|default(0)) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="glass-card blue-border">
+            <div class="card-body">
+                <h6 style="color: #2563eb !important;"><i class="bi bi-percent"></i> Today's Commission</h6>
+                <h2 id="today-commission" style="color: #2563eb !important;">TSh {{ "{:,.0f}".format(today_commission|default(0)) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="glass-card purple-border">
+            <div class="card-body">
+                <h6 style="color: #7c3aed !important;"><i class="bi bi-graph-up"></i> Today's Profit</h6>
+                <h2 id="today-profit" style="color: #7c3aed !important;">TSh {{ "{:,.0f}".format(profit|default(0)) }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="glass-card">
+            <div class="card-header">
+                <h5><i class="bi bi-lightning"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex gap-2 flex-wrap">
+                    {% if current_user.role in ['admin', 'super_admin', 'manager', 'cashier'] %}
+                    <a href="{{ url_for('transactions.create') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> New Transaction
+                    </a>
+                    {% endif %}
+                    {% if current_user.role in ['admin', 'super_admin'] %}
+                    <a href="{{ url_for('merchants.create') }}" class="btn btn-success">
+                        <i class="bi bi-shop"></i> Add Merchant
+                    </a>
+                    <a href="{{ url_for('operators.index') }}" class="btn btn-info">
+                        <i class="bi bi-people"></i> Operator Settings
+                    </a>
+                    <a href="{{ url_for('expenses.create') }}" class="btn btn-warning">
+                        <i class="bi bi-receipt"></i> Add Expense
+                    </a>
+                    <a href="{{ url_for('cash_closing.create') }}" class="btn btn-secondary">
+                        <i class="bi bi-cash-stack"></i> Cash Closing
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="glass-card">
+            <div class="card-header">
+                <h5>Transaction Trends (Last 7 Days)</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="transactionChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="glass-card">
+            <div class="card-header">
+                <h5>Commission Trends (Last 7 Days)</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="commissionChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Auto-refresh script -->
+<script>
+// Auto-refresh dashboard data every 10 seconds
+setInterval(function() {
+    fetch('{{ url_for("dashboard.get_stats") }}')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('total-merchants').textContent = data.merchants_count || 0;
+            document.getElementById('total-operators').textContent = data.operators_count || 0;
+            document.getElementById('today-transactions').textContent = data.today_transactions || 0;
+            document.getElementById('total-balance').textContent = 'TSh ' + Number(data.total_balance || 0).toLocaleString();
+            document.getElementById('today-deposits').textContent = 'TSh ' + Number(data.today_deposits || 0).toLocaleString();
+            document.getElementById('today-withdrawals').textContent = 'TSh ' + Number(data.today_withdrawals || 0).toLocaleString();
+            document.getElementById('today-commission').textContent = 'TSh ' + Number(data.today_commission || 0).toLocaleString();
+            document.getElementById('today-profit').textContent = 'TSh ' + Number(data.profit || 0).toLocaleString();
+        })
+        .catch(error => console.log('Error refreshing dashboard:', error));
+}, 10000);
+
+// Chart JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    var labels = [];
+    var deposits = [];
+    var withdrawals = [];
+    var commissions = [];
+
+    try {
+        labels = {{ chart_labels|tojson|default('[]') }};
+        deposits = {{ chart_deposits|tojson|default('[]') }};
+        withdrawals = {{ chart_withdrawals|tojson|default('[]') }};
+        commissions = {{ chart_commissions|tojson|default('[]') }};
+    } catch(e) {
+        console.log('Chart data not available');
+    }
+
+    if (labels && labels.length > 0) {
+        var ctx1 = document.getElementById('transactionChart');
+        if (ctx1) {
+            new Chart(ctx1.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Deposits',
+                            data: deposits,
+                            backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                            borderColor: '#10b981',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Withdrawals',
+                            data: withdrawals,
+                            backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                            borderColor: '#ef4444',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#6b7280',
+                                callback: function(value) {
+                                    return 'TSh ' + Number(value).toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#000000'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        var ctx2 = document.getElementById('commissionChart');
+        if (ctx2) {
+            new Chart(ctx2.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Commission',
+                        data: commissions,
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        borderColor: '#2563eb',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#6b7280',
+                                callback: function(value) {
+                                    return 'TSh ' + Number(value).toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#000000'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+});
+</script>
+
+<style>
+    /* ============================================
+       DASHBOARD STYLES
+       ============================================ */
+
+    /* Dashboard Title - Gradient */
+    .dashboard-title {
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        font-size: 2rem;
+        display: inline-block;
+    }
+
+    .dashboard-title i {
+        -webkit-text-fill-color: #2563eb;
+        background: none;
+    }
+
+    .dashboard-divider {
+        border: none;
+        height: 3px;
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
+        border-radius: 10px;
+        opacity: 0.6;
+    }
+
+    /* Glass Card Effect - BLUR */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.65) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+        transition: all 0.3s ease !important;
+        overflow: hidden !important;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+        background: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    .glass-card .card-body {
+        padding: 1.25rem !important;
+        color: #000000 !important;
+    }
+
+    .glass-card .card-body h6 {
+        font-size: 0.75rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        margin-bottom: 0.5rem !important;
+        font-weight: 600 !important;
+        color: #6b7280 !important;
+    }
+
+    .glass-card .card-body h2 {
+        font-weight: 700 !important;
+        margin-bottom: 0 !important;
+        font-size: 1.8rem !important;
+        color: #000000 !important;
+    }
+
+    .glass-card .card-header {
+        background: rgba(255, 255, 255, 0.5) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        padding: 0.8rem 1.25rem !important;
+    }
+
+    .glass-card .card-header h5 {
+        color: #000000 !important;
+        margin: 0 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Border colors for different cards */
+    .gold-border {
+        border: 1px solid rgba(180, 83, 9, 0.3) !important;
+    }
+    .gold-border:hover {
+        border-color: #b45309 !important;
+    }
+
+    .green-border {
+        border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    }
+    .green-border:hover {
+        border-color: #10b981 !important;
+    }
+
+    .red-border {
+        border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    }
+    .red-border:hover {
+        border-color: #ef4444 !important;
+    }
+
+    .blue-border {
+        border: 1px solid rgba(37, 99, 235, 0.3) !important;
+    }
+    .blue-border:hover {
+        border-color: #2563eb !important;
+    }
+
+    .purple-border {
+        border: 1px solid rgba(124, 58, 237, 0.3) !important;
+    }
+    .purple-border:hover {
+        border-color: #7c3aed !important;
+    }
+
+    /* Quick Action Buttons */
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+        border: none !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4) !important;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: none !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
+    }
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4) !important;
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+        border: none !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3) !important;
+    }
+
+    .btn-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(6, 182, 212, 0.4) !important;
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+        border: none !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3) !important;
+    }
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(245, 158, 11, 0.4) !important;
+    }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+        border: none !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3) !important;
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(107, 114, 128, 0.4) !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .dashboard-title {
+            font-size: 1.5rem;
+        }
+        .glass-card .card-body h2 {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+
+{% endblock %}

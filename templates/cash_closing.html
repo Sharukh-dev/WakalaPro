@@ -1,0 +1,419 @@
+{% extends "base.html" %}
+
+{% block title %}Cash Closing{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 no-print">
+    <h1><i class="bi bi-cash-stack"></i> Daily Cash Closing</h1>
+    <a href="{{ url_for('cash_closing.create') }}" class="btn btn-primary">
+        <i class="bi bi-plus"></i> New Closing
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card" id="print-area">
+            <div class="card-header" style="background: linear-gradient(135deg, #1a1a3e, #2563eb); color: white;">
+                <h5 style="color: white; margin: 0;">Today's Summary - {{ today.strftime('%Y-%m-%d') }}</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-closing" id="closing-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%; color: #000000; font-weight: 700; border-bottom: 2px solid #000; padding: 10px 8px;">Description</th>
+                            <th style="width: 50%; text-align: right; color: #000000; font-weight: 700; border-bottom: 2px solid #000; padding: 10px 8px;">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: #000000; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">Opening Balance</td>
+                            <td style="color: #000000; text-align: right; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">TSh {{ "{:,.0f}".format(opening_cash) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #10b981; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">Deposits</td>
+                            <td style="color: #10b981; text-align: right; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">TSh {{ "{:,.0f}".format(total_deposit) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #ef4444; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">Withdrawals</td>
+                            <td style="color: #ef4444; text-align: right; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">TSh {{ "{:,.0f}".format(total_withdraw) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #f59e0b; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">Airtime</td>
+                            <td style="color: #f59e0b; text-align: right; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">TSh {{ "{:,.0f}".format(total_airtime) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #2563eb; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">Commission</td>
+                            <td style="color: #2563eb; text-align: right; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">TSh {{ "{:,.0f}".format(total_commission) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #ef4444; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">Expenses</td>
+                            <td style="color: #ef4444; text-align: right; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #e5e7eb;">TSh {{ "{:,.0f}".format(total_expenses) }}</td>
+                        </tr>
+                        <tr style="border-top: 3px solid #10b981; font-weight: 700;">
+                            <td style="color: #10b981; font-size: 1.1rem; padding: 12px 8px; border-bottom: none;">Expected Closing Cash</td>
+                            <td style="color: #10b981; text-align: right; font-size: 1.1rem; padding: 12px 8px; border-bottom: none;">TSh {{ "{:,.0f}".format(closing_cash) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 no-print">
+        <div class="card">
+            <div class="card-header">
+                <h5 style="color: #000000;">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('cash_closing.create') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Save Closing
+                    </a>
+                    <button class="btn btn-success" onclick="downloadPDF()">
+                        <i class="bi bi-file-pdf"></i> Download PDF
+                    </button>
+                </div>
+                <hr>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Live Data:</strong> This summary updates automatically as transactions are made.
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 style="color: #000000;">Instructions</h5>
+            </div>
+            <div class="card-body">
+                <ul style="color: #000000; font-size: 0.9rem; padding-left: 1.2rem;">
+                    <li>All amounts are calculated from today's transactions</li>
+                    <li>Opening balance is from previous day's closing</li>
+                    <li>Expected closing = Opening + Deposits - Withdrawals + Commission - Expenses</li>
+                    <li>Click "Save Closing" to save today's closing</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Previous Closings -->
+<div class="card mt-4 no-print">
+    <div class="card-header">
+        <h5 style="color: #000000;">Previous Closings</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th style="color: #000000; font-weight: 700;">Date</th>
+                        <th style="color: #000000; font-weight: 700;">Opening</th>
+                        <th style="color: #000000; font-weight: 700;">Deposits</th>
+                        <th style="color: #000000; font-weight: 700;">Withdrawals</th>
+                        <th style="color: #000000; font-weight: 700;">Commission</th>
+                        <th style="color: #000000; font-weight: 700;">Expenses</th>
+                        <th style="color: #000000; font-weight: 700;">Closing</th>
+                        <th style="color: #000000; font-weight: 700;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for closing in closings %}
+                    <tr>
+                        <td style="color: #000000;">{{ closing.date.strftime('%Y-%m-%d') }}</td>
+                        <td style="color: #000000;">TSh {{ "{:,.0f}".format(closing.opening_cash) }}</td>
+                        <td style="color: #10b981;">TSh {{ "{:,.0f}".format(closing.total_deposit) }}</td>
+                        <td style="color: #ef4444;">TSh {{ "{:,.0f}".format(closing.total_withdraw) }}</td>
+                        <td style="color: #2563eb;">TSh {{ "{:,.0f}".format(closing.total_commission) }}</td>
+                        <td style="color: #ef4444;">TSh {{ "{:,.0f}".format(closing.total_expenses) }}</td>
+                        <td style="color: #10b981; font-weight: 700;">TSh {{ "{:,.0f}".format(closing.closing_cash) }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('cash_closing.delete', id=closing.id) }}" style="display:inline;" onsubmit="return confirm('Are you sure?')">
+                                <button type="submit" class="btn btn-sm btn-danger" style="color: white; border: none; padding: 5px 12px; border-radius: 8px;">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-4" style="color: #6b7280;">
+                            <i class="bi bi-inbox display-4 d-block" style="color: #d1d5db;"></i>
+                            <p class="mt-2" style="color: #000000;">No cash closings found</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- html2pdf library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- Auto-refresh every 10 seconds -->
+<script>
+    // Auto-refresh page every 10 seconds to show latest data
+    setTimeout(function() {
+        location.reload();
+    }, 10000);
+
+    function downloadPDF() {
+        var element = document.getElementById('print-area');
+        
+        var now = new Date();
+        var dateStr = now.getFullYear() + '-' + 
+                      String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                      String(now.getDate()).padStart(2, '0');
+        var timeStr = String(now.getHours()).padStart(2, '0') + '-' + 
+                      String(now.getMinutes()).padStart(2, '0');
+        
+        var filename = 'Cash_Closing_Summary_' + dateStr + '_' + timeStr + '.pdf';
+        
+        var clone = element.cloneNode(true);
+        
+        var container = document.createElement('div');
+        container.style.width = '100%';
+        container.style.maxWidth = '800px';
+        container.style.margin = '0 auto';
+        container.style.padding = '30px';
+        container.style.fontFamily = 'Arial, sans-serif';
+        container.style.background = '#ffffff';
+        container.style.color = '#000000';
+        container.style.boxSizing = 'border-box';
+        
+        var header = document.createElement('div');
+        header.style.textAlign = 'center';
+        header.style.borderBottom = '3px solid #2563eb';
+        header.style.paddingBottom = '15px';
+        header.style.marginBottom = '20px';
+        header.innerHTML = `
+            <h1 style="font-size: 28px; margin: 0; color: #1a1a3e; font-weight: 800;">WakalaPro</h1>
+            <p style="color: #666; margin: 5px 0 0 0; font-size: 14px;">Cash Closing Summary - {{ today.strftime('%Y-%m-%d') }}</p>
+        `;
+        container.appendChild(header);
+        
+        var dateDiv = document.createElement('div');
+        dateDiv.style.textAlign = 'right';
+        dateDiv.style.color = '#666';
+        dateDiv.style.fontSize = '12px';
+        dateDiv.style.marginBottom = '15px';
+        dateDiv.textContent = 'Generated: ' + now.toLocaleString();
+        container.appendChild(dateDiv);
+        
+        var table = clone.querySelector('#closing-table');
+        if (table) {
+            table.style.width = '100%';
+            table.style.borderCollapse = 'collapse';
+            table.style.marginTop = '10px';
+            table.style.fontSize = '14px';
+            
+            var rows = table.querySelectorAll('tr');
+            rows.forEach(function(row, index) {
+                var cells = row.querySelectorAll('td, th');
+                cells.forEach(function(cell) {
+                    cell.style.padding = '12px 10px';
+                    cell.style.borderBottom = '1px solid #e5e7eb';
+                });
+                if (index === rows.length - 1) {
+                    row.style.borderTop = '3px solid #10b981';
+                }
+            });
+            
+            var headerRow = table.querySelector('thead tr');
+            if (headerRow) {
+                var headerCells = headerRow.querySelectorAll('th');
+                headerCells.forEach(function(cell) {
+                    cell.style.background = '#f3f4f6';
+                    cell.style.fontWeight = '700';
+                    cell.style.borderBottom = '2px solid #000';
+                    cell.style.color = '#000000';
+                    cell.style.padding = '10px 10px';
+                });
+            }
+            
+            container.appendChild(table);
+        }
+        
+        var footer = document.createElement('div');
+        footer.style.textAlign = 'center';
+        footer.style.marginTop = '30px';
+        footer.style.paddingTop = '15px';
+        footer.style.borderTop = '1px solid #ddd';
+        footer.style.color = '#666';
+        footer.style.fontSize = '11px';
+        footer.innerHTML = `
+            <p style="margin: 0;">This is a computer generated report. Valid without signature.</p>
+            <p style="margin: 5px 0 0 0;">© ${new Date().getFullYear()} WakalaPro. All rights reserved.</p>
+        `;
+        container.appendChild(footer);
+        
+        var opt = {
+            margin: [0.5, 0.5, 0.5, 0.5],
+            filename: filename,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+        
+        var btn = document.querySelector('.btn-success');
+        var originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating PDF...';
+        btn.disabled = true;
+        
+        html2pdf().set(opt).from(container).save().then(function() {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }).catch(function(error) {
+            console.error('PDF generation error:', error);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            alert('Error generating PDF. Please try again.');
+        });
+    }
+</script>
+
+<style>
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .card-header {
+        background: #f3f4f6 !important;
+        border-bottom: 1px solid #d1d5db !important;
+        padding: 1rem 1.25rem !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .card-header h5 {
+        color: #000000 !important;
+        margin: 0 !important;
+        font-weight: 600 !important;
+    }
+
+    .card-body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .table-closing {
+        background: #ffffff !important;
+        color: #000000 !important;
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+
+    .table-closing thead th {
+        background: #f3f4f6 !important;
+        color: #000000 !important;
+        font-weight: 700 !important;
+        padding: 10px 8px !important;
+        border-bottom: 2px solid #d1d5db !important;
+        font-size: 0.75rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .table-closing tbody tr {
+        border-bottom: 1px solid #e5e7eb !important;
+        background: #ffffff !important;
+    }
+
+    .table-closing tbody tr:hover {
+        background: #f9fafb !important;
+    }
+
+    .table-closing td {
+        padding: 10px 8px !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        font-size: 0.95rem !important;
+        color: #000000 !important;
+    }
+
+    .alert-info {
+        background: #eff6ff !important;
+        border: 1px solid #dbeafe !important;
+        color: #1e40af !important;
+        border-radius: 8px !important;
+        padding: 0.8rem !important;
+    }
+
+    .btn-sm:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    body {
+        background: #f3f4f6 !important;
+        color: #000000 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+    }
+
+    .no-print {
+        display: block !important;
+    }
+
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+        .card {
+            border: 1px solid #ddd !important;
+            box-shadow: none !important;
+        }
+        body {
+            background: white !important;
+        }
+    }
+
+    .spinner-border {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        border: 0.2em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border .75s linear infinite;
+    }
+
+    @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}

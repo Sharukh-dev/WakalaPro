@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Expenses{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1><i class="bi bi-receipt"></i> Expenses</h1>
+    <a href="{{ url_for('expenses.create') }}" class="btn btn-primary">
+        <i class="bi bi-plus"></i> Add Expense
+    </a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('expenses.create') }}">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Expense title" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" name="category" required>
+                        <option value="Rent">Rent</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Internet">Internet</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Salaries">Salaries</option>
+                        <option value="Stationery">Stationery</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Amount (TZS)</label>
+                    <input type="text" class="form-control currency" name="amount" placeholder="0" required>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-save"></i> Add Expense
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" name="description" placeholder="Optional description">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Expenses Table -->
+<div class="table-responsive">
+    <table class="table table-expenses">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Added By</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td><strong style="color: #2563eb;">{{ expense.id }}</strong></td>
+                <td><strong style="color: #000000; font-weight: 600;">{{ expense.title }}</strong></td>
+                <td>
+                    <span class="badge" style="background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; padding: 4px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">
+                        {{ expense.category }}
+                    </span>
+                </td>
+                <td><strong style="color: #b45309; font-weight: 700;">TSh {{ "{:,.0f}".format(expense.amount) }}</strong></td>
+                <td style="color: #4b5563;">{{ expense.description or 'N/A' }}</td>
+                <td style="color: #2563eb; font-weight: 500;">{{ expense.user.username }}</td>
+                <td style="color: #6b7280; font-size: 0.85rem;">{{ expense.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <a href="{{ url_for('expenses.edit', id=expense.id) }}" class="btn btn-sm btn-warning" style="color: white; border: none; padding: 5px 12px; border-radius: 8px;">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <form method="POST" action="{{ url_for('expenses.delete', id=expense.id) }}" style="display:inline;" onsubmit="return confirm('Are you sure?')">
+                        <button type="submit" class="btn btn-sm btn-danger" style="color: white; border: none; padding: 5px 12px; border-radius: 8px;">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" class="text-center py-4" style="color: #6b7280;">
+                    <i class="bi bi-inbox display-4 d-block" style="color: #d1d5db;"></i>
+                    <p class="mt-2">No expenses found</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* Card styles */
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .card-body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .form-label {
+        color: #4b5563 !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem !important;
+    }
+
+    .form-control, .form-select {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #2563eb !important;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+        outline: none !important;
+    }
+
+    /* Table styles */
+    .table-expenses {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        background: #ffffff !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .table-expenses thead th {
+        background: linear-gradient(135deg, #1e293b, #1d4ed8) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        padding: 14px 18px !important;
+        border-bottom: 3px solid #3b82f6 !important;
+        font-size: 0.7rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
+        text-align: left !important;
+    }
+
+    .table-expenses tbody tr {
+        border-bottom: 1px solid #e5e7eb !important;
+        transition: all 0.2s ease !important;
+        background: #ffffff !important;
+    }
+
+    .table-expenses tbody tr:nth-of-type(odd) {
+        background: #f8fafc !important;
+    }
+
+    .table-expenses tbody tr:nth-of-type(even) {
+        background: #ffffff !important;
+    }
+
+    .table-expenses tbody tr:hover {
+        background: #eef2ff !important;
+        transform: scale(1.01);
+        box-shadow: 0 2px 15px rgba(37, 99, 235, 0.08);
+    }
+
+    .table-expenses td {
+        padding: 12px 18px !important;
+        vertical-align: middle !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* Button styles */
+    .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+    }
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-sm:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    body {
+        background: #f3f4f6 !important;
+        color: #000000 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+    }
+</style>
+{% endblock %}

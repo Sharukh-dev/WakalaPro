@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Merchants{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1><i class="bi bi-shop"></i> Merchants</h1>
+    {% if current_user.role in ['admin', 'super_admin'] %}
+    <a href="{{ url_for('merchants.create') }}" class="btn btn-primary">
+        <i class="bi bi-plus"></i> Add Merchant
+    </a>
+    {% endif %}
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h6>Total Cash in Hand</h6>
+                <h3>TSh {{ "{:,.0f}".format(total_cash) }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <h6>Total Network Balance</h6>
+                <h3>TSh {{ "{:,.0f}".format(total_network) }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h6>Total CRDB Balance</h6>
+                <h3>TSh {{ "{:,.0f}".format(total_crdb) }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h6>Total NMB Balance</h6>
+                <h3>TSh {{ "{:,.0f}".format(total_nmb) }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Merchant Name</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Cash</th>
+                <th>Network Bal</th>
+                <th>CRDB</th>
+                <th>NMB</th>
+                <th>Total</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for merchant in merchants %}
+            <tr>
+                <td>{{ merchant.id }}</td>
+                <td><strong>{{ merchant.name }}</strong></td>
+                <td>{{ merchant.phone_number }}</td>
+                <td>{{ merchant.location or 'N/A' }}</td>
+                <td>TSh {{ "{:,.0f}".format(merchant.cash_in_hand) }}</td>
+                <td>TSh {{ "{:,.0f}".format(merchant.get_network_total()) }}</td>
+                <td>TSh {{ "{:,.0f}".format(merchant.crdb_balance) }}</td>
+                <td>TSh {{ "{:,.0f}".format(merchant.nmb_balance) }}</td>
+                <td><strong>TSh {{ "{:,.0f}".format(merchant.get_total_balance()) }}</strong></td>
+                <td>{{ merchant.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    {% if current_user.role in ['admin', 'super_admin', 'manager'] %}
+                    <a href="{{ url_for('merchants.view', id=merchant.id) }}" class="btn btn-sm btn-info" title="View Details">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('merchants.account', id=merchant.id) }}" class="btn btn-sm btn-success" title="View Account">
+                        <i class="bi bi-wallet"></i>
+                    </a>
+                    {% if current_user.role in ['admin', 'super_admin'] %}
+                    <a href="{{ url_for('merchants.edit', id=merchant.id) }}" class="btn btn-sm btn-warning" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <form method="POST" action="{{ url_for('merchants.delete', id=merchant.id) }}" style="display:inline;" onsubmit="return confirm('Are you sure?')">
+                        <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

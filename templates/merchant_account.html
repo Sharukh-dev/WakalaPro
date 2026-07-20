@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2><i class="bi bi-shop"></i> {{ merchant.name }} - Account</h2>
+
+<!-- Summary Cards -->
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="card p-3 bg-success text-white">
+            <h6>Cash in Hand</h6>
+            <h3>TSh {{ "{:,.0f}".format(cash) }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card p-3 bg-info text-white">
+            <h6>Float Balance</h6>
+            <h3>TSh {{ "{:,.0f}".format(float_balance) }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card p-3 bg-primary text-white">
+            <h6>CRDB Bank</h6>
+            <h3>TSh {{ "{:,.0f}".format(crdb_balance) }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card p-3 bg-warning text-white">
+            <h6>NMB Bank</h6>
+            <h3>TSh {{ "{:,.0f}".format(nmb_balance) }}</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Total Balance -->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card p-3 bg-dark text-white text-center">
+            <h5>Total Balance</h5>
+            <h2>TSh {{ "{:,.0f}".format(total_balance) }}</h2>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Network Balances - FIXED: Better layout with more space -->
+<h4>Network Balances</h4>
+<div class="row mb-3 network-balance-grid">
+    {% for network, amount in network_balances.items() %}
+    <div class="col-6 col-md-2 mb-2">
+        <div class="card p-3 text-center bg-secondary text-white" style="min-height: 80px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: visible; padding: 15px 10px;">
+            <h6 style="font-size: 0.85rem; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">{{ network }}</h6>
+            <h5 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0; white-space: nowrap; overflow: visible; padding: 2px 4px; word-break: keep-all;">
+                TSh {{ "{:,.0f}".format(amount) }}
+            </h5>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h4>Recent Transactions</h4>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t.transaction_type }}</td>
+                <td>TSh {{ "{:,.0f}".format(t.amount) }}</td>
+                <td>{{ t.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="{{ url_for('merchants.index') }}" class="btn btn-secondary">
+    <i class="bi bi-arrow-left"></i> Back
+</a>
+
+{% endblock %}

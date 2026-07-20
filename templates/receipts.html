@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}Receipt #{{ transaction.id }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card" id="receipt">
+            <div class="card-header text-center" style="background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white;">
+                <h4><i class="bi bi-currency-dollar"></i> WakalaPro</h4>
+                <p class="mb-0">Mobile Money Agent</p>
+                <p class="mb-0"><small>Transaction Receipt</small></p>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Transaction ID:</strong></div>
+                    <div class="col-6 text-end">#{{ transaction.id }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Reference:</strong></div>
+                    <div class="col-6 text-end"><code>{{ transaction.reference_number }}</code></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Type:</strong></div>
+                    <div class="col-6 text-end">
+                        <span class="badge" style="background: {% if transaction.transaction_type == 'DEPOSIT' %}linear-gradient(135deg, #10b981, #34d399){% elif transaction.transaction_type == 'WITHDRAW' %}linear-gradient(135deg, #ef4444, #f87171){% else %}linear-gradient(135deg, #06b6d4, #2563eb){% endif %}; color: white; padding: 5px 15px; border-radius: 20px;">
+                            {{ transaction.transaction_type }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Merchant:</strong></div>
+                    <div class="col-6 text-end">{{ transaction.merchant.name }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Customer:</strong></div>
+                    <div class="col-6 text-end">{{ transaction.customer_name }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Phone:</strong></div>
+                    <div class="col-6 text-end">{{ transaction.customer_phone }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Amount:</strong></div>
+                    <div class="col-6 text-end"><strong style="color: #f59e0b; font-size: 1.2rem;">TSh {{ "{:,.0f}".format(transaction.amount) }}</strong></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Commission:</strong></div>
+                    <div class="col-6 text-end">TSh {{ "{:,.2f}".format(transaction.commission) }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Status:</strong></div>
+                    <div class="col-6 text-end">
+                        <span class="badge" style="background: linear-gradient(135deg, #10b981, #34d399); color: white; padding: 5px 15px; border-radius: 20px;">
+                            {{ transaction.status }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Date:</strong></div>
+                    <div class="col-6 text-end">{{ transaction.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+                </div>
+                {% if transaction.description %}
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Description:</strong></div>
+                    <div class="col-6 text-end">{{ transaction.description }}</div>
+                </div>
+                {% endif %}
+                {% if transaction.operator %}
+                <div class="row mb-2">
+                    <div class="col-6"><strong>Operator:</strong></div>
+                    <div class="col-6 text-end">{{ transaction.operator.full_name }}</div>
+                </div>
+                {% endif %}
+                <hr>
+                <div class="text-center">
+                    <p class="text-muted mb-0"><small>Thank you for using WakalaPro</small></p>
+                    <p class="text-muted" style="font-size: 0.7rem;">This is a computer generated receipt</p>
+                    <div class="d-flex justify-content-center gap-2 mt-2">
+                        <button onclick="window.print()" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #2563eb, #7c3aed); border: none; padding: 8px 20px; border-radius: 10px;">
+                            <i class="bi bi-printer"></i> Print
+                        </button>
+                        <a href="{{ url_for('transactions.index') }}" class="btn btn-secondary btn-sm" style="background: #334155; border: none; padding: 8px 20px; border-radius: 10px;">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+    }
+
+    .card-body {
+        color: #f1f5f9;
+        padding: 1.5rem;
+    }
+
+    .card-body strong {
+        color: #94a3b8;
+    }
+
+    code {
+        background: #0f172a;
+        color: #60a5fa;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+
+    hr {
+        border-color: #334155;
+        margin: 1rem 0;
+    }
+
+    /* Print styles */
+    @media print {
+        .navbar, .btn, .no-print, .btn-secondary, .btn-primary {
+            display: none !important;
+        }
+        
+        .card {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            background: white !important;
+        }
+        
+        .card-body {
+            color: black !important;
+        }
+        
+        .card-body strong {
+            color: #555 !important;
+        }
+        
+        .card-header {
+            background: #2563eb !important;
+            color: white !important;
+        }
+        
+        .badge {
+            color: white !important;
+        }
+        
+        code {
+            background: #f0f0f0 !important;
+            color: #2563eb !important;
+        }
+        
+        .text-muted {
+            color: #666 !important;
+        }
+        
+        .container-fluid {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        .row {
+            margin: 0 !important;
+        }
+        
+        .col-md-6 {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+</style>
+
+<script>
+    // Auto-print when page loads if from receipt button
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if auto-print is requested
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('print') === 'true') {
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+
+<h2>
+🔔 Notifications
+</h2>
+
+</div>
+
+
+
+
+<div class="card shadow">
+
+
+<div class="card-body">
+
+
+
+<div class="table-responsive">
+
+
+<table class="table table-bordered table-hover align-middle">
+
+
+<thead class="table-dark">
+
+
+<tr>
+
+<th>Type</th>
+
+<th>Message</th>
+
+<th>Date</th>
+
+<th>Status</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+{% for n in notifications %}
+
+
+
+<tr>
+
+
+<td>
+
+{{ n.notification_type }}
+
+</td>
+
+
+
+
+<td>
+
+{{ n.message }}
+
+</td>
+
+
+
+
+<td>
+
+
+{% if n.created_at %}
+
+{{ n.created_at.strftime('%Y-%m-%d %H:%M') }}
+
+{% else %}
+
+N/A
+
+{% endif %}
+
+
+</td>
+
+
+
+
+<td>
+
+
+{% if n.is_read %}
+
+
+<span class="badge bg-success">
+
+✓ Read
+
+</span>
+
+
+
+{% else %}
+
+
+
+<a href="{{ url_for('notifications.read', id=n.id) }}"
+class="btn btn-warning btn-sm">
+
+🔔 Mark Read
+
+</a>
+
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+</tr>
+
+
+
+
+{% else %}
+
+
+
+<tr>
+
+<td colspan="4" class="text-center">
+
+No notifications found
+
+</td>
+
+</tr>
+
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

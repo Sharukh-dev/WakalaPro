@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}{% if merchant %}Edit{% else %}Create{% endif %} Merchant{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="bi bi-shop"></i> {% if merchant %}Edit{% else %}Create{% endif %} Merchant</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="merchantForm">
+                    <!-- Basic Info -->
+                    <h5 class="text-success">Basic Information</h5>
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Merchant Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="name" value="{{ merchant.name if merchant else '' }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="phone_number" value="{{ merchant.phone_number if merchant else '' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" name="location" value="{{ merchant.location if merchant else '' }}" placeholder="e.g. Dar es Salaam">
+                        </div>
+                    </div>
+
+                    <!-- Cash in Hand -->
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Cash in Hand (TZS) <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control currency" name="cash_in_hand" value="{% if merchant %}{{ merchant.cash_in_hand|int|format_number }}{% else %}0{% endif %}" required>
+                            <small class="text-muted">Enter amount in TZS</small>
+                        </div>
+                    </div>
+
+                    <!-- Network Balances -->
+                    <h5 class="text-success mt-3">Network Balances (TZS)</h5>
+                    <hr>
+                    <p class="text-muted">Enter balance for each network</p>
+                    <div class="row">
+                        {% for net in networks %}
+                        <div class="col-md-2 mb-2">
+                            <label class="form-label">{{ net }}</label>
+                            <input type="text" class="form-control currency" name="balance_{{ net|lower }}" 
+                                   value="{% if merchant %}{{ merchant.get_network_balance(net)|int|format_number }}{% else %}0{% endif %}">
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Bank Balances -->
+                    <h5 class="text-primary mt-3">Bank Balances (TZS)</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">CRDB Bank</label>
+                            <input type="text" class="form-control currency" name="crdb_balance" 
+                                   value="{% if merchant %}{{ merchant.crdb_balance|int|format_number }}{% else %}0{% endif %}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">NMB Bank</label>
+                            <input type="text" class="form-control currency" name="nmb_balance" 
+                                   value="{% if merchant %}{{ merchant.nmb_balance|int|format_number }}{% else %}0{% endif %}">
+                        </div>
+                    </div>
+
+                    <!-- Operator Floats -->
+                    <h5 class="text-success mt-3">Operator Floats (TZS)</h5>
+                    <hr>
+                    <p class="text-muted">Assign float amounts to each operator</p>
+
+                    <div id="operatorFloats">
+                        {% if operators %}
+                            {% for operator in operators %}
+                            <div class="row mb-2 operator-float-row">
+                                <div class="col-md-8">
+                                    <label class="form-label">{{ operator.full_name }}</label>
+                                    <input type="hidden" name="operator_ids[]" value="{{ operator.id }}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control currency" name="operator_floats[]" 
+                                           value="{% if merchant %}{% for balance in existing_balances if balance.operator_id == operator.id %}{{ balance.balance|int|format_number }}{% endfor %}{% else %}0{% endif %}" 
+                                           placeholder="Amount">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-warning">No active operators found. Please create operators first.</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> {% if merchant %}Update{% else %}Create{% endif %} Merchant
+                        </button>
+                        <a href="{{ url_for('merchants.index') }}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('merchantForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const currencyInputs = this.querySelectorAll('.currency');
+            currencyInputs.forEach(input => {
+                input.value = input.value.replace(/,/g, '');
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

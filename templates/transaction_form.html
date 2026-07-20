@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}New Transaction{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="bi bi-plus-circle"></i> New Transaction</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="transactionForm">
+                    <!-- Merchant Selection -->
+                    <div class="mb-3">
+                        <label class="form-label">Merchant <span class="text-danger">*</span></label>
+                        <select class="form-select" name="merchant_id" id="merchant_id" required>
+                            <option value="">Select Merchant</option>
+                            {% for merchant in merchants %}
+                            <option value="{{ merchant.id }}" data-cash="{{ merchant.cash_in_hand }}" data-crdb="{{ merchant.crdb_balance }}" data-nmb="{{ merchant.nmb_balance }}" data-vodacom="{{ merchant.balance_vodacom }}" data-airtel="{{ merchant.balance_airtel }}" data-tigo="{{ merchant.balance_tigo }}" data-halotel="{{ merchant.balance_halotel }}" data-zantel="{{ merchant.balance_zantel }}">
+                                {{ merchant.name }} - Balance: TSh {{ "{:,.0f}".format(merchant.current_balance) }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Transaction Type -->
+                    <div class="mb-3">
+                        <label class="form-label">Transaction Type <span class="text-danger">*</span></label>
+                        <select class="form-select" name="transaction_type" id="transaction_type" required>
+                            <option value="">Select Type</option>
+                            <option value="DEPOSIT">Deposit</option>
+                            <option value="WITHDRAW">Withdraw</option>
+                            <option value="TRANSFER">Transfer</option>
+                            <option value="PAYMENT">Payment</option>
+                        </select>
+                    </div>
+
+                    <!-- Source Type - Network or Bank -->
+                    <div class="mb-3">
+                        <label class="form-label">Source Type <span class="text-danger">*</span></label>
+                        <select class="form-select" name="source_type" id="source_type" required>
+                            <option value="">Select Source Type</option>
+                            <option value="network">Network</option>
+                            <option value="bank">Bank</option>
+                        </select>
+                    </div>
+
+                    <!-- Source Selection - Network -->
+                    <div class="mb-3" id="network_section" style="display:none;">
+                        <label class="form-label">Network <span class="text-danger">*</span></label>
+                        <select class="form-select" name="transaction_source" id="transaction_source_network">
+                            <option value="">Select Network</option>
+                            {% for network in networks %}
+                            <option value="{{ network }}">{{ network }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Select which network this transaction is from</small>
+                    </div>
+
+                    <!-- Source Selection - Bank -->
+                    <div class="mb-3" id="bank_section" style="display:none;">
+                        <label class="form-label">Bank <span class="text-danger">*</span></label>
+                        <select class="form-select" name="transaction_source" id="transaction_source_bank">
+                            <option value="">Select Bank</option>
+                            {% for bank in banks %}
+                            <option value="{{ bank }}">{{ bank }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Select which bank this transaction is from</small>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="mb-3">
+                        <label class="form-label">Amount (TZS) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control currency" name="amount" id="amount" placeholder="0" required>
+                        <small class="text-muted">Enter amount in TZS (e.g. 10,000,000)</small>
+                    </div>
+
+                    <!-- Commission Display -->
+                    <div class="mb-3">
+                        <label class="form-label">Commission (TZS)</label>
+                        <div class="form-control bg-dark text-white" id="commission_display" style="font-weight:bold; font-size:18px;">
+                            0.00
+                        </div>
+                        <small class="text-muted">Commission is calculated automatically based on network/bank settings</small>
+                        <input type="hidden" name="commission" id="commission_hidden" value="0">
+                    </div>
+
+                    <!-- Available Balance Display -->
+                    <div class="mb-3">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body">
+                                <h6><i class="bi bi-wallet"></i> Available Balance</h6>
+                                <div id="balance_display" class="h4">Select merchant to view balance</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="2" placeholder="Optional description"></textarea>
+                    </div>
+
+                    <!-- Reference -->
+                    <div class="mb-3">
+                        <label class="form-label">Reference Number</label>
+                        <input type="text" class="form-control" name="reference_number" placeholder="Auto-generated if left blank">
+                        <small class="text-muted">Leave blank for auto-generated reference</small>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Submit Transaction
+                        </button>
+                        <a href="{{ url_for('transactions.index') }}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('transactionForm');
+    var merchantSelect = document.getElementById('merchant_id');
+    var sourceTypeSelect = document.getElementById('source_type');
+    var networkSelect = document.getElementById('transaction_source_network');
+    var bankSelect = document.getElementById('transaction_source_bank');
+    var amountInput = document.getElementById('amount');
+    var commissionDisplay = document.getElementById('commission_display');
+    var commissionHidden = document.getElementById('commission_hidden');
+    var balanceDisplay = document.getElementById('balance_display');
+
+    // Show/hide source sections
+    sourceTypeSelect.addEventListener('change', function() {
+        var networkSection = document.getElementById('network_section');
+        var bankSection = document.getElementById('bank_section');
+        
+        if (this.value === 'network') {
+            networkSection.style.display = 'block';
+            bankSection.style.display = 'none';
+            networkSelect.required = true;
+            bankSelect.required = false;
+            updateBalanceDisplay();
+            calculateCommission();
+        } else if (this.value === 'bank') {
+            networkSection.style.display = 'none';
+            bankSection.style.display = 'block';
+            networkSelect.required = false;
+            bankSelect.required = true;
+            updateBalanceDisplay();
+            calculateCommission();
+        } else {
+            networkSection.style.display = 'none';
+            bankSection.style.display = 'none';
+            networkSelect.required = false;
+            bankSelect.required = false;
+        }
+    });
+
+    // Update balance display when merchant changes
+    merchantSelect.addEventListener('change', updateBalanceDisplay);
+    
+    // Calculate commission on amount, source, and type change
+    amountInput.addEventListener('input', calculateCommission);
+    networkSelect.addEventListener('change', calculateCommission);
+    bankSelect.addEventListener('change', calculateCommission);
+    document.getElementById('transaction_type').addEventListener('change', calculateCommission);
+
+    function updateBalanceDisplay() {
+        var merchantOption = merchantSelect.options[merchantSelect.selectedIndex];
+        if (!merchantOption || !merchantOption.value) {
+            balanceDisplay.textContent = 'Select merchant to view balance';
+            return;
+        }
+
+        var sourceType = sourceTypeSelect.value;
+        var sourceName = '';
+        var balance = 0;
+
+        if (sourceType === 'network') {
+            var network = networkSelect.value;
+            if (network) {
+                sourceName = network;
+                var networkAttr = network.toLowerCase();
+                balance = parseFloat(merchantOption.dataset[networkAttr]) || 0;
+            }
+        } else if (sourceType === 'bank') {
+            var bank = bankSelect.value;
+            if (bank) {
+                sourceName = bank;
+                var bankAttr = bank.toLowerCase();
+                balance = parseFloat(merchantOption.dataset[bankAttr]) || 0;
+            }
+        }
+
+        if (sourceName) {
+            balanceDisplay.innerHTML = '<strong>' + sourceName + ':</strong> TSh ' + Number(balance).toLocaleString();
+        } else {
+            balanceDisplay.innerHTML = 'Select source to view balance';
+        }
+    }
+
+    function calculateCommission() {
+        var amount = parseFloat(amountInput.value.replace(/,/g, '')) || 0;
+        var sourceType = sourceTypeSelect.value;
+        var source = '';
+        
+        if (sourceType === 'network') {
+            source = networkSelect.value;
+        } else if (sourceType === 'bank') {
+            source = bankSelect.value;
+        }
+        
+        var transactionType = document.getElementById('transaction_type').value;
+
+        if (!source || !transactionType || amount <= 0) {
+            commissionDisplay.textContent = '0.00';
+            commissionHidden.value = '0';
+            return;
+        }
+
+        // Calculate commission via AJAX
+        fetch('/api/calculate-commission', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: amount,
+                source: source,
+                transaction_type: transactionType
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            commissionDisplay.textContent = Number(data.commission).toLocaleString();
+            commissionHidden.value = data.commission;
+        })
+        .catch(error => {
+            console.error('Error calculating commission:', error);
+            commissionDisplay.textContent = '0.00';
+            commissionHidden.value = '0';
+        });
+    }
+
+    // Remove commas on submit
+    form.addEventListener('submit', function(e) {
+        var currencyInputs = this.querySelectorAll('.currency');
+        currencyInputs.forEach(function(input) {
+            input.value = input.value.replace(/,/g, '');
+        });
+    });
+});
+</script>
+{% endblock %}

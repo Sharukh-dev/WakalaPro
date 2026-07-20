@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<h1><i class="bi bi-gear"></i> Business Settings</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>General Settings</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('settings.update') }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Business Name</label>
+                            <input type="text" class="form-control" name="business_name" value="{{ settings.business_name or '' }}" placeholder="Enter business name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" name="phone" value="{{ settings.phone or '' }}" placeholder="Enter phone number">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" name="address" value="{{ settings.address or '' }}" placeholder="Enter business address">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" value="{{ settings.email or '' }}" placeholder="Enter email address">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Website</label>
+                            <input type="text" class="form-control" name="website" value="{{ settings.website or '' }}" placeholder="Enter website URL">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Currency</label>
+                            <input type="text" class="form-control" name="currency" value="{{ settings.currency or 'TSh' }}" placeholder="e.g. TSh">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tax ID</label>
+                            <input type="text" class="form-control" name="tax_id" value="{{ settings.tax_id or '' }}" placeholder="Enter tax ID">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Receipt Footer</label>
+                            <textarea class="form-control" name="receipt_footer" rows="2" placeholder="Enter receipt footer message">{{ settings.receipt_footer or 'Thank you for using WakalaPro' }}</textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Save Settings
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>System Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Version:</strong> 1.0.0</p>
+                <p><strong>Database:</strong> SQLite</p>
+                <p><strong>Last Updated:</strong> {{ settings.updated_at.strftime('%Y-%m-%d %H:%M') if settings.updated_at else 'N/A' }}</p>
+                <hr>
+                <p><strong>Business Name:</strong> {{ settings.business_name or 'Not set' }}</p>
+                <p><strong>Phone:</strong> {{ settings.phone or 'Not set' }}</p>
+                <p><strong>Address:</strong> {{ settings.address or 'Not set' }}</p>
+                <p><strong>Currency:</strong> {{ settings.currency or 'Not set' }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .card-header {
+        background: #f3f4f6 !important;
+        border-bottom: 1px solid #d1d5db !important;
+        padding: 1rem 1.25rem !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .card-header h5 {
+        color: #000000 !important;
+        margin: 0 !important;
+        font-weight: 600 !important;
+    }
+
+    .card-body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .form-label {
+        color: #4b5563 !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem !important;
+    }
+
+    .form-control {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .form-control:focus {
+        border-color: #2563eb !important;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+        outline: none !important;
+    }
+
+    .form-control::placeholder {
+        color: #9ca3af !important;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 1.5rem !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+
+    body {
+        background: #f3f4f6 !important;
+        color: #000000 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+    }
+
+    p {
+        color: #000000 !important;
+    }
+
+    strong {
+        color: #000000 !important;
+    }
+
+    hr {
+        border-color: #d1d5db !important;
+    }
+</style>
+{% endblock %}

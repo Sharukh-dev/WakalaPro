@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License - WakalaPro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: #0a0e1a;
+            color: #e6edf3;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .license-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+        }
+        .license-card {
+            background: #141b2d;
+            border: 1px solid #2a3a5c;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        .license-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .license-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e6edf3;
+            margin-bottom: 0.5rem;
+        }
+        .license-subtitle {
+            color: #8b949e;
+            margin-bottom: 2rem;
+        }
+        .license-status {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .license-status.active {
+            background: rgba(35, 134, 54, 0.2);
+            border: 1px solid #238636;
+        }
+        .license-status.expired {
+            background: rgba(218, 54, 51, 0.2);
+            border: 1px solid #da3633;
+        }
+        .license-status.warning {
+            background: rgba(210, 153, 34, 0.2);
+            border: 1px solid #d29922;
+        }
+        .license-status .status-icon {
+            font-size: 2rem;
+        }
+        .license-status .status-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .license-key {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: #58a6ff;
+            margin: 1rem 0;
+        }
+        .days-remaining {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+        .btn-activate {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-activate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+        .form-control {
+            background: #0d1117;
+            color: #e6edf3;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            outline: none;
+        }
+        .license-footer {
+            margin-top: 1.5rem;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        .text-muted {
+            color: #64748b !important;
+        }
+        .reminder-banner {
+            background: rgba(210, 153, 34, 0.15);
+            border: 1px solid #d29922;
+            border-radius: 10px;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .reminder-banner.urgent {
+            background: rgba(218, 54, 51, 0.15);
+            border-color: #da3633;
+        }
+        .used-badge {
+            background: #da3633;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        @media (max-width: 480px) {
+            .license-card {
+                padding: 25px 20px;
+            }
+            .days-remaining {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="license-container">
+        <div class="license-card">
+            <!-- Icon -->
+            <div class="license-icon">
+                {% if license and license.is_active and not license.is_expired() and not license.is_used %}
+                    {% if license.days_remaining <= 3 %}
+                        <i class="bi bi-exclamation-triangle" style="color: #d29922;"></i>
+                    {% else %}
+                        <i class="bi bi-shield-lock" style="color: #3fb950;"></i>
+                    {% endif %}
+                {% elif license and license.is_used %}
+                    <i class="bi bi-check-circle" style="color: #3fb950;"></i>
+                {% else %}
+                    <i class="bi bi-shield-lock" style="color: #f85149;"></i>
+                {% endif %}
+            </div>
+
+            <!-- Title -->
+            <h1 class="license-title">WakalaPro License</h1>
+            <p class="license-subtitle">Mobile Money Agent Management System</p>
+
+            <!-- One-Time Use Status -->
+            {% if license and license.is_used %}
+            <div class="license-status active">
+                <div class="status-icon">✅</div>
+                <div class="status-text" style="color: #3fb950;">License Activated</div>
+                <p style="color: #8b949e; margin-top: 0.5rem;">
+                    This license key has been used and is now active.
+                </p>
+            </div>
+            {% endif %}
+
+            <!-- Reminder Banners -->
+            {% if license and license.is_active and not license.is_expired() and not license.is_used %}
+                {% if license.days_remaining <= 7 and license.days_remaining > 3 %}
+                <div class="reminder-banner">
+                    <i class="bi bi-clock" style="color: #d29922;"></i>
+                    <strong>⚠️ License expires in {{ license.days_remaining }} days!</strong>
+                    <br>
+                    <span style="color: #8b949e;">Please contact support to renew.</span>
+                </div>
+                {% elif license.days_remaining <= 3 and license.days_remaining > 1 %}
+                <div class="reminder-banner urgent">
+                    <i class="bi bi-exclamation-triangle" style="color: #f85149;"></i>
+                    <strong>🚨 URGENT: License expires in {{ license.days_remaining }} days!</strong>
+                    <br>
+                    <span style="color: #8b949e;">Contact support immediately to renew.</span>
+                </div>
+                {% elif license.days_remaining <= 1 and license.days_remaining > 0 %}
+                <div class="reminder-banner urgent" style="border-color: #da3633; background: rgba(218, 54, 51, 0.2);">
+                    <i class="bi bi-exclamation-triangle-fill" style="color: #f85149;"></i>
+                    <strong style="color: #f85149;">🚨 FINAL WARNING: License expires in {{ license.days_remaining }} day!</strong>
+                    <br>
+                    <span style="color: #f85149;">Your system will be locked TODAY if you do not renew!</span>
+                </div>
+                {% endif %}
+            {% endif %}
+
+            <!-- License Status -->
+            {% if license %}
+                {% if license.is_expired() %}
+                <div class="license-status expired">
+                    <div class="status-icon">🔒</div>
+                    <div class="status-text" style="color: #f85149;">License Expired</div>
+                    <p style="color: #8b949e; margin-top: 0.5rem;">Your license has expired. Please contact support to renew.</p>
+                </div>
+                {% elif license.is_used %}
+                <div class="license-status active">
+                    <div class="status-icon">✅</div>
+                    <div class="status-text" style="color: #3fb950;">License Active</div>
+                    <p style="color: #8b949e; margin-top: 0.5rem;">Your license is active and valid.</p>
+                </div>
+                {% else %}
+                <div class="license-status warning">
+                    <div class="status-icon">⏳</div>
+                    <div class="status-text" style="color: #d29922;">License Not Activated</div>
+                    <p style="color: #8b949e; margin-top: 0.5rem;">Enter your license key below to activate the system.</p>
+                </div>
+                {% endif %}
+
+                <!-- Days Remaining -->
+                <div class="mt-3">
+                    <p style="color: #8b949e;">Days Remaining</p>
+                    <div class="days-remaining" style="{% if license.days_remaining <= 3 %}color: #f85149;{% elif license.days_remaining <= 7 %}color: #d29922;{% endif %}">
+                        {{ license.days_remaining }}
+                    </div>
+                    {% if license.days_remaining <= 7 and license.days_remaining > 0 and not license.is_used %}
+                    <p style="color: #d29922; font-size: 0.85rem; margin-top: 4px;">
+                        <i class="bi bi-clock"></i> Renew soon!
+                    </p>
+                    {% endif %}
+                </div>
+
+                <!-- License Key -->
+                <div class="license-key">
+                    {{ license.license_key }}
+                </div>
+
+                <!-- Activation Form - ONLY IF NOT USED -->
+                {% if not license.is_used and not license.is_expired() %}
+                <form method="POST" action="{{ url_for('license.activate') }}">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="license_key" placeholder="Enter your license key (e.g. JOHN-30-ABCD-1234)" required>
+                    </div>
+                    <button type="submit" class="btn-activate">
+                        <i class="bi bi-unlock"></i> Activate License (One-Time Use)
+                    </button>
+                    <p style="color: #8b949e; font-size: 0.75rem; margin-top: 8px;">
+                        <i class="bi bi-info-circle"></i> This key can only be used once.
+                    </p>
+                </form>
+                {% elif license.is_used %}
+                <div class="text-center">
+                    <p style="color: #3fb950; font-weight: 600;">
+                        <i class="bi bi-check-circle-fill"></i> License Activated
+                    </p>
+                    <a href="{{ url_for('dashboard.index') }}" class="btn btn-success mt-2" style="background: #238636; border: none; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 600; color: white; text-decoration: none; display: inline-block;">
+                        <i class="bi bi-arrow-right"></i> Go to Dashboard
+                    </a>
+                </div>
+                {% elif license.is_expired() %}
+                <div class="text-center">
+                    <p style="color: #f85149; font-weight: 600;">
+                        <i class="bi bi-x-circle-fill"></i> License Expired
+                    </p>
+                    <p style="color: #8b949e;">Contact support to get a new license key.</p>
+                </div>
+                {% endif %}
+
+                <!-- Admin Actions (for testing) -->
+                {% if current_user.is_authenticated and current_user.has_permission('admin') %}
+                <hr style="border-color: #30363d; margin: 1.5rem 0;">
+                <h6 style="color: #8b949e;">Admin Actions (Testing)</h6>
+                <div class="d-flex gap-2 flex-wrap justify-content-center mt-2">
+                    <form method="POST" action="{{ url_for('license.extend') }}" style="display:inline;">
+                        <input type="hidden" name="days" value="30">
+                        <button type="submit" class="btn btn-sm" style="background: #30363d; border: none; color: white; padding: 0.4rem 1rem; border-radius: 6px;">
+                            <i class="bi bi-clock"></i> Extend 30 Days
+                        </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('license.generate') }}" style="display:inline;">
+                        <button type="submit" class="btn btn-sm" style="background: #1f6feb; border: none; color: white; padding: 0.4rem 1rem; border-radius: 6px;">
+                            <i class="bi bi-key"></i> Generate New Key
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+
+            {% else %}
+                <div class="license-status expired">
+                    <p>No license found. Please contact support.</p>
+                </div>
+            {% endif %}
+
+            <!-- Footer -->
+            <div class="license-footer">
+                <p>© 2024 WakalaPro. All rights reserved.</p>
+                <p class="text-muted" style="font-size: 0.75rem;">
+                    {% if license and license.is_used and not license.is_expired() %}
+                        License expires on: {{ license.expires_at.strftime('%Y-%m-%d %H:%M') }}
+                    {% else %}
+                        One-time use license. Each key can only be used once.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

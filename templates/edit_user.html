@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="container">
+
+
+<h2>
+Edit User
+</h2>
+
+
+
+<div class="card shadow p-4">
+
+
+<form method="POST">
+
+
+
+<label>
+Username
+</label>
+
+
+<input 
+class="form-control mb-3"
+value="{{ user.username }}"
+disabled
+>
+
+
+
+
+<label>
+Role
+</label>
+
+
+<select 
+name="role"
+class="form-control mb-3">
+
+
+
+<option value="admin"
+{% if user.role == "admin" %}
+selected
+{% endif %}
+>
+Admin
+</option>
+
+
+
+
+<option value="manager"
+{% if user.role == "manager" %}
+selected
+{% endif %}
+>
+Manager
+</option>
+
+
+
+
+<option value="cashier"
+{% if user.role == "cashier" %}
+selected
+{% endif %}
+>
+Cashier
+</option>
+
+
+
+</select>
+
+
+
+
+<button class="btn btn-success">
+
+Save Changes
+
+</button>
+
+
+
+<a href="{{ url_for('users.index') }}"
+class="btn btn-secondary">
+
+Back
+
+</a>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

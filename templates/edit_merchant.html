@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="container">
+
+
+<h2>Edit Merchant</h2>
+
+
+
+<form method="POST">
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Merchant Name
+</label>
+
+<input 
+class="form-control"
+name="name"
+value="{{ merchant.name }}"
+required
+>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Phone Number
+</label>
+
+<input 
+class="form-control"
+name="phone"
+value="{{ merchant.phone }}"
+required
+>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Location
+</label>
+
+<input 
+class="form-control"
+name="location"
+value="{{ merchant.location }}"
+>
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label class="form-label">
+Current Balance
+</label>
+
+<input 
+class="form-control"
+value="{{ merchant.balance }} TZS"
+readonly
+>
+
+</div>
+
+
+
+
+<button class="btn btn-primary">
+
+Update Merchant
+
+</button>
+
+
+
+<a href="{{ url_for('merchants.index') }}"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+
+
+</form>
+
+
+</div>
+
+
+{% endblock %}
