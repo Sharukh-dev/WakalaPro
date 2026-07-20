@@ -5,14 +5,13 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- HERO SECTION -->
+<!-- HERO SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
+    <div class="container-fluid px-0">
+        <div class="row g-0 align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
-                    <!-- LOGO - FIXED PATH -->
                     <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
                          alt="WakalaPro" 
                          class="hero-logo"
@@ -58,7 +57,6 @@
             <div class="col-lg-6 text-center">
                 <div class="hero-phone">
                     <div class="hero-phone-content">
-                        <!-- PHONE LOGO - FIXED PATH -->
                         <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
                              alt="WakalaPro" 
                              class="phone-logo"
@@ -72,10 +70,10 @@
 </section>
 
 <!-- ============================================ -->
-<!-- FEATURES SECTION - GLOSSY CARDS -->
+<!-- FEATURES SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="features-section">
-    <div class="container">
+    <div class="container-fluid px-4">
         <div class="section-header">
             <h2>Everything you need to run your business</h2>
             <p>Complete tools for managing your mobile money agency efficiently.</p>
@@ -128,10 +126,10 @@
 </section>
 
 <!-- ============================================ -->
-<!-- BENEFITS SECTION - GLOSSY CARDS -->
+<!-- BENEFITS SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="benefits-section">
-    <div class="container">
+    <div class="container-fluid px-4">
         <div class="section-header">
             <h2>Why choose WakalaPro?</h2>
             <p>Built specifically for Tanzania's mobile money agents.</p>
@@ -163,10 +161,10 @@
 </section>
 
 <!-- ============================================ -->
-<!-- CTA SECTION -->
+<!-- CTA SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="cta-section">
-    <div class="container">
+    <div class="container-fluid px-4">
         <div class="cta-content">
             <h2>Ready to take control of your business?</h2>
             <p>Join the growing community of agents using WakalaPro.</p>
@@ -177,59 +175,46 @@
     </div>
 </section>
 
-<!-- ============================================ -->
-<!-- STYLES -->
-<!-- ============================================ -->
 <style>
 /* ============================================ */
-/* VARIABLES */
+/* RESET - NO WHITE SPACE */
 /* ============================================ */
-:root {
-    --green-dark: #064e3b;
-    --green-medium: #047857;
-    --green-light: #10b981;
-    --pink-dark: #be185d;
-    --pink-medium: #db2777;
-    --pink-light: #ec4899;
-    --purple-dark: #5b21b6;
-    --purple-medium: #7c3aed;
-    --gradient-primary: linear-gradient(135deg, #064e3b 0%, #047857 30%, #10b981 60%, #7c3aed 85%, #be185d 100%);
-    --gradient-hero: linear-gradient(135deg, #064e3b 0%, #065f46 30%, #047857 60%, #5b21b6 85%, #be185d 100%);
-    --gradient-section: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    --glass-blur: blur(16px);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 /* ============================================ */
-/* HERO SECTION */
+/* HERO SECTION - FULL WIDTH */
 /* ============================================ */
 .hero-section {
-    background: var(--gradient-hero);
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 30%, #047857 60%, #5b21b6 85%, #be185d 100%);
     padding: 80px 0 100px 0;
-    border-radius: 0 0 40px 40px;
     position: relative;
     overflow: hidden;
-    margin: -1.5rem -1rem 0 -1rem;
-    min-height: 90vh;
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     align-items: center;
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 60%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
 .hero-section .hero-content {
+    padding: 0 60px;
     position: relative;
     z-index: 1;
 }
@@ -238,7 +223,6 @@
     width: 180px;
     max-width: 100%;
     margin-bottom: 1.5rem;
-    display: block;
 }
 
 .hero-section h1 {
@@ -353,7 +337,6 @@
     justify-content: center;
     margin: 0 auto;
     backdrop-filter: blur(10px);
-    position: relative;
 }
 
 .hero-phone-content {
@@ -364,9 +347,6 @@
     width: 140px;
     max-width: 100%;
     margin-bottom: 0.5rem;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .phone-tagline {
@@ -376,50 +356,47 @@
 }
 
 /* ============================================ */
-/* FEATURES SECTION - GLASS EFFECT */
+/* FEATURES SECTION */
 /* ============================================ */
 .features-section {
     padding: 80px 0;
-    background: var(--gradient-section);
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
+    width: 100%;
 }
 
-.features-section::before {
-    content: '';
-    position: absolute;
-    top: -30%;
-    right: -20%;
-    width: 60%;
-    height: 80%;
-    background: rgba(16, 185, 129, 0.05);
-    border-radius: 50%;
-    pointer-events: none;
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 20px;
 }
 
 .section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
     color: #ffffff;
 }
 
 .section-header p {
     color: rgba(255, 255, 255, 0.7);
+    max-width: 500px;
+    margin: 0.5rem auto 0;
 }
 
 /* ============================================ */
-/* GLOSSY / GLASS CARDS */
+/* GLOSSY CARDS */
 /* ============================================ */
 .glassy-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 20px;
     padding: 2rem 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
     height: 100%;
     color: #ffffff;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .glassy-card:hover {
@@ -465,21 +442,8 @@
 /* ============================================ */
 .benefits-section {
     padding: 80px 0;
-    background: var(--gradient-section);
-    position: relative;
-    overflow: hidden;
-}
-
-.benefits-section::before {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -20%;
-    width: 60%;
-    height: 80%;
-    background: rgba(236, 72, 153, 0.05);
-    border-radius: 50%;
-    pointer-events: none;
+    background: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
+    width: 100%;
 }
 
 /* ============================================ */
@@ -487,9 +451,9 @@
 /* ============================================ */
 .cta-section {
     padding: 80px 0;
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #064e3b 0%, #047857 30%, #10b981 60%, #7c3aed 85%, #be185d 100%);
     border-radius: 40px 40px 0 0;
-    margin: 0 -1rem 0 -1rem;
+    width: 100%;
 }
 
 .cta-content {
@@ -497,6 +461,7 @@
     color: white;
     max-width: 600px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .cta-content h2 {
@@ -530,15 +495,6 @@
 /* ============================================ */
 /* RESPONSIVE */
 /* ============================================ */
-@media (max-width: 1200px) {
-    .hero-section h1 {
-        font-size: 3rem;
-    }
-    .hero-logo {
-        width: 150px;
-    }
-}
-
 @media (max-width: 992px) {
     .hero-section {
         padding: 50px 0 60px 0;
@@ -547,8 +503,8 @@
     .hero-section h1 {
         font-size: 2.5rem;
     }
-    .hero-section .hero-stats {
-        gap: 1.5rem;
+    .hero-section .hero-content {
+        padding: 0 30px;
     }
     .hero-phone {
         width: 220px;
@@ -569,10 +525,12 @@
 @media (max-width: 768px) {
     .hero-section {
         padding: 40px 0 50px 0;
-        border-radius: 0 0 20px 20px;
     }
     .hero-section h1 {
         font-size: 2rem;
+    }
+    .hero-section .hero-content {
+        padding: 0 20px;
     }
     .hero-section .hero-stats .stat-item {
         flex: 1 0 40%;
@@ -612,6 +570,9 @@
     }
     .hero-section h1 {
         font-size: 1.6rem;
+    }
+    .hero-section .hero-content {
+        padding: 0 15px;
     }
     .hero-section .hero-buttons {
         flex-direction: column;
