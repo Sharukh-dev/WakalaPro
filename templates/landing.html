@@ -5,11 +5,11 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- HERO SECTION - FULL WIDTH -->
+<!-- HERO SECTION - FULL WIDTH 100% -->
 <!-- ============================================ -->
 <section class="hero-section">
-    <div class="container-fluid px-0">
-        <div class="row g-0 align-items-center">
+    <div class="container-fluid p-0">
+        <div class="row g-0 align-items-center" style="min-height: 100vh;">
             <div class="col-lg-6">
                 <div class="hero-content">
                     <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
@@ -73,7 +73,7 @@
 <!-- FEATURES SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="features-section">
-    <div class="container-fluid px-4">
+    <div class="container-fluid p-4">
         <div class="section-header">
             <h2>Everything you need to run your business</h2>
             <p>Complete tools for managing your mobile money agency efficiently.</p>
@@ -129,7 +129,7 @@
 <!-- BENEFITS SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="benefits-section">
-    <div class="container-fluid px-4">
+    <div class="container-fluid p-4">
         <div class="section-header">
             <h2>Why choose WakalaPro?</h2>
             <p>Built specifically for Tanzania's mobile money agents.</p>
@@ -164,7 +164,7 @@
 <!-- CTA SECTION - FULL WIDTH -->
 <!-- ============================================ -->
 <section class="cta-section">
-    <div class="container-fluid px-4">
+    <div class="container-fluid p-4">
         <div class="cta-content">
             <h2>Ready to take control of your business?</h2>
             <p>Join the growing community of agents using WakalaPro.</p>
@@ -185,8 +185,12 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     overflow-x: hidden;
+    background: #064e3b;
 }
 
 .container-fluid {
@@ -204,17 +208,16 @@ body {
 /* ============================================ */
 .hero-section {
     background: linear-gradient(135deg, #064e3b 0%, #065f46 30%, #047857 60%, #5b21b6 85%, #be185d 100%);
-    padding: 80px 0 100px 0;
-    position: relative;
-    overflow: hidden;
+    padding: 60px 0;
     width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
-.hero-section .hero-content {
-    padding: 0 60px;
+.hero-content {
+    padding: 0 50px;
     position: relative;
     z-index: 1;
 }
@@ -247,21 +250,21 @@ body {
     background-clip: text;
 }
 
-.hero-section .hero-subtitle {
+.hero-subtitle {
     color: rgba(255, 255, 255, 0.85);
     font-size: 1.1rem;
     max-width: 500px;
     line-height: 1.7;
 }
 
-.hero-section .hero-buttons {
+.hero-buttons {
     display: flex;
     gap: 1rem;
     margin: 2rem 0 1.5rem 0;
     flex-wrap: wrap;
 }
 
-.hero-section .btn-primary {
+.btn-primary {
     background: linear-gradient(135deg, #10b981, #7c3aed);
     border: none;
     color: white;
@@ -272,12 +275,12 @@ body {
     box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
 }
 
-.hero-section .btn-primary:hover {
+.btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
 }
 
-.hero-section .btn-outline {
+.btn-outline {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
@@ -288,39 +291,39 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.hero-section .btn-outline:hover {
+.btn-outline:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-3px);
 }
 
-.hero-section .hero-stats {
+.hero-stats {
     display: flex;
     gap: 2.5rem;
     margin: 1.5rem 0 1rem 0;
     flex-wrap: wrap;
 }
 
-.hero-section .stat-item {
+.stat-item {
     text-align: center;
     flex: 1;
     min-width: 80px;
 }
 
-.hero-section .stat-number {
+.stat-number {
     font-size: 2rem;
     font-weight: 700;
     color: #6ee7b7;
     display: block;
 }
 
-.hero-section .stat-label {
+.stat-label {
     font-size: 0.7rem;
     color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.hero-section .hero-tagline {
+.hero-tagline {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
     margin-top: 0.5rem;
@@ -356,12 +359,13 @@ body {
 }
 
 /* ============================================ */
-/* FEATURES SECTION */
+/* FEATURES SECTION - FULL WIDTH */
 /* ============================================ */
 .features-section {
     padding: 80px 0;
     background: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
     width: 100%;
+    margin: 0;
 }
 
 .section-header {
@@ -444,6 +448,7 @@ body {
     padding: 80px 0;
     background: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
     width: 100%;
+    margin: 0;
 }
 
 /* ============================================ */
@@ -452,8 +457,9 @@ body {
 .cta-section {
     padding: 80px 0;
     background: linear-gradient(135deg, #064e3b 0%, #047857 30%, #10b981 60%, #7c3aed 85%, #be185d 100%);
-    border-radius: 40px 40px 0 0;
+    border-radius: 0;
     width: 100%;
+    margin: 0;
 }
 
 .cta-content {
@@ -503,7 +509,7 @@ body {
     .hero-section h1 {
         font-size: 2.5rem;
     }
-    .hero-section .hero-content {
+    .hero-content {
         padding: 0 30px;
     }
     .hero-phone {
@@ -529,13 +535,13 @@ body {
     .hero-section h1 {
         font-size: 2rem;
     }
-    .hero-section .hero-content {
+    .hero-content {
         padding: 0 20px;
     }
-    .hero-section .hero-stats .stat-item {
+    .hero-stats .stat-item {
         flex: 1 0 40%;
     }
-    .hero-section .hero-stats {
+    .hero-stats {
         gap: 0.5rem;
     }
     .hero-phone {
@@ -556,7 +562,6 @@ body {
     }
     .cta-section {
         padding: 50px 0;
-        border-radius: 20px 20px 0 0;
     }
     .features-section,
     .benefits-section {
@@ -571,23 +576,22 @@ body {
     .hero-section h1 {
         font-size: 1.6rem;
     }
-    .hero-section .hero-content {
+    .hero-content {
         padding: 0 15px;
     }
-    .hero-section .hero-buttons {
+    .hero-buttons {
         flex-direction: column;
         width: 100%;
     }
-    .hero-section .btn-primary,
-    .hero-section .btn-outline {
+    .hero-buttons .btn {
         width: 100%;
         text-align: center;
         justify-content: center;
     }
-    .hero-section .hero-stats .stat-item {
+    .hero-stats .stat-item {
         flex: 1 0 45%;
     }
-    .hero-section .stat-number {
+    .stat-number {
         font-size: 1.4rem;
     }
     .hero-phone {
@@ -619,7 +623,6 @@ body {
     }
     .cta-section {
         padding: 40px 0;
-        border-radius: 15px 15px 0 0;
     }
     .glassy-card {
         padding: 1.5rem 1rem;
