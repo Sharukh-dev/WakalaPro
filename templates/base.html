@@ -330,14 +330,29 @@
                     <i class="bi bi-list"></i>
                 </button>
                 <div class="greeting">
-                    <h2>Welcome back, <span>{{ current_user.username }}</span></h2>
+                    <h2>
+                        Welcome back, 
+                        <span>
+                            {% if current_user.is_authenticated %}
+                                {{ current_user.username }}
+                            {% else %}
+                                Guest
+                            {% endif %}
+                        </span>
+                    </h2>
                     <p>Smart Payments · Stronger Business</p>
                 </div>
             </div>
             <div class="nav-right">
                 <i class="bi bi-bell" data-bs-toggle="tooltip" title="Notifications"></i>
                 <i class="bi bi-moon" id="themeToggle" style="cursor:pointer;"></i>
-                <div class="avatar">{{ current_user.username[0]|upper }}</div>
+                <div class="avatar">
+                    {% if current_user.is_authenticated %}
+                        {{ current_user.username[0]|upper }}
+                    {% else %}
+                        <i class="bi bi-person" style="font-size: 18px; color: #0a0e1a;"></i>
+                    {% endif %}
+                </div>
             </div>
         </div>
 
