@@ -12,10 +12,11 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
-                    <!-- Logo kubwa kwenye hero -->
+                    <!-- LOGO - FIXED PATH -->
                     <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
                          alt="WakalaPro" 
-                         style="width: 180px; max-width: 100%; margin-bottom: 1.5rem;">
+                         class="hero-logo"
+                         onerror="this.style.display='none'">
                     <h1>
                         <span class="highlight">Smart Payments,</span><br>
                         <span class="highlight-text">Stronger Business</span>
@@ -57,12 +58,12 @@
             <div class="col-lg-6 text-center">
                 <div class="hero-phone">
                     <div class="hero-phone-content">
+                        <!-- PHONE LOGO - FIXED PATH -->
                         <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
                              alt="WakalaPro" 
-                             style="width: 140px; max-width: 100%; margin-bottom: 0.5rem;">
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; letter-spacing: 1px;">
-                            Smart Payments, Stronger Business
-                        </p>
+                             class="phone-logo"
+                             onerror="this.style.display='none'">
+                        <p class="phone-tagline">Smart Payments, Stronger Business</p>
                     </div>
                 </div>
             </div>
@@ -71,7 +72,7 @@
 </section>
 
 <!-- ============================================ -->
-<!-- FEATURES SECTION -->
+<!-- FEATURES SECTION - GLOSSY CARDS -->
 <!-- ============================================ -->
 <section class="features-section">
     <div class="container">
@@ -80,46 +81,46 @@
             <p>Complete tools for managing your mobile money agency efficiently.</p>
         </div>
         <div class="row g-4">
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-shop"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-shop"></i></div>
                     <h4>Merchant Management</h4>
-                    <p>Add, edit, and manage all your merchants in one place. Track balances, networks, and transaction history for each merchant.</p>
+                    <p>Add, edit, and manage all your merchants in one place. Track balances, networks, and transaction history.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-people"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-people"></i></div>
                     <h4>Operator Management</h4>
-                    <p>Manage your cashiers and staff with role-based permissions. Assign merchants and track operator performance.</p>
+                    <p>Manage your cashiers and staff with role-based permissions. Assign merchants and track performance.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-arrow-left-right"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-arrow-left-right"></i></div>
                     <h4>Transaction Management</h4>
-                    <p>Process deposits, withdrawals, transfers, and payments. Auto-calculate commissions and update balances instantly.</p>
+                    <p>Process deposits, withdrawals, transfers, and payments. Auto-calculate commissions instantly.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-percent"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-percent"></i></div>
                     <h4>Commission Tracking</h4>
-                    <p>Set custom commission rates for each network and bank. Track earnings per operator and generate commission reports.</p>
+                    <p>Set custom commission rates for each network and bank. Track earnings per operator.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-receipt"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-receipt"></i></div>
                     <h4>Expense &amp; Cash Closing</h4>
-                    <p>Record expenses, manage daily cash closing, and get real-time profit calculations. Know your business performance daily.</p>
+                    <p>Record expenses, manage daily cash closing, and get real-time profit calculations.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-graph-up"></i></div>
                     <h4>Reports &amp; Analytics</h4>
-                    <p>Generate detailed reports for transactions, commissions, expenses, and profits. Export to CSV or PDF for accounting.</p>
+                    <p>Generate detailed reports for transactions, commissions, expenses, and profits.</p>
                 </div>
             </div>
         </div>
@@ -127,34 +128,34 @@
 </section>
 
 <!-- ============================================ -->
-<!-- BENEFITS SECTION -->
+<!-- BENEFITS SECTION - GLOSSY CARDS -->
 <!-- ============================================ -->
-<section class="how-it-works">
+<section class="benefits-section">
     <div class="container">
         <div class="section-header">
             <h2>Why choose WakalaPro?</h2>
             <p>Built specifically for Tanzania's mobile money agents.</p>
         </div>
         <div class="row g-4">
-            <div class="col-md-4">
-                <div class="step-card">
-                    <div class="step-number"><i class="bi bi-phone"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-phone"></i></div>
                     <h4>Mobile-First Design</h4>
-                    <p>Access your business from any device - desktop, tablet, or smartphone. Manage your agency on the go.</p>
+                    <p>Access your business from any device - desktop, tablet, or smartphone.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="step-card">
-                    <div class="step-number"><i class="bi bi-shield-lock"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-shield-lock"></i></div>
                     <h4>Secure &amp; Reliable</h4>
-                    <p>Bank-grade security with encrypted sessions, PIN-protected transactions, and full audit trails on every action.</p>
+                    <p>Bank-grade security with encrypted sessions and full audit trails.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="step-card">
-                    <div class="step-number"><i class="bi bi-currency-dollar"></i></div>
+            <div class="col-md-4 col-sm-6">
+                <div class="glassy-card">
+                    <div class="glassy-icon"><i class="bi bi-currency-dollar"></i></div>
                     <h4>Multiple Networks &amp; Banks</h4>
-                    <p>Support for Vodacom, Airtel, Tigo, Halotel, Zantel, and banks like CRDB and NMB. All in one platform.</p>
+                    <p>Support for all major networks and banks in Tanzania.</p>
                 </div>
             </div>
         </div>
@@ -168,7 +169,7 @@
     <div class="container">
         <div class="cta-content">
             <h2>Ready to take control of your business?</h2>
-            <p>Join the growing community of agents using WakalaPro to manage their mobile money business.</p>
+            <p>Join the growing community of agents using WakalaPro.</p>
             <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
                 Get Started Free <i class="bi bi-arrow-right"></i>
             </a>
@@ -181,10 +182,31 @@
 <!-- ============================================ -->
 <style>
 /* ============================================ */
-/* HERO SECTION - Green to Pink Gradient */
+/* VARIABLES */
+/* ============================================ */
+:root {
+    --green-dark: #064e3b;
+    --green-medium: #047857;
+    --green-light: #10b981;
+    --pink-dark: #be185d;
+    --pink-medium: #db2777;
+    --pink-light: #ec4899;
+    --purple-dark: #5b21b6;
+    --purple-medium: #7c3aed;
+    --gradient-primary: linear-gradient(135deg, #064e3b 0%, #047857 30%, #10b981 60%, #7c3aed 85%, #be185d 100%);
+    --gradient-hero: linear-gradient(135deg, #064e3b 0%, #065f46 30%, #047857 60%, #5b21b6 85%, #be185d 100%);
+    --gradient-section: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --glass-blur: blur(16px);
+}
+
+/* ============================================ */
+/* HERO SECTION */
 /* ============================================ */
 .hero-section {
-    background: linear-gradient(135deg, #064e3b 0%, #059669 30%, #10b981 60%, #7c3aed 85%, #ec4899 100%);
+    background: var(--gradient-hero);
     padding: 80px 0 100px 0;
     border-radius: 0 0 40px 40px;
     position: relative;
@@ -212,6 +234,13 @@
     z-index: 1;
 }
 
+.hero-logo {
+    width: 180px;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
 .hero-section h1 {
     font-size: 3.5rem;
     font-weight: 800;
@@ -221,21 +250,21 @@
 }
 
 .hero-section h1 .highlight {
-    background: linear-gradient(135deg, #a7f3d0, #34d399);
+    background: linear-gradient(135deg, #6ee7b7, #34d399);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .hero-section h1 .highlight-text {
-    background: linear-gradient(135deg, #fbcfe8, #f472b6);
+    background: linear-gradient(135deg, #f9a8d4, #f472b6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .hero-section .hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 1.1rem;
     max-width: 500px;
     line-height: 1.7;
@@ -284,21 +313,24 @@
     display: flex;
     gap: 2.5rem;
     margin: 1.5rem 0 1rem 0;
+    flex-wrap: wrap;
 }
 
 .hero-section .stat-item {
     text-align: center;
+    flex: 1;
+    min-width: 80px;
 }
 
 .hero-section .stat-number {
     font-size: 2rem;
     font-weight: 700;
-    color: #a7f3d0;
+    color: #6ee7b7;
     display: block;
 }
 
 .hero-section .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -328,75 +360,101 @@
     text-align: center;
 }
 
-/* ============================================ */
-/* SECTION HEADER */
-/* ============================================ */
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
+.phone-logo {
+    width: 140px;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #0f172a;
-}
-
-.section-header p {
-    color: #475569;
-    max-width: 500px;
-    margin: 0.5rem auto 0;
+.phone-tagline {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
 /* ============================================ */
-/* FEATURES SECTION */
+/* FEATURES SECTION - GLASS EFFECT */
 /* ============================================ */
 .features-section {
     padding: 80px 0;
-    background: #ffffff;
+    background: var(--gradient-section);
+    position: relative;
+    overflow: hidden;
 }
 
-.feature-card {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 2rem;
-    transition: all 0.3s ease;
+.features-section::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 60%;
+    height: 80%;
+    background: rgba(16, 185, 129, 0.05);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.section-header h2 {
+    color: #ffffff;
+}
+
+.section-header p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================ */
+/* GLOSSY / GLASS CARDS */
+/* ============================================ */
+.glassy-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
     text-align: center;
+    transition: all 0.3s ease;
     height: 100%;
+    color: #ffffff;
+    box-shadow: var(--glass-shadow);
 }
 
-.feature-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
-    border-color: #10b981;
+.glassy-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
 }
 
-.feature-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+.glassy-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(236, 72, 153, 0.3));
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.feature-icon i {
-    font-size: 1.8rem;
-    color: #059669;
+.glassy-icon i {
+    font-size: 2rem;
+    color: #6ee7b7;
 }
 
-.feature-card h4 {
+.glassy-card h4 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #0f172a;
+    color: #ffffff;
     margin-bottom: 0.5rem;
 }
 
-.feature-card p {
-    color: #475569;
+.glassy-card p {
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
     line-height: 1.6;
     margin: 0;
@@ -405,55 +463,23 @@
 /* ============================================ */
 /* BENEFITS SECTION */
 /* ============================================ */
-.how-it-works {
+.benefits-section {
     padding: 80px 0;
-    background: #f0f4f8;
+    background: var(--gradient-section);
+    position: relative;
+    overflow: hidden;
 }
 
-.step-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    height: 100%;
-}
-
-.step-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
-}
-
-.step-number {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #10b981, #7c3aed);
-    color: white;
-    font-size: 1.5rem;
+.benefits-section::before {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -20%;
+    width: 60%;
+    height: 80%;
+    background: rgba(236, 72, 153, 0.05);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem auto;
-}
-
-.step-number i {
-    font-size: 1.5rem;
-}
-
-.step-card h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-}
-
-.step-card p {
-    color: #475569;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 0;
+    pointer-events: none;
 }
 
 /* ============================================ */
@@ -461,7 +487,7 @@
 /* ============================================ */
 .cta-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #064e3b 0%, #059669 30%, #7c3aed 60%, #ec4899 100%);
+    background: var(--gradient-primary);
     border-radius: 40px 40px 0 0;
     margin: 0 -1rem 0 -1rem;
 }
@@ -487,101 +513,162 @@
 
 .cta-content .btn-primary {
     background: white;
-    color: #059669;
+    color: #047857;
     padding: 0.8rem 2.5rem;
     border-radius: 50px;
     font-weight: 700;
     transition: all 0.3s ease;
     border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .cta-content .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================ */
 /* RESPONSIVE */
 /* ============================================ */
+@media (max-width: 1200px) {
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+    .hero-logo {
+        width: 150px;
+    }
+}
+
 @media (max-width: 992px) {
     .hero-section {
-        padding: 60px 0 80px 0;
+        padding: 50px 0 60px 0;
         min-height: auto;
     }
-    
     .hero-section h1 {
         font-size: 2.5rem;
     }
-    
     .hero-section .hero-stats {
         gap: 1.5rem;
-        flex-wrap: wrap;
     }
-    
     .hero-phone {
-        width: 200px;
-        height: 320px;
+        width: 220px;
+        height: 350px;
         margin-top: 2rem;
+    }
+    .phone-logo {
+        width: 100px;
+    }
+    .hero-logo {
+        width: 130px;
+    }
+    .section-header h2 {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 0 50px 0;
+        border-radius: 0 0 20px 20px;
+    }
     .hero-section h1 {
         font-size: 2rem;
     }
-    
     .hero-section .hero-stats .stat-item {
-        flex: 1 0 45%;
+        flex: 1 0 40%;
     }
-    
+    .hero-section .hero-stats {
+        gap: 0.5rem;
+    }
+    .hero-phone {
+        width: 180px;
+        height: 280px;
+    }
+    .phone-logo {
+        width: 80px;
+    }
+    .hero-logo {
+        width: 110px;
+    }
     .section-header h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
-    
     .cta-content h2 {
         font-size: 2rem;
     }
-    
-    .hero-phone {
-        width: 160px;
-        height: 260px;
+    .cta-section {
+        padding: 50px 0;
+        border-radius: 20px 20px 0 0;
+    }
+    .features-section,
+    .benefits-section {
+        padding: 50px 0;
     }
 }
 
 @media (max-width: 576px) {
     .hero-section {
-        padding: 40px 0 60px 0;
-        border-radius: 0 0 20px 20px;
+        padding: 30px 0 40px 0;
     }
-    
     .hero-section h1 {
         font-size: 1.6rem;
     }
-    
     .hero-section .hero-buttons {
         flex-direction: column;
         width: 100%;
     }
-    
     .hero-section .btn-primary,
     .hero-section .btn-outline {
         width: 100%;
         text-align: center;
         justify-content: center;
     }
-    
+    .hero-section .hero-stats .stat-item {
+        flex: 1 0 45%;
+    }
+    .hero-section .stat-number {
+        font-size: 1.4rem;
+    }
+    .hero-phone {
+        width: 150px;
+        height: 230px;
+        border-radius: 30px;
+    }
+    .phone-logo {
+        width: 70px;
+    }
+    .phone-tagline {
+        font-size: 0.7rem;
+    }
+    .hero-logo {
+        width: 100px;
+    }
     .features-section,
-    .how-it-works {
-        padding: 50px 0;
+    .benefits-section {
+        padding: 40px 0;
     }
-    
-    .cta-section {
-        padding: 50px 0;
-        border-radius: 20px 20px 0 0;
+    .section-header h2 {
+        font-size: 1.5rem;
     }
-    
     .cta-content h2 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+    }
+    .cta-content p {
+        font-size: 0.95rem;
+    }
+    .cta-section {
+        padding: 40px 0;
+        border-radius: 15px 15px 0 0;
+    }
+    .glassy-card {
+        padding: 1.5rem 1rem;
+    }
+    .glassy-icon {
+        width: 50px;
+        height: 50px;
+    }
+    .glassy-icon i {
+        font-size: 1.5rem;
     }
 }
 </style>
