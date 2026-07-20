@@ -42,8 +42,8 @@
     <!-- HERO SECTION -->
     <!-- ============================================ -->
     <section class="hero-section">
-        <div class="container-fluid px-0">
-            <div class="row align-items-center g-0">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="hero-content">
                         <h1>
@@ -85,12 +85,17 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <div class="hero-phone">
-                        <div class="hero-phone-content">
-                            <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
-                                 alt="WakalaPro" 
-                                 class="phone-logo">
-                            <p class="phone-tagline">Smart Payments, Stronger Business</p>
+                    <!-- ============================================ -->
+                    <!-- HERO PHONE CARD - WITH CURVES & SHADOW -->
+                    <!-- ============================================ -->
+                    <div class="hero-phone-card">
+                        <div class="hero-phone">
+                            <div class="hero-phone-content">
+                                <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
+                                     alt="WakalaPro" 
+                                     class="phone-logo">
+                                <p class="phone-tagline">Smart Payments, Stronger Business</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,7 +104,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- FEATURES SECTION -->
+    <!-- FEATURES SECTION - GLOSSY CARDS -->
     <!-- ============================================ -->
     <section class="features-section" id="features">
         <div class="container-fluid px-4">
@@ -155,7 +160,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- HOW IT WORKS SECTION -->
+    <!-- HOW IT WORKS SECTION - GLOSSY CARDS -->
     <!-- ============================================ -->
     <section class="how-it-works" id="how-it-works">
         <div class="container-fluid px-4">
@@ -190,7 +195,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- WORKS SECTION -->
+    <!-- WORKS SECTION - GLOSSY CARDS -->
     <!-- ============================================ -->
     <section class="works-section">
         <div class="container-fluid px-4">
@@ -308,25 +313,69 @@
 }
 
 /* ============================================ */
-/* FIX: EQUAL SPACING ON BOTH SIDES */
+/* HERO PHONE CARD - WITH CURVES */
 /* ============================================ */
-.container-fluid {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+.hero-phone-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.row {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+.hero-phone {
+    width: 300px;
+    height: 470px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    border-radius: 50px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ============================================ */
-/* HERO CONTENT - FULL WIDTH WITH PADDING */
-/* ============================================ */
-.hero-content {
-    padding: 0 30px !important;
-    max-width: 600px;
-    margin: 0 auto;
+.hero-phone:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Phone notch */
+.hero-phone::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hero-phone-content {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.phone-logo {
+    width: 120px;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.phone-tagline {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
 }
 
 /* ============================================ */
@@ -452,6 +501,11 @@
     width: 100%;
 }
 
+.hero-content {
+    padding: 0 20px;
+    max-width: 600px;
+}
+
 .hero-section h1 {
     font-size: 3.5rem;
     font-weight: 800;
@@ -552,30 +606,6 @@
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
     margin-top: 0.5rem;
-}
-
-.hero-phone {
-    width: 280px;
-    height: 450px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    backdrop-filter: blur(10px);
-}
-
-.phone-logo {
-    width: 120px;
-    margin-bottom: 0.5rem;
-}
-
-.phone-tagline {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-    letter-spacing: 1px;
 }
 
 /* ============================================ */
@@ -831,9 +861,8 @@
         display: block;
     }
     .hero-phone {
-        width: 200px;
-        height: 320px;
-        margin-top: 2rem;
+        width: 220px;
+        height: 360px;
     }
     .hero-section {
         padding: 100px 0 30px 0;
@@ -846,9 +875,6 @@
     }
     .section-header h2 {
         font-size: 2rem;
-    }
-    .hero-content {
-        padding: 0 20px !important;
     }
 }
 
@@ -867,8 +893,12 @@
         font-size: 1.5rem;
     }
     .hero-phone {
-        width: 160px;
-        height: 260px;
+        width: 180px;
+        height: 300px;
+        border-radius: 35px !important;
+    }
+    .phone-logo {
+        width: 80px;
     }
     .section-header h2 {
         font-size: 1.8rem;
@@ -889,9 +919,6 @@
         flex-direction: column;
         text-align: center;
     }
-    .hero-content {
-        padding: 0 15px !important;
-    }
 }
 
 @media (max-width: 576px) {
@@ -908,9 +935,13 @@
         text-align: center;
     }
     .hero-phone {
-        width: 130px;
-        height: 200px;
-        border-radius: 25px;
+        width: 150px;
+        height: 250px;
+        border-radius: 30px !important;
+    }
+    .hero-phone::before {
+        width: 80px;
+        height: 18px;
     }
     .phone-logo {
         width: 70px;
@@ -947,7 +978,10 @@
         margin-bottom: 20px;
     }
     .hero-content {
-        padding: 0 12px !important;
+        padding: 0 15px;
+    }
+    .hero-phone-card {
+        padding: 10px;
     }
 }
 
