@@ -39,7 +39,7 @@
     </nav>
 
     <!-- ============================================ -->
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION - TRANSPARENT -->
     <!-- ============================================ -->
     <section class="hero-section">
         <div class="container-fluid px-4">
@@ -86,15 +86,17 @@
                 </div>
                 <div class="col-lg-6 text-center">
                     <!-- ============================================ -->
-                    <!-- HERO PHONE CARD - WITH CURVES & SHADOW -->
+                    <!-- HERO PHONE CARD - SEPARATE CARD -->
                     <!-- ============================================ -->
-                    <div class="hero-phone-card">
-                        <div class="hero-phone">
-                            <div class="hero-phone-content">
-                                <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
-                                     alt="WakalaPro" 
-                                     class="phone-logo">
-                                <p class="phone-tagline">Smart Payments, Stronger Business</p>
+                    <div class="hero-phone-wrapper">
+                        <div class="hero-phone-card">
+                            <div class="hero-phone">
+                                <div class="hero-phone-content">
+                                    <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
+                                         alt="WakalaPro" 
+                                         class="phone-logo">
+                                    <p class="phone-tagline">Smart Payments, Stronger Business</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -313,38 +315,56 @@
 }
 
 /* ============================================ */
-/* HERO PHONE CARD - WITH CURVES */
+/* HERO SECTION - TRANSPARENT */
 /* ============================================ */
-.hero-phone-card {
+.hero-section {
+    padding: 120px 0 20px 0;
+    width: 100%;
+    background: transparent !important;
+}
+
+/* ============================================ */
+/* HERO PHONE CARD - SEPARATE CARD */
+/* ============================================ */
+.hero-phone-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
-.hero-phone {
-    width: 300px;
-    height: 470px;
+.hero-phone-card {
+    display: inline-block;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-    border-radius: 50px !important;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    border-radius: 60px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.hero-phone:hover {
+.hero-phone-card:hover {
     transform: translateY(-8px);
     box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.hero-phone {
+    width: 280px;
+    height: 450px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Phone notch */
@@ -354,27 +374,41 @@
     top: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 120px;
-    height: 25px;
-    background: rgba(0, 0, 0, 0.4);
+    width: 100px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Phone screen glow */
+.hero-phone::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.05), transparent 70%);
+    pointer-events: none;
 }
 
 .hero-phone-content {
     text-align: center;
     padding: 30px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .phone-logo {
-    width: 120px;
+    width: 100px;
     max-width: 100%;
     margin-bottom: 0.5rem;
 }
 
 .phone-tagline {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.7rem;
     letter-spacing: 1px;
 }
 
@@ -494,13 +528,8 @@
 }
 
 /* ============================================ */
-/* HERO SECTION */
+/* HERO CONTENT */
 /* ============================================ */
-.hero-section {
-    padding: 120px 0 50px 0;
-    width: 100%;
-}
-
 .hero-content {
     padding: 0 20px;
     max-width: 600px;
@@ -848,6 +877,26 @@
 }
 
 /* ============================================ */
+/* ANIMATION - CARD MOVES UP ON SCROLL */
+/* ============================================ */
+.hero-phone-card {
+    animation: floatUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================ */
 /* RESPONSIVE */
 /* ============================================ */
 @media (max-width: 992px) {
@@ -864,8 +913,12 @@
         width: 220px;
         height: 360px;
     }
+    .hero-phone-card {
+        padding: 10px;
+        border-radius: 50px;
+    }
     .hero-section {
-        padding: 100px 0 30px 0;
+        padding: 100px 0 10px 0;
     }
     .features-section,
     .how-it-works,
@@ -895,10 +948,18 @@
     .hero-phone {
         width: 180px;
         height: 300px;
-        border-radius: 35px !important;
+        border-radius: 40px;
+    }
+    .hero-phone::before {
+        width: 80px;
+        height: 18px;
     }
     .phone-logo {
         width: 80px;
+    }
+    .hero-phone-card {
+        padding: 8px;
+        border-radius: 45px;
     }
     .section-header h2 {
         font-size: 1.8rem;
@@ -936,18 +997,22 @@
     }
     .hero-phone {
         width: 150px;
-        height: 250px;
-        border-radius: 30px !important;
+        height: 240px;
+        border-radius: 35px;
     }
     .hero-phone::before {
-        width: 80px;
-        height: 18px;
+        width: 60px;
+        height: 15px;
+    }
+    .hero-phone-card {
+        padding: 6px;
+        border-radius: 38px;
     }
     .phone-logo {
-        width: 70px;
+        width: 60px;
     }
     .phone-tagline {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
     }
     .section-header h2 {
         font-size: 1.5rem;
@@ -980,7 +1045,7 @@
     .hero-content {
         padding: 0 15px;
     }
-    .hero-phone-card {
+    .hero-phone-wrapper {
         padding: 10px;
     }
 }
