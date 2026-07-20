@@ -17,7 +17,6 @@ def create_app():
             database_url = database_url.replace('postgres://', 'postgresql://', 1)
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     else:
-        # Ensure instance directory exists
         instance_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance')
         if not os.path.exists(instance_path):
             os.makedirs(instance_path)
@@ -163,7 +162,6 @@ def create_app():
     from routes.operators import operators
     from routes.float import floats
     from routes.license import license_bp
-    from routes.landing import landing  # ADDED: Landing page route
 
     # ==========================
     # REGISTER BLUEPRINTS
@@ -185,16 +183,13 @@ def create_app():
     app.register_blueprint(operators)
     app.register_blueprint(floats)
     app.register_blueprint(license_bp)
-    app.register_blueprint(landing)  # ADDED: Landing page blueprint
 
     # ==========================
-    # CREATE TABLES - ONLY IF NOT EXISTS
+    # CREATE TABLES
     # ==========================
     with app.app_context():
-        # Create tables if they don't exist
         db.create_all()
         
-        # Create trial license if none exists
         from models.license import License
         from routes.license import generate_license_key
         from datetime import datetime, timedelta
@@ -218,6 +213,18 @@ def create_app():
             print("✅ Trial license created! 30 days remaining.")
         
         print("✅ Database tables created successfully!")
+
+    # ==========================
+    # LANDING PAGE - HOME PAGE
+    # ==========================
+    @app.route('/')
+    def landing():
+        """Landing page - Home page"""
+        merchants_count = Merchant.query.count()
+        operators_count = Operator.query.count()
+        return render_template('landing.html', 
+                             merchants_count=merchants_count, 
+                             operators_count=operators_count)
 
     # ==========================
     # ERROR HANDLER
