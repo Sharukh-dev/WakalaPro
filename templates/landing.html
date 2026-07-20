@@ -5,10 +5,10 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- NAVBAR - KAMA 1.PNG -->
+<!-- NAVBAR - LANDING PAGE -->
 <!-- ============================================ -->
 <nav class="navbar-landing">
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-0">
         <div class="nav-content">
             <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="35">
@@ -36,21 +36,21 @@
 </nav>
 
 <!-- ============================================ -->
-<!-- HERO SECTION - KAMA 1.PNG -->
+<!-- HERO SECTION -->
 <!-- ============================================ -->
 <section class="hero-section">
-    <div class="container-fluid px-4">
-        <div class="row align-items-center">
+    <div class="container-fluid px-0">
+        <div class="row g-0 align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
                     <h1>
-                        <span class="highlight">Powers every</span><br>
-                        <span class="highlight-text">transaction</span>
+                        <span class="highlight">Smart Payments,</span><br>
+                        <span class="highlight-text">Stronger Business</span>
                     </h1>
                     <p class="hero-subtitle">
-                        WakalaPro is an all-in-one point-of-sale (POS) app for Tanzania's mobile-money and bank agents. 
-                        Manage float, process cash-in and cash-out, print customer receipts, and track commissions and 
-                        daily reports — all in one fast, simple app.
+                        WakalaPro is an all-in-one point-of-sale (POS) app for Tanzania's mobile-money and bank agents.
+                        Manage float, process cash-in and cash-out, print customer receipts, and track commissions
+                        and daily reports — all in one fast, simple app.
                     </p>
                     <div class="hero-buttons">
                         <a href="{{ url_for('auth.register') }}" class="btn-primary-hero">
@@ -84,8 +84,8 @@
             <div class="col-lg-6 text-center">
                 <div class="hero-image">
                     <div class="hero-phone">
-                        <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
-                             alt="WakalaPro" 
+                        <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}"
+                             alt="WakalaPro"
                              class="phone-logo">
                         <p class="phone-tagline">Smart Payments, Stronger Business</p>
                     </div>
@@ -99,7 +99,7 @@
 <!-- FEATURES SECTION -->
 <!-- ============================================ -->
 <section class="features-section" id="features">
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-0">
         <div class="section-header">
             <h2>Everything an agent needs</h2>
             <p>One app for every network and bank you serve — designed to be simple enough for the busiest counter.</p>
@@ -155,7 +155,7 @@
 <!-- HOW IT WORKS SECTION -->
 <!-- ============================================ -->
 <section class="how-it-works" id="how-it-works">
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-0">
         <div class="section-header">
             <h2>Up and running in 3 steps</h2>
             <p>From download to your first transaction in a single sitting.</p>
@@ -190,7 +190,7 @@
 <!-- CTA SECTION -->
 <!-- ============================================ -->
 <section class="cta-section">
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-0">
         <div class="cta-content">
             <h2>Ready to power every transaction?</h2>
             <p>Join the agents growing their business with WakalaPro. Create your account in minutes.</p>
@@ -203,7 +203,7 @@
 
 <style>
 /* ============================================ */
-/* VARIABLES */
+/* VARIABLES - RANGI ZAKO */
 /* ============================================ */
 :root {
     --primary: #10b981;
@@ -216,7 +216,6 @@
     --darker: #0a0e1a;
     --white: #ffffff;
     --gray: #94a3b8;
-    --light-gray: #e2e8f0;
 }
 
 /* ============================================ */
@@ -225,19 +224,22 @@
 .navbar-landing {
     background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(20px);
-    padding: 16px 0;
+    padding: 16px 20px;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
 }
 
 .nav-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .navbar-brand {
@@ -326,12 +328,18 @@
     color: white;
 }
 
+.mobile-menu .btn-login-nav,
+.mobile-menu .btn-primary-nav {
+    display: inline-block;
+    text-align: center;
+}
+
 /* ============================================ */
-/* HERO SECTION */
+/* HERO SECTION - FULL WIDTH */
 /* ============================================ */
 .hero-section {
     background: linear-gradient(135deg, #0f172a 0%, #1a1a3e 40%, #064e3b 100%);
-    padding: 140px 0 80px 0;
+    padding: 120px 20px 80px 20px;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -341,6 +349,7 @@
 
 .hero-content {
     max-width: 600px;
+    padding: 0 10px;
 }
 
 .hero-section h1 {
@@ -467,10 +476,10 @@
 }
 
 /* ============================================ */
-/* FEATURES SECTION */
+/* FEATURES SECTION - FULL WIDTH */
 /* ============================================ */
 .features-section {
-    padding: 80px 0;
+    padding: 80px 20px;
     background: #0f172a;
     width: 100%;
     margin: 0;
@@ -540,10 +549,10 @@
 }
 
 /* ============================================ */
-/* HOW IT WORKS SECTION */
+/* HOW IT WORKS SECTION - FULL WIDTH */
 /* ============================================ */
 .how-it-works {
-    padding: 80px 0;
+    padding: 80px 20px;
     background: #0a0e1a;
     width: 100%;
     margin: 0;
@@ -593,10 +602,10 @@
 }
 
 /* ============================================ */
-/* CTA SECTION */
+/* CTA SECTION - FULL WIDTH */
 /* ============================================ */
 .cta-section {
-    padding: 80px 0;
+    padding: 80px 20px;
     background: linear-gradient(135deg, #064e3b 0%, #065f46 30%, #7c3aed 70%, #be185d 100%);
     width: 100%;
     margin: 0;
@@ -658,11 +667,14 @@
         height: 320px;
         margin-top: 2rem;
     }
+    .hero-section {
+        padding: 100px 15px 60px 15px;
+    }
 }
 
 @media (max-width: 768px) {
     .hero-section {
-        padding: 120px 0 60px 0;
+        padding: 100px 15px 50px 15px;
         min-height: auto;
     }
     .hero-section h1 {
@@ -687,6 +699,13 @@
     }
     .cta-content h2 {
         font-size: 2rem;
+    }
+    .features-section,
+    .how-it-works {
+        padding: 50px 15px;
+    }
+    .cta-section {
+        padding: 50px 15px;
     }
 }
 
@@ -714,15 +733,8 @@
     .phone-tagline {
         font-size: 0.6rem;
     }
-    .features-section,
-    .how-it-works {
-        padding: 50px 0;
-    }
     .section-header h2 {
         font-size: 1.5rem;
-    }
-    .cta-section {
-        padding: 50px 0;
     }
     .cta-content h2 {
         font-size: 1.5rem;
@@ -733,12 +745,22 @@
     .step-card {
         padding: 1.5rem;
     }
+    .navbar-landing {
+        padding: 12px 15px;
+    }
+    .nav-content {
+        flex-wrap: wrap;
+    }
+    .mobile-menu {
+        width: 100%;
+    }
 }
 
-/* Mobile Menu Toggle */
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('show');
+/* ============================================ */
+/* MOBILE MENU TOGGLE */
+/* ============================================ */
+.mobile-menu.show {
+    display: flex;
 }
 </style>
 
