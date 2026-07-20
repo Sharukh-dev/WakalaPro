@@ -5,7 +5,7 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- HERO SECTION - KAMA WAKALA PLUS -->
+<!-- HERO SECTION - WAKALAPRO THEME -->
 <!-- ============================================ -->
 <div class="hero-section">
     <div class="container">
@@ -15,7 +15,7 @@
                     <h1>
                         Welcome back, <span class="highlight">{{ current_user.username }}</span>
                     </h1>
-                    <p>Manage your mobile money business efficiently. Track transactions, manage merchants, and monitor your profits all in one place.</p>
+                    <p>Smart Payments, Stronger Business. Manage your mobile money business efficiently from one powerful dashboard.</p>
                     <div class="hero-stats">
                         <div class="stat">
                             <span class="number">{{ merchants_count|default(0) }}</span>
@@ -55,7 +55,7 @@
 <!-- ============================================ -->
 <div class="row mt-4" id="dashboard-stats">
     <div class="col-md-3 mb-3">
-        <div class="stats-card blue">
+        <div class="stats-card green">
             <div class="card-body">
                 <div class="icon"><i class="bi bi-shop"></i></div>
                 <h6>Total Merchants</h6>
@@ -115,7 +115,7 @@
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="stats-card blue">
+        <div class="stats-card pink">
             <div class="card-body">
                 <div class="icon"><i class="bi bi-percent"></i></div>
                 <h6>Today's Commission</h6>
@@ -304,8 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     datasets: [{
                         label: 'Commission',
                         data: commissions,
-                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
-                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                        borderColor: '#ec4899',
                         borderWidth: 2,
                         fill: true,
                         tension: 0.3
@@ -346,10 +346,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <style>
 /* ============================================ */
-/* HERO SECTION - KAMA WAKALA PLUS */
+/* HERO SECTION - WAKALAPRO THEME */
 /* ============================================ */
 .hero-section {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2563eb 100%);
+    background: linear-gradient(135deg, #064e3b 0%, #059669 30%, #10b981 60%, #7c3aed 85%, #ec4899 100%);
     padding: 40px 0 50px 0;
     border-radius: 0 0 30px 30px;
     position: relative;
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .hero-section h1 .highlight {
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    background: linear-gradient(135deg, #a7f3d0, #f472b6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .hero-section .hero-stats .stat .number {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #60a5fa;
+    color: #a7f3d0;
     display: block;
 }
 
@@ -444,22 +444,22 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 /* ============================================ */
-/* STATS CARDS - WAKALA PLUS STYLE */
+/* STATS CARDS */
 /* ============================================ */
 .stats-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 16px;
     padding: 1.25rem;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     position: relative;
     overflow: hidden;
 }
 
 .stats-card:hover {
     transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
 }
 
 .stats-card .card-body {
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-muted);
+    color: #94a3b8;
     margin-bottom: 0.3rem;
     font-weight: 600;
 }
@@ -486,34 +486,35 @@ document.addEventListener('DOMContentLoaded', function() {
     font-weight: 700;
     margin-bottom: 0;
     font-size: 1.6rem;
-    color: var(--text-primary);
+    color: #0f172a;
 }
 
-/* Border colors */
-.stats-card.blue { border-top: 3px solid #2563eb; }
+/* Border colors - WAKALAPRO THEME */
 .stats-card.green { border-top: 3px solid #10b981; }
+.stats-card.pink { border-top: 3px solid #ec4899; }
 .stats-card.purple { border-top: 3px solid #7c3aed; }
 .stats-card.orange { border-top: 3px solid #f59e0b; }
 .stats-card.red { border-top: 3px solid #ef4444; }
 .stats-card.teal { border-top: 3px solid #14b8a6; }
+.stats-card.blue { border-top: 3px solid #2563eb; }
 
 /* ============================================ */
 /* QUICK ACTION BUTTONS */
 /* ============================================ */
 .btn-primary {
-    background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+    background: linear-gradient(135deg, #10b981, #7c3aed) !important;
     border: none !important;
     color: white !important;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #10b981, #059669) !important;
+    background: linear-gradient(135deg, #059669, #10b981) !important;
     border: none !important;
     color: white !important;
 }

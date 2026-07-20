@@ -13,13 +13,14 @@
             <div class="col-lg-6">
                 <div class="hero-content">
                     <h1>
-                        <span class="highlight">Powers every</span><br>
-                        <span class="highlight-text">transaction</span>
+                        <span class="highlight">Manage your</span><br>
+                        <span class="highlight-text">mobile money business</span><br>
+                        <span class="highlight">with ease</span>
                     </h1>
                     <p class="hero-subtitle">
-                        WakalaPro is an all-in-one point-of-sale (POS) app for Tanzania's mobile-money and bank agents. 
-                        Manage float, process cash-in and cash-out, print customer receipts, and track commissions and 
-                        daily reports — all in one fast, simple app.
+                        WakalaPro is a complete management system for mobile money agents in Tanzania. 
+                        Track transactions, manage multiple operators, monitor merchant balances, 
+                        and generate detailed reports — all from one powerful dashboard.
                     </p>
                     <div class="hero-buttons">
                         <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
@@ -31,12 +32,12 @@
                     </div>
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number">4+</span>
-                            <span class="stat-label">Mobile Networks</span>
+                            <span class="stat-number">{{ merchants_count|default(0) }}+</span>
+                            <span class="stat-label">Merchants Managed</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">6+</span>
-                            <span class="stat-label">Banks Supported</span>
+                            <span class="stat-number">{{ operators_count|default(0) }}+</span>
+                            <span class="stat-label">Operators Active</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">&lt;10s</span>
@@ -47,17 +48,18 @@
                             <span class="stat-label">Always Available</span>
                         </div>
                     </div>
-                    <p class="hero-tagline">Your business. Your community. No setup fees.</p>
+                    <p class="hero-tagline">Smart Payments, Stronger Business</p>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <div class="hero-image">
-                    <div class="hero-phone">
-                        <i class="bi bi-phone" style="font-size: 8rem; color: rgba(255,255,255,0.1);"></i>
-                        <div class="hero-phone-content">
-                            <i class="bi bi-currency-dollar" style="font-size: 3rem; color: #34d399;"></i>
-                            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">WakalaPro</p>
-                        </div>
+                <div class="hero-phone">
+                    <div class="hero-phone-content">
+                        <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
+                             alt="WakalaPro" 
+                             style="width: 120px; max-width: 100%; margin-bottom: 0.5rem;">
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; letter-spacing: 1px;">
+                            Smart Payments, Stronger Business
+                        </p>
                     </div>
                 </div>
             </div>
@@ -66,55 +68,55 @@
 </section>
 
 <!-- ============================================ -->
-<!-- FEATURES SECTION -->
+<!-- FEATURES SECTION - Mfumo Wako -->
 <!-- ============================================ -->
 <section class="features-section">
     <div class="container">
         <div class="section-header">
-            <h2>Everything an agent needs</h2>
-            <p>One app for every network and bank you serve — designed to be simple enough for the busiest counter.</p>
+            <h2>Everything you need to run your business</h2>
+            <p>Complete tools for managing your mobile money agency efficiently.</p>
         </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-wallet2"></i></div>
-                    <h4>Float Management</h4>
-                    <p>See balances across every network and bank, request top-ups, and move float in seconds.</p>
+                    <div class="feature-icon"><i class="bi bi-shop"></i></div>
+                    <h4>Merchant Management</h4>
+                    <p>Add, edit, and manage all your merchants in one place. Track balances, networks, and transaction history for each merchant.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-people"></i></div>
+                    <h4>Operator Management</h4>
+                    <p>Manage your cashiers and staff with role-based permissions. Assign merchants and track operator performance.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-arrow-left-right"></i></div>
-                    <h4>Cash-in &amp; Cash-out</h4>
-                    <p>Process M-Pesa, Airtel Money, Tigo Pesa, Halotel and bank transactions from one screen.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-receipt"></i></div>
-                    <h4>Instant Receipts</h4>
-                    <p>Give every customer a digital or Bluetooth-printed receipt — no paperwork, no disputes.</p>
+                    <h4>Transaction Management</h4>
+                    <p>Process deposits, withdrawals, transfers, and payments. Auto-calculate commissions and update balances instantly.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-percent"></i></div>
-                    <h4>Commissions &amp; Reports</h4>
-                    <p>Track earnings per transaction and reconcile your day with clear daily and monthly reports.</p>
+                    <h4>Commission Tracking</h4>
+                    <p>Set custom commission rates for each network and bank. Track earnings per operator and generate commission reports.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-bell"></i></div>
-                    <h4>Smart Alerts</h4>
-                    <p>Get notified before your float runs low so you never turn a paying customer away.</p>
+                    <div class="feature-icon"><i class="bi bi-receipt"></i></div>
+                    <h4>Expense &amp; Cash Closing</h4>
+                    <p>Record expenses, manage daily cash closing, and get real-time profit calculations. Know your business performance daily.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
-                    <h4>Bank-grade Security</h4>
-                    <p>PIN-protected transactions, encrypted sessions and a full audit trail on every action.</p>
+                    <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
+                    <h4>Reports &amp; Analytics</h4>
+                    <p>Generate detailed reports for transactions, commissions, expenses, and profits. Export to CSV or PDF for accounting.</p>
                 </div>
             </div>
         </div>
@@ -122,34 +124,34 @@
 </section>
 
 <!-- ============================================ -->
-<!-- HOW IT WORKS SECTION -->
+<!-- BENEFITS SECTION -->
 <!-- ============================================ -->
 <section class="how-it-works">
     <div class="container">
         <div class="section-header">
-            <h2>Up and running in 3 steps</h2>
-            <p>From download to your first transaction in a single sitting.</p>
+            <h2>Why choose WakalaPro?</h2>
+            <p>Built specifically for Tanzania's mobile money agents.</p>
         </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h4>Sign up in minutes</h4>
-                    <p>Register with your phone or email, verify with a one-time code, and set your secure PIN.</p>
+                    <div class="step-number"><i class="bi bi-phone"></i></div>
+                    <h4>Mobile-First Design</h4>
+                    <p>Access your business from any device - desktop, tablet, or smartphone. Manage your agency on the go.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h4>Add your networks</h4>
-                    <p>Connect the mobile-money and bank float accounts you already serve customers with.</p>
+                    <div class="step-number"><i class="bi bi-shield-lock"></i></div>
+                    <h4>Secure &amp; Reliable</h4>
+                    <p>Bank-grade security with encrypted sessions, PIN-protected transactions, and full audit trails on every action.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h4>Start transacting</h4>
-                    <p>Serve customers faster with a workflow built for speed at the counter.</p>
+                    <div class="step-number"><i class="bi bi-currency-dollar"></i></div>
+                    <h4>Multiple Networks &amp; Banks</h4>
+                    <p>Support for Vodacom, Airtel, Tigo, Halotel, Zantel, and banks like CRDB and NMB. All in one platform.</p>
                 </div>
             </div>
         </div>
@@ -162,8 +164,8 @@
 <section class="cta-section">
     <div class="container">
         <div class="cta-content">
-            <h2>Ready to power every transaction?</h2>
-            <p>Join the agents growing their business with WakalaPro. Create your account in minutes.</p>
+            <h2>Ready to take control of your business?</h2>
+            <p>Join the growing community of agents using WakalaPro to manage their mobile money business.</p>
             <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
                 Get Started Free <i class="bi bi-arrow-right"></i>
             </a>
@@ -358,6 +360,7 @@
     padding: 2rem;
     transition: all 0.3s ease;
     text-align: center;
+    height: 100%;
 }
 
 .feature-card:hover {
@@ -397,7 +400,7 @@
 }
 
 /* ============================================ */
-/* HOW IT WORKS SECTION */
+/* BENEFITS SECTION */
 /* ============================================ */
 .how-it-works {
     padding: 80px 0;
@@ -411,6 +414,7 @@
     padding: 2rem;
     text-align: center;
     transition: all 0.3s ease;
+    height: 100%;
 }
 
 .step-card:hover {
@@ -419,17 +423,20 @@
 }
 
 .step-number {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     background: linear-gradient(135deg, #10b981, #7c3aed);
     color: white;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.5rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem auto;
+}
+
+.step-number i {
+    font-size: 1.5rem;
 }
 
 .step-card h4 {
@@ -513,10 +520,6 @@
         height: 320px;
         margin-top: 2rem;
     }
-    
-    .hero-phone i {
-        font-size: 5rem !important;
-    }
 }
 
 @media (max-width: 768px) {
@@ -539,10 +542,6 @@
     .hero-phone {
         width: 160px;
         height: 260px;
-    }
-    
-    .hero-phone i {
-        font-size: 4rem !important;
     }
 }
 

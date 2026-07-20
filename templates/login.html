@@ -39,10 +39,10 @@
             min-height: 600px;
         }
 
-        /* ========== LEFT SIDE ========== */
+        /* ========== LEFT SIDE - WAKALAPRO THEME ========== */
         .login-left {
             flex: 1;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2563eb 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #059669 30%, #10b981 60%, #7c3aed 85%, #ec4899 100%);
             padding: 50px 40px;
             display: flex;
             flex-direction: column;
@@ -89,9 +89,9 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .login-logo i {
-            font-size: 2.5rem;
-            color: #60a5fa;
+        .login-logo img {
+            height: 40px;
+            display: block;
         }
 
         .login-left h1 {
@@ -203,8 +203,8 @@
         }
 
         .form-group .form-control:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+            border-color: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
             outline: none;
         }
 
@@ -252,7 +252,7 @@
         .remember-me input[type="checkbox"] {
             width: 17px;
             height: 17px;
-            accent-color: #2563eb;
+            accent-color: #10b981;
             cursor: pointer;
         }
 
@@ -263,7 +263,7 @@
         }
 
         .forgot-password {
-            color: #2563eb;
+            color: #059669;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
@@ -271,14 +271,14 @@
         }
 
         .forgot-password:hover {
-            color: #1d4ed8;
+            color: #047857;
             text-decoration: underline;
         }
 
         .btn-login {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #10b981 0%, #7c3aed 100%);
             border: none;
             border-radius: 10px;
             color: white;
@@ -290,12 +290,12 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
         .login-footer {
@@ -309,7 +309,7 @@
         }
 
         .login-footer a {
-            color: #2563eb;
+            color: #059669;
             text-decoration: none;
             font-weight: 500;
         }
@@ -378,10 +378,6 @@
                 padding: 12px 16px;
             }
 
-            .login-logo i {
-                font-size: 2rem;
-            }
-
             .login-features {
                 display: none;
             }
@@ -446,10 +442,12 @@
             <div class="login-left">
                 <div class="login-left-content">
                     <div class="login-logo">
-                        <i class="bi bi-currency-dollar"></i>
+                        <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
+                             alt="WakalaPro" 
+                             height="40">
                     </div>
                     <h1>WakalaPro</h1>
-                    <p class="tagline">Mobile Money Agent Management System</p>
+                    <p class="tagline">Smart Payments, Stronger Business</p>
 
                     <div class="welcome-text">
                         <h2>Welcome Back!</h2>
