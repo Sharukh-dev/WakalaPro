@@ -1,0 +1,77 @@
+/* ============================================ */
+/* CUSTOM.CSS - WAKALAPRO GRADIENT THEME */
+/* ============================================ */
+
+:root {
+    --gradient-primary: linear-gradient(135deg, #064e3b 0%, #059669 30%, #10b981 60%, #7c3aed 85%, #ec4899 100%);
+    --gradient-gold: linear-gradient(135deg, #f7971e, #ffd200);
+    --gradient-card: linear-gradient(145deg, #111528, #1a1f35);
+}
+
+/* Gold Gradient Text */
+.gold-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Gold Border */
+.gold-border {
+    border-color: #f7971e !important;
+}
+
+/* Gold Background */
+.bg-gold {
+    background: var(--gradient-gold) !important;
+}
+
+/* Gradient Button */
+.btn-gradient {
+    background: var(--gradient-gold) !important;
+    border: none !important;
+    color: #0a0e1a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(247, 151, 30, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(247, 151, 30, 0.4) !important;
+}
+
+/* Gradient Card */
+.card-gradient {
+    background: var(--gradient-card) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+}
+
+.card-gradient .card-header {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.card-gradient h5 {
+    color: #ffffff !important;
+}
+
+/* Sidebar Active State */
+.sidebar .nav-link.active-gold {
+    background: linear-gradient(135deg, rgba(247, 151, 30, 0.15), rgba(255, 210, 0, 0.05)) !important;
+    border-left: 3px solid #f7971e !important;
+    color: #ffffff !important;
+}
+
+/* Scrollbar Gold */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #f7971e, #ffd200) !important;
+    border-radius: 10px !important;
+}
+
+/* Notifications Badge */
+.badge-gold {
+    background: var(--gradient-gold) !important;
+    color: #0a0e1a !important;
+}

@@ -5,10 +5,10 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- HERO SECTION - WAKALAPRO THEME -->
+<!-- HERO SECTION - WAKALAPRO GRADIENT -->
 <!-- ============================================ -->
 <div class="hero-section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="hero-content">
@@ -30,7 +30,7 @@
                             <span class="label">Today's Transactions</span>
                         </div>
                         <div class="stat">
-                            <span class="number" style="color: #fbbf24;">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</span>
+                            <span class="number" style="color: #ffd200;">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</span>
                             <span class="label">Total Balance</span>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         <i class="bi bi-plus-circle"></i> New Transaction
                     </a>
                     <p class="mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
-                        <i class="bi bi-lightning-fill" style="color: #fbbf24;"></i> Quick action
+                        <i class="bi bi-lightning-fill" style="color: #ffd200;"></i> Quick action
                     </p>
                 </div>
             </div>
@@ -82,11 +82,11 @@
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="stats-card orange">
+        <div class="stats-card gold">
             <div class="card-body">
                 <div class="icon"><i class="bi bi-cash-stack"></i></div>
                 <h6>Total Balance</h6>
-                <h2 id="total-balance">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</h2>
+                <h2 id="total-balance" class="gradient-text">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</h2>
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
             <div class="card-body">
                 <div class="icon"><i class="bi bi-arrow-up"></i></div>
                 <h6>Today's Deposits</h6>
-                <h2 id="today-deposits">TSh {{ "{:,.0f}".format(today_deposits|default(0)) }}</h2>
+                <h2 id="today-deposits" class="gradient-text">TSh {{ "{:,.0f}".format(today_deposits|default(0)) }}</h2>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
             <div class="card-body">
                 <div class="icon"><i class="bi bi-arrow-down"></i></div>
                 <h6>Today's Withdrawals</h6>
-                <h2 id="today-withdrawals">TSh {{ "{:,.0f}".format(today_withdrawals|default(0)) }}</h2>
+                <h2 id="today-withdrawals" class="gradient-text">TSh {{ "{:,.0f}".format(today_withdrawals|default(0)) }}</h2>
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
             <div class="card-body">
                 <div class="icon"><i class="bi bi-percent"></i></div>
                 <h6>Today's Commission</h6>
-                <h2 id="today-commission">TSh {{ "{:,.0f}".format(today_commission|default(0)) }}</h2>
+                <h2 id="today-commission" class="gradient-text">TSh {{ "{:,.0f}".format(today_commission|default(0)) }}</h2>
             </div>
         </div>
     </div>
@@ -128,18 +128,10 @@
             <div class="card-body">
                 <div class="icon"><i class="bi bi-graph-up"></i></div>
                 <h6>Today's Profit</h6>
-                <h2 id="today-profit">TSh {{ "{:,.0f}".format(profit|default(0)) }}</h2>
+                <h2 id="today-profit" class="gradient-text">TSh {{ "{:,.0f}".format(profit|default(0)) }}</h2>
             </div>
         </div>
     </div>
-</div>
-
-<!-- ============================================ -->
-<!-- FLOAT ALERT -->
-<!-- ============================================ -->
-<div class="alert alert-warning" id="floatAlert" style="display:none;">
-    <i class="bi bi-exclamation-triangle"></i>
-    <span id="floatAlertMessage"></span>
 </div>
 
 <!-- ============================================ -->
@@ -149,7 +141,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5><i class="bi bi-lightning"></i> Quick Actions</h5>
+                <h5><i class="bi bi-lightning" style="color:#f7971e;"></i> Quick Actions</h5>
             </div>
             <div class="card-body">
                 <div class="d-flex gap-2 flex-wrap">
@@ -203,6 +195,306 @@
         </div>
     </div>
 </div>
+
+<!-- ============================================ -->
+<!-- STYLES - DASHBOARD SPECIFIC -->
+<!-- ============================================ -->
+<style>
+/* ============================================ */
+/* HERO SECTION */
+/* ============================================ */
+.hero-section {
+    background: linear-gradient(135deg, #064e3b 0%, #059669 30%, #10b981 60%, #7c3aed 85%, #ec4899 100%);
+    padding: 35px 30px 45px;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-section .hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.hero-section h1 .highlight {
+    background: linear-gradient(135deg, #a7f3d0, #f472b6, #ffd200);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-section p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0.5rem 0 0 0;
+}
+
+.hero-section .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.hero-section .hero-stats .stat {
+    text-align: center;
+}
+
+.hero-section .hero-stats .stat .number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #a7f3d0;
+    display: block;
+}
+
+.hero-section .hero-stats .stat .label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero-cta {
+    text-align: center;
+    padding: 10px;
+}
+
+.btn-hero {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white !important;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-hero:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================ */
+/* STATS CARDS */
+/* ============================================ */
+.stats-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
+}
+
+.stats-card .card-body {
+    padding: 0 !important;
+}
+
+.stats-card .icon {
+    font-size: 1.8rem;
+    opacity: 0.15;
+    float: right;
+    margin-top: -0.3rem;
+}
+
+.stats-card h6 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.stats-card h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 1.6rem;
+    color: #0f172a;
+}
+
+/* Border colors with gold accent */
+.stats-card.green { border-top: 3px solid #10b981; }
+.stats-card.pink { border-top: 3px solid #ec4899; }
+.stats-card.purple { border-top: 3px solid #7c3aed; }
+.stats-card.gold { border-top: 3px solid #f7971e; }
+.stats-card.red { border-top: 3px solid #ef4444; }
+.stats-card.teal { border-top: 3px solid #14b8a6; }
+.stats-card.blue { border-top: 3px solid #2563eb; }
+
+/* ============================================ */
+/* GRADIENT TEXT UTILITY */
+/* ============================================ */
+.gradient-text {
+    background: linear-gradient(135deg, #f7971e, #ffd200);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================ */
+/* QUICK ACTION BUTTONS */
+/* ============================================ */
+.btn-primary {
+    background: linear-gradient(135deg, #10b981, #7c3aed) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #059669, #10b981) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4) !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4) !important;
+}
+
+/* ============================================ */
+/* CARDS */
+/* ============================================ */
+.card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.3s ease !important;
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-header {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 0.8rem 1.25rem !important;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+.card-header h5 {
+    color: #0f172a !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+
+.card-body {
+    padding: 1.25rem !important;
+}
+
+/* ============================================ */
+/* RESPONSIVE */
+/* ============================================ */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 25px 20px 35px;
+        border-radius: 16px;
+    }
+    
+    .hero-section h1 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-section .hero-stats {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .hero-section .hero-stats .stat .number {
+        font-size: 1.2rem;
+    }
+    
+    .hero-cta {
+        margin-top: 1rem;
+    }
+    
+    .stats-card h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section .hero-stats .stat {
+        flex: 1 0 45%;
+    }
+    .stats-card {
+        padding: 0.9rem;
+    }
+}
+</style>
 
 <!-- ============================================ -->
 <!-- AUTO-REFRESH SCRIPT -->
@@ -343,299 +635,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
-<style>
-/* ============================================ */
-/* HERO SECTION - WAKALAPRO THEME */
-/* ============================================ */
-.hero-section {
-    background: linear-gradient(135deg, #064e3b 0%, #059669 30%, #10b981 60%, #7c3aed 85%, #ec4899 100%);
-    padding: 40px 0 50px 0;
-    border-radius: 0 0 30px 30px;
-    position: relative;
-    overflow: hidden;
-    margin: -1.5rem -1rem 0 -1rem;
-}
-
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 60%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.hero-section .hero-content {
-    position: relative;
-    z-index: 1;
-}
-
-.hero-section h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.2;
-}
-
-.hero-section h1 .highlight {
-    background: linear-gradient(135deg, #a7f3d0, #f472b6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-section p {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    max-width: 500px;
-    margin: 0.5rem 0 0 0;
-}
-
-.hero-section .hero-stats {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1.5rem;
-}
-
-.hero-section .hero-stats .stat {
-    text-align: center;
-}
-
-.hero-section .hero-stats .stat .number {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #a7f3d0;
-    display: block;
-}
-
-.hero-section .hero-stats .stat .label {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.hero-cta {
-    text-align: center;
-    padding: 10px;
-}
-
-.btn-hero {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: white !important;
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.btn-hero:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* ============================================ */
-/* STATS CARDS */
-/* ============================================ */
-.stats-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 1.25rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
-}
-
-.stats-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
-}
-
-.stats-card .card-body {
-    padding: 0 !important;
-}
-
-.stats-card .icon {
-    font-size: 1.8rem;
-    opacity: 0.15;
-    float: right;
-    margin-top: -0.3rem;
-}
-
-.stats-card h6 {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #94a3b8;
-    margin-bottom: 0.3rem;
-    font-weight: 600;
-}
-
-.stats-card h2 {
-    font-weight: 700;
-    margin-bottom: 0;
-    font-size: 1.6rem;
-    color: #0f172a;
-}
-
-/* Border colors - WAKALAPRO THEME */
-.stats-card.green { border-top: 3px solid #10b981; }
-.stats-card.pink { border-top: 3px solid #ec4899; }
-.stats-card.purple { border-top: 3px solid #7c3aed; }
-.stats-card.orange { border-top: 3px solid #f59e0b; }
-.stats-card.red { border-top: 3px solid #ef4444; }
-.stats-card.teal { border-top: 3px solid #14b8a6; }
-.stats-card.blue { border-top: 3px solid #2563eb; }
-
-/* ============================================ */
-/* QUICK ACTION BUTTONS */
-/* ============================================ */
-.btn-primary {
-    background: linear-gradient(135deg, #10b981, #7c3aed) !important;
-    border: none !important;
-    color: white !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #059669, #10b981) !important;
-    border: none !important;
-    color: white !important;
-}
-
-.btn-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
-}
-
-.btn-info {
-    background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
-    border: none !important;
-    color: white !important;
-}
-
-.btn-info:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4) !important;
-}
-
-.btn-warning {
-    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-    border: none !important;
-    color: white !important;
-}
-
-.btn-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4) !important;
-}
-
-.btn-secondary {
-    background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
-    border: none !important;
-    color: white !important;
-}
-
-.btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4) !important;
-}
-
-/* ============================================ */
-/* CARDS */
-/* ============================================ */
-.card {
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 16px !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
-    transition: all 0.3s ease !important;
-}
-
-.card:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-}
-
-.card-header {
-    background: #f8fafc !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    padding: 0.8rem 1.25rem !important;
-    border-radius: 16px 16px 0 0 !important;
-}
-
-.card-header h5 {
-    color: #0f172a !important;
-    margin: 0 !important;
-    font-weight: 600 !important;
-    font-size: 1rem !important;
-}
-
-.card-body {
-    padding: 1.25rem !important;
-}
-
-/* ============================================ */
-/* ALERT */
-/* ============================================ */
-.alert-warning {
-    background: #fffbeb !important;
-    border: 1px solid #fcd34d !important;
-    color: #92400e !important;
-    border-radius: 12px !important;
-}
-
-/* ============================================ */
-/* RESPONSIVE */
-/* ============================================ */
-@media (max-width: 768px) {
-    .hero-section {
-        padding: 30px 0 40px 0;
-        border-radius: 0 0 20px 20px;
-    }
-    
-    .hero-section h1 {
-        font-size: 1.6rem;
-    }
-    
-    .hero-section .hero-stats {
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    .hero-section .hero-stats .stat .number {
-        font-size: 1.2rem;
-    }
-    
-    .hero-cta {
-        margin-top: 1rem;
-    }
-    
-    .stats-card h2 {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .hero-section .hero-stats .stat {
-        flex: 1 0 45%;
-    }
-}
-</style>
 
 {% endblock %}
