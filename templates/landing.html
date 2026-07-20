@@ -39,7 +39,7 @@
     </nav>
 
     <!-- ============================================ -->
-    <!-- HERO SECTION - TRANSPARENT -->
+    <!-- HERO SECTION -->
     <!-- ============================================ -->
     <section class="hero-section">
         <div class="container-fluid px-4">
@@ -85,20 +85,12 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <!-- ============================================ -->
-                    <!-- IPHONE MOCKUP -->
-                    <!-- ============================================ -->
                     <div class="iphone-wrapper">
                         <div class="iphone-card">
                             <div class="iphone">
-                                <!-- iPhone Frame -->
                                 <div class="iphone-frame">
-                                    <!-- Dynamic Island -->
                                     <div class="dynamic-island"></div>
-                                    
-                                    <!-- Screen -->
                                     <div class="iphone-screen">
-                                        <!-- Status Bar -->
                                         <div class="ios-status-bar">
                                             <span class="ios-time">9:41</span>
                                             <div class="ios-icons">
@@ -107,14 +99,11 @@
                                                 <span class="ios-battery">🔋</span>
                                             </div>
                                         </div>
-
-                                        <!-- App Content -->
                                         <div class="ios-app">
                                             <div class="ios-app-header">
                                                 <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="18">
                                                 <span>WakalaPro</span>
                                             </div>
-                                            
                                             <div class="ios-stats">
                                                 <div class="ios-stat">
                                                     <span class="ios-stat-num">24</span>
@@ -129,7 +118,6 @@
                                                     <span class="ios-stat-label">Balance</span>
                                                 </div>
                                             </div>
-
                                             <div class="ios-transactions">
                                                 <div class="ios-tx">
                                                     <span class="ios-tx-type deposit">+ Deposit</span>
@@ -144,7 +132,6 @@
                                                     <span class="ios-tx-amount">TSh 100,000</span>
                                                 </div>
                                             </div>
-
                                             <div class="ios-bottom-nav">
                                                 <span class="ios-nav-item active"><i class="bi bi-house"></i></span>
                                                 <span class="ios-nav-item"><i class="bi bi-arrow-left-right"></i></span>
@@ -152,12 +139,8 @@
                                                 <span class="ios-nav-item"><i class="bi bi-gear"></i></span>
                                             </div>
                                         </div>
-
-                                        <!-- Home Indicator -->
                                         <div class="ios-home-indicator"></div>
                                     </div>
-
-                                    <!-- Side Buttons -->
                                     <div class="ios-side-btn-top"></div>
                                     <div class="ios-side-btn-bottom"></div>
                                 </div>
@@ -170,7 +153,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- FEATURES SECTION - GLOSSY CARDS -->
+    <!-- FEATURES SECTION -->
     <!-- ============================================ -->
     <section class="features-section" id="features">
         <div class="container-fluid px-4">
@@ -226,7 +209,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- HOW IT WORKS SECTION - GLOSSY CARDS -->
+    <!-- HOW IT WORKS SECTION -->
     <!-- ============================================ -->
     <section class="how-it-works" id="how-it-works">
         <div class="container-fluid px-4">
@@ -261,7 +244,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- WORKS SECTION - GLOSSY CARDS -->
+    <!-- WORKS SECTION -->
     <!-- ============================================ -->
     <section class="works-section">
         <div class="container-fluid px-4">
@@ -378,9 +361,6 @@
     margin: 0;
 }
 
-/* ============================================ */
-/* HERO SECTION - TRANSPARENT */
-/* ============================================ */
 .hero-section {
     padding: 120px 0 40px 0;
     width: 100%;
@@ -400,24 +380,13 @@
 
 .iphone-card {
     display: inline-block;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
     border-radius: 60px;
     padding: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     margin: 0 auto;
-}
-
-.iphone-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .iphone {
@@ -432,20 +401,17 @@
     background: #1a1a2e;
     border-radius: 50px;
     padding: 14px;
-    box-shadow: 
-        0 0 0 2px rgba(255, 255, 255, 0.05),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.05);
     position: relative;
 }
 
-/* iPhone Side Buttons */
 .ios-side-btn-top {
     position: absolute;
     right: -3px;
     top: 140px;
     width: 3px;
     height: 35px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.15);
     border-radius: 0 2px 2px 0;
 }
 
@@ -455,11 +421,10 @@
     top: 190px;
     width: 3px;
     height: 50px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.15);
     border-radius: 0 2px 2px 0;
 }
 
-/* Dynamic Island (Notch) */
 .dynamic-island {
     position: absolute;
     top: 14px;
@@ -470,10 +435,8 @@
     background: #0a0a1a;
     border-radius: 20px;
     z-index: 10;
-    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* iPhone Screen */
 .iphone-screen {
     width: 100%;
     height: 100%;
@@ -483,9 +446,7 @@
     position: relative;
 }
 
-/* ============================================ */
-/* iOS DASHBOARD INSIDE IPHONE */
-/* ============================================ */
+/* iOS Content */
 .ios-status-bar {
     display: flex;
     justify-content: space-between;
@@ -493,7 +454,7 @@
     padding: 38px 20px 8px 20px;
     font-size: 12px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255,255,255,0.8);
 }
 
 .ios-time {
@@ -506,7 +467,6 @@
     align-items: center;
     gap: 4px;
     font-size: 11px;
-    letter-spacing: 0.5px;
 }
 
 .ios-app {
@@ -538,11 +498,11 @@
 
 .ios-stat {
     flex: 1;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255,255,255,0.04);
     border-radius: 10px;
     padding: 10px 4px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255,255,255,0.04);
 }
 
 .ios-stat-num {
@@ -554,7 +514,7 @@
 
 .ios-stat-label {
     font-size: 8px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255,255,255,0.4);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -571,10 +531,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255,255,255,0.03);
     padding: 8px 12px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.03);
 }
 
 .ios-tx-type {
@@ -600,13 +560,12 @@
     display: flex;
     justify-content: space-around;
     padding: 6px 0 4px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255,255,255,0.04);
 }
 
 .ios-nav-item {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255,255,255,0.3);
     font-size: 16px;
-    transition: color 0.3s;
 }
 
 .ios-nav-item.active {
@@ -616,7 +575,7 @@
 .ios-home-indicator {
     width: 120px;
     height: 4px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.15);
     border-radius: 10px;
     margin: 2px auto 0 auto;
 }
@@ -625,7 +584,7 @@
 /* LANDING NAVBAR */
 /* ============================================ */
 .navbar-landing {
-    background: rgba(15, 23, 42, 0.85);
+    background: rgba(15,23,42,0.85);
     backdrop-filter: blur(20px);
     padding: 14px 0;
     position: fixed;
@@ -633,7 +592,7 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     width: 100%;
 }
 
@@ -667,10 +626,9 @@
 }
 
 .nav-links a {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255,255,255,0.6);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.3s;
 }
 
 .nav-links a:hover {
@@ -680,13 +638,8 @@
 .btn-login-nav {
     color: white !important;
     padding: 8px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 30px;
-    transition: all 0.3s;
-}
-
-.btn-login-nav:hover {
-    background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-primary-nav {
@@ -695,12 +648,6 @@
     padding: 8px 24px;
     border-radius: 30px;
     font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-primary-nav:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
 }
 
 .mobile-menu-btn {
@@ -717,12 +664,12 @@
     flex-direction: column;
     gap: 16px;
     padding: 20px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255,255,255,0.05);
     margin-top: 16px;
 }
 
 .mobile-menu a {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255,255,255,0.6);
     text-decoration: none;
     font-size: 0.95rem;
     padding: 8px 0;
@@ -767,7 +714,7 @@
 }
 
 .hero-subtitle {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255,255,255,0.7);
     font-size: 1.05rem;
     line-height: 1.7;
     margin-bottom: 2rem;
@@ -787,30 +734,23 @@
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
     display: inline-block;
 }
 
 .btn-primary-hero:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 8px 30px rgba(16,185,129,0.4);
 }
 
 .btn-outline-hero {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
     color: white;
     padding: 12px 32px;
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
     display: inline-block;
-}
-
-.btn-outline-hero:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-3px);
 }
 
 .hero-stats {
@@ -835,13 +775,13 @@
 
 .stat-label {
     font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255,255,255,0.5);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .hero-tagline {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255,255,255,0.5);
     font-size: 0.9rem;
     margin-top: 0.5rem;
 }
@@ -850,36 +790,33 @@
 /* GLOSSY CARDS */
 /* ============================================ */
 .glassy-card {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255,255,255,0.06);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 16px;
     padding: 2rem 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
     height: 100%;
     color: white;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 .glassy-card:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255,255,255,0.12);
     transform: translateY(-8px);
-    border-color: rgba(16, 185, 129, 0.3);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+    border-color: rgba(16,185,129,0.3);
 }
 
 .glassy-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(124, 58, 237, 0.25));
+    background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(124,58,237,0.25));
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem auto;
-    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glassy-icon i {
@@ -895,10 +832,9 @@
 }
 
 .glassy-card p {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255,255,255,0.65);
     font-size: 0.9rem;
     line-height: 1.6;
-    margin: 0;
 }
 
 .step-number {
@@ -939,14 +875,11 @@
 }
 
 .section-header p {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255,255,255,0.6);
     max-width: 500px;
     margin: 0.5rem auto 0;
 }
 
-/* ============================================ */
-/* CTA */
-/* ============================================ */
 .cta-content {
     text-align: center;
     color: white;
@@ -973,22 +906,21 @@
     border-radius: 50px;
     font-weight: 700;
     text-decoration: none;
-    transition: all 0.3s;
     display: inline-block;
 }
 
 .btn-primary-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 
 /* ============================================ */
 /* FOOTER */
 /* ============================================ */
 .footer-section {
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(15,23,42,0.6);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255,255,255,0.06);
     padding: 40px 0 20px 0;
     width: 100%;
     margin-top: 0;
@@ -1009,7 +941,7 @@
 }
 
 .footer-desc {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255,255,255,0.5);
     font-size: 0.85rem;
     line-height: 1.6;
     max-width: 350px;
@@ -1033,10 +965,9 @@
 }
 
 .footer-section ul li a {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255,255,255,0.5);
     text-decoration: none;
     font-size: 0.85rem;
-    transition: color 0.3s;
 }
 
 .footer-section ul li a:hover {
@@ -1049,9 +980,8 @@
 }
 
 .social-icons a {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255,255,255,0.4);
     font-size: 1.2rem;
-    transition: color 0.3s;
 }
 
 .social-icons a:hover {
@@ -1059,5 +989,301 @@
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 20px;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.footer-bottom p {
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.made-in {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.made-in i {
+    color: #ec4899;
+}
+
+/* ============================================ */
+/* RESPONSIVE */
+/* ============================================ */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    .nav-links {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+    .iphone {
+        width: 220px;
+        height: 450px;
+    }
+    .iphone-card {
+        padding: 12px;
+        border-radius: 50px;
+    }
+    .iphone-frame {
+        border-radius: 40px;
+        padding: 10px;
+    }
+    .iphone-screen {
+        border-radius: 32px;
+    }
+    .dynamic-island {
+        width: 100px;
+        height: 28px;
+    }
+    .ios-status-bar {
+        padding: 32px 16px 6px 16px;
+        font-size: 10px;
+    }
+    .ios-app {
+        padding: 2px 12px 8px 12px;
+    }
+    .ios-stat-num {
+        font-size: 14px;
+    }
+    .hero-section {
+        padding: 100px 0 30px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    .hero-stats {
+        gap: 1rem;
+    }
+    .stat-item {
+        flex: 1;
+        min-width: 60px;
+    }
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    .iphone {
+        width: 180px;
+        height: 370px;
+    }
+    .iphone-card {
+        padding: 10px;
+        border-radius: 40px;
+    }
+    .iphone-frame {
+        border-radius: 34px;
+        padding: 8px;
+    }
+    .iphone-screen {
+        border-radius: 28px;
+    }
+    .dynamic-island {
+        width: 80px;
+        height: 24px;
+        top: 8px;
+    }
+    .ios-status-bar {
+        padding: 28px 12px 4px 12px;
+        font-size: 9px;
+    }
+    .ios-app {
+        padding: 2px 10px 6px 10px;
+    }
+    .ios-app-header {
+        font-size: 11px;
+        padding: 4px 0 10px 0;
+    }
+    .ios-app-header img {
+        height: 14px;
+    }
+    .ios-stat-num {
+        font-size: 12px;
+    }
+    .ios-stat-label {
+        font-size: 6px;
+    }
+    .ios-tx {
+        padding: 4px 8px;
+    }
+    .ios-tx-type {
+        font-size: 8px;
+    }
+    .ios-tx-amount {
+        font-size: 9px;
+    }
+    .ios-nav-item {
+        font-size: 13px;
+    }
+    .ios-home-indicator {
+        width: 80px;
+        height: 3px;
+    }
+    .hero-section {
+        padding: 80px 0 20px 0;
+    }
+    .features-section,
+    .how-it-works,
+    .works-section,
+    .cta-section {
+        padding: 30px 0;
+    }
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    .footer-section {
+        padding: 25px 0 15px 0;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 1.6rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    .hero-buttons .btn-primary-hero,
+    .hero-buttons .btn-outline-hero {
+        width: 100%;
+        text-align: center;
+    }
+    .iphone {
+        width: 150px;
+        height: 310px;
+    }
+    .iphone-card {
+        padding: 6px;
+        border-radius: 30px;
+    }
+    .iphone-frame {
+        border-radius: 28px;
+        padding: 6px;
+    }
+    .iphone-screen {
+        border-radius: 22px;
+    }
+    .dynamic-island {
+        width: 60px;
+        height: 20px;
+        top: 6px;
+        border-radius: 15px;
+    }
+    .ios-status-bar {
+        padding: 22px 8px 4px 8px;
+        font-size: 8px;
+    }
+    .ios-time {
+        font-size: 10px;
+    }
+    .ios-app {
+        padding: 0 6px 4px 6px;
+    }
+    .ios-app-header {
+        font-size: 9px;
+        padding: 2px 0 6px 0;
+    }
+    .ios-app-header img {
+        height: 12px;
+    }
+    .ios-stats {
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+    .ios-stat {
+        padding: 4px 2px;
+        border-radius: 6px;
+    }
+    .ios-stat-num {
+        font-size: 10px;
+    }
+    .ios-stat-label {
+        font-size: 5px;
+    }
+    .ios-tx {
+        padding: 3px 6px;
+        border-radius: 4px;
+    }
+    .ios-tx-type {
+        font-size: 7px;
+    }
+    .ios-tx-amount {
+        font-size: 8px;
+    }
+    .ios-nav-item {
+        font-size: 10px;
+    }
+    .ios-home-indicator {
+        width: 60px;
+        height: 3px;
+    }
+    .hero-section {
+        padding: 70px 0 15px 0;
+    }
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+    .cta-content h2 {
+        font-size: 1.5rem;
+    }
+    .glassy-card {
+        padding: 1.5rem 1rem;
+    }
+    .glassy-icon {
+        width: 50px;
+        height: 50px;
+    }
+    .glassy-icon i {
+        font-size: 1.5rem;
+    }
+    .navbar-landing {
+        padding: 10px 0;
+    }
+    .nav-content {
+        padding: 0 15px;
+    }
+    .mobile-menu {
+        padding: 15px 0;
+    }
+    .footer-section .row > div {
+        margin-bottom: 20px;
+    }
+    .hero-content {
+        padding: 0 15px;
+    }
+    .iphone-wrapper {
+        padding: 10px;
+    }
+}
+
+.mobile-menu.show {
+    display: flex;
+}
+</style>
+
+<script>
+function toggleMobileMenu() {
+    var menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('show');
+}
+</script>
+
+{% endblock %}
