@@ -163,6 +163,7 @@ def create_app():
     from routes.operators import operators
     from routes.float import floats
     from routes.license import license_bp
+    from routes.landing import landing  # ADDED: Landing page route
 
     # ==========================
     # REGISTER BLUEPRINTS
@@ -184,6 +185,7 @@ def create_app():
     app.register_blueprint(operators)
     app.register_blueprint(floats)
     app.register_blueprint(license_bp)
+    app.register_blueprint(landing)  # ADDED: Landing page blueprint
 
     # ==========================
     # CREATE TABLES - ONLY IF NOT EXISTS
