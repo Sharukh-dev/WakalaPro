@@ -42,8 +42,8 @@
     <!-- HERO SECTION -->
     <!-- ============================================ -->
     <section class="hero-section">
-        <div class="container-fluid px-4">
-            <div class="row align-items-center">
+        <div class="container-fluid px-0">
+            <div class="row align-items-center g-0">
                 <div class="col-lg-6">
                     <div class="hero-content">
                         <h1>
@@ -99,7 +99,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- FEATURES SECTION - GLOSSY CARDS -->
+    <!-- FEATURES SECTION -->
     <!-- ============================================ -->
     <section class="features-section" id="features">
         <div class="container-fluid px-4">
@@ -155,7 +155,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- HOW IT WORKS SECTION - GLOSSY CARDS -->
+    <!-- HOW IT WORKS SECTION -->
     <!-- ============================================ -->
     <section class="how-it-works" id="how-it-works">
         <div class="container-fluid px-4">
@@ -190,7 +190,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- WORKS SECTION - GLOSSY CARDS -->
+    <!-- WORKS SECTION -->
     <!-- ============================================ -->
     <section class="works-section">
         <div class="container-fluid px-4">
@@ -218,7 +218,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- CTA SECTION - GLOSSY -->
+    <!-- CTA SECTION -->
     <!-- ============================================ -->
     <section class="cta-section">
         <div class="container-fluid px-4">
@@ -305,6 +305,28 @@
     width: 100%;
     padding: 0;
     margin: 0;
+}
+
+/* ============================================ */
+/* FIX: EQUAL SPACING ON BOTH SIDES */
+/* ============================================ */
+.container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* ============================================ */
+/* HERO CONTENT - FULL WIDTH WITH PADDING */
+/* ============================================ */
+.hero-content {
+    padding: 0 30px !important;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* ============================================ */
@@ -430,11 +452,6 @@
     width: 100%;
 }
 
-.hero-content {
-    max-width: 600px;
-    padding: 0 10px;
-}
-
 .hero-section h1 {
     font-size: 3.5rem;
     font-weight: 800;
@@ -513,6 +530,8 @@
 
 .stat-item {
     text-align: center;
+    flex: 1;
+    min-width: 80px;
 }
 
 .stat-number {
@@ -532,6 +551,7 @@
 .hero-tagline {
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
+    margin-top: 0.5rem;
 }
 
 .hero-phone {
@@ -559,7 +579,7 @@
 }
 
 /* ============================================ */
-/* GLOSSY / GLASSMORPHISM CARDS */
+/* GLOSSY CARDS */
 /* ============================================ */
 .glassy-card {
     background: rgba(255, 255, 255, 0.06);
@@ -628,7 +648,7 @@
 }
 
 /* ============================================ */
-/* SECTIONS - ALL TRANSPARENT */
+/* SECTIONS */
 /* ============================================ */
 .features-section,
 .how-it-works,
@@ -827,6 +847,9 @@
     .section-header h2 {
         font-size: 2rem;
     }
+    .hero-content {
+        padding: 0 20px !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -859,15 +882,15 @@
     .cta-section {
         padding: 25px 0;
     }
-    .hero-content {
-        padding: 0 15px;
-    }
     .footer-section {
         padding: 25px 0 15px 0;
     }
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+    }
+    .hero-content {
+        padding: 0 15px !important;
     }
 }
 
@@ -922,6 +945,9 @@
     }
     .footer-section .row > div {
         margin-bottom: 20px;
+    }
+    .hero-content {
+        padding: 0 12px !important;
     }
 }
 
