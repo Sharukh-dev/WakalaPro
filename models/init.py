@@ -11,19 +11,11 @@ from models.audit_log import AuditLog
 from models.business_settings import BusinessSettings
 from models.merchant_operator_balance import MerchantOperatorBalance
 from models.license import License
+from models.password_reset import PasswordReset  # ADD THIS LINE
 
 __all__ = [
-    'User',
-    'Operator',
-    'Merchant',
-    'Transaction',
-    'Expense',
-    'Commission',
-    'CommissionSetting',
-    'Notification',
-    'CashClosing',
-    'AuditLog',
-    'BusinessSettings',
-    'MerchantOperatorBalance',
-    'License'
+    'User', 'Operator', 'Merchant', 'Transaction', 'Expense',
+    'Commission', 'CommissionSetting', 'Notification', 'CashClosing',
+    'AuditLog', 'BusinessSettings', 'MerchantOperatorBalance', 'License',
+    'PasswordReset'  # ADD THIS
 ]

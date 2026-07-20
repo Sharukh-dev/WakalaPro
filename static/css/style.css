@@ -1,5 +1,5 @@
 /* ============================================
-   WAKALAPRO - WHITE/LIGHT THEME
+   WAKALAPRO - WAKALA PLUS THEME
    ============================================ */
 
 :root {
@@ -9,101 +9,82 @@
     --primary-light: #60a5fa;
     --primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
     
+    /* Secondary Colors */
+    --secondary: #7c3aed;
+    --secondary-light: #a78bfa;
+    --secondary-gradient: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+    
     /* Success Colors */
     --success: #10b981;
     --success-dark: #059669;
     --success-light: #34d399;
+    --success-gradient: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
     
     /* Danger Colors */
     --danger: #ef4444;
     --danger-dark: #dc2626;
     --danger-light: #f87171;
+    --danger-gradient: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
     
     /* Warning Colors */
     --warning: #f59e0b;
     --warning-dark: #d97706;
+    --warning-light: #fbbf24;
+    --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
     
     /* Info Colors */
     --info: #06b6d4;
     --info-dark: #0891b2;
+    --info-light: #67e8f9;
+    --info-gradient: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%);
     
-    /* LIGHT THEME Colors */
-    --bg-body: #f3f4f6;
+    /* Neutral Colors - LIGHT THEME */
+    --bg-body: #f0f4f8;
     --bg-card: #ffffff;
     --bg-input: #ffffff;
-    --bg-hover: #f9fafb;
-    --border-color: #d1d5db;
-    --text-primary: #000000;
-    --text-secondary: #4b5563;
-    --text-muted: #6b7280;
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+    --bg-hover: #f1f5f9;
+    --bg-table-stripe: #f8fafc;
+    --border-color: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    /* Shadows */
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
 }
 
 /* ============================================
-   BODY
+   BODY & BACKGROUND
    ============================================ */
 body {
     background: var(--bg-body) !important;
     color: var(--text-primary) !important;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
+    line-height: 1.6;
 }
 
 /* ============================================
-   CARDS
-   ============================================ */
-.card {
-    background: var(--bg-card) !important;
-    border: 1px solid var(--border-color) !important;
-    border-radius: 12px !important;
-    color: var(--text-primary) !important;
-    box-shadow: var(--shadow) !important;
-    transition: all 0.3s ease;
-    overflow: visible;
-}
-
-.card:hover {
-    box-shadow: var(--shadow-md) !important;
-    border-color: var(--primary-light) !important;
-}
-
-.card-header {
-    background: #f8fafc !important;
-    border-bottom: 1px solid var(--border-color) !important;
-    padding: 1rem 1.25rem !important;
-    font-weight: 600;
-    color: var(--text-primary) !important;
-    border-radius: 12px 12px 0 0 !important;
-}
-
-.card-header h5 {
-    color: var(--text-primary) !important;
-    margin: 0;
-}
-
-.card-body {
-    padding: 1.25rem !important;
-    color: var(--text-primary) !important;
-}
-
-/* ============================================
-   NAVBAR
+   NAVBAR - WAKALA PLUS STYLE
    ============================================ */
 .navbar {
-    background: #ffffff !important;
-    border-bottom: 2px solid var(--primary) !important;
-    padding: 0.3rem 0 !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    padding: 0.5rem 0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     min-height: 50px;
 }
 
 .navbar-brand {
-    color: var(--primary) !important;
+    color: var(--text-primary) !important;
     font-weight: 800 !important;
-    font-size: 1.1rem !important;
+    font-size: 1.2rem !important;
     padding: 0.2rem 0 !important;
 }
 
@@ -114,20 +95,20 @@ body {
 .nav-link {
     color: var(--text-secondary) !important;
     font-weight: 500;
-    padding: 0.3rem 0.7rem !important;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    font-size: 0.82rem !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.85rem !important;
 }
 
 .nav-link:hover {
     color: var(--primary) !important;
-    background: #eff6ff;
+    background: rgba(37, 99, 235, 0.06);
 }
 
 .nav-link.active {
     color: var(--primary) !important;
-    background: #eff6ff;
+    background: rgba(37, 99, 235, 0.08);
 }
 
 .nav-link i {
@@ -136,25 +117,25 @@ body {
 }
 
 .role-badge {
-    background: #e2e8f0 !important;
-    color: #475569 !important;
-    padding: 1px 10px !important;
-    border-radius: 12px !important;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 2px 10px;
+    border-radius: 20px;
     font-size: 0.6rem !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-.navbar .text-white {
+.user-info {
     color: var(--text-primary) !important;
-    font-size: 0.82rem !important;
+    font-size: 0.85rem !important;
 }
 
 .navbar .btn {
-    padding: 0.25rem 0.7rem !important;
-    font-size: 0.78rem !important;
-    border-radius: 6px !important;
-    min-height: 28px;
+    padding: 0.3rem 0.8rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 8px !important;
+    min-height: 32px;
 }
 
 .navbar .btn-danger {
@@ -171,7 +152,7 @@ body {
     background: var(--warning) !important;
     color: white !important;
     border: none !important;
-    padding: 0.2rem 0.6rem !important;
+    padding: 0.25rem 0.7rem !important;
     font-size: 0.78rem !important;
     min-height: 28px;
 }
@@ -188,32 +169,125 @@ body {
 }
 
 /* ============================================
+   CARDS
+   ============================================ */
+.card {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    color: var(--text-primary) !important;
+    box-shadow: var(--shadow) !important;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md) !important;
+    border-color: #d1d9e6 !important;
+}
+
+.card-header {
+    background: #f8fafc !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 1rem 1.25rem !important;
+    font-weight: 600;
+    color: var(--text-primary) !important;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+.card-header h5 {
+    color: var(--text-primary) !important;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.card-body {
+    padding: 1.25rem !important;
+    color: var(--text-primary) !important;
+}
+
+/* ============================================
+   STATS CARDS - WAKALA PLUS STYLE
+   ============================================ */
+.stats-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stats-card .card-body {
+    padding: 0 !important;
+}
+
+.stats-card .icon {
+    font-size: 1.8rem;
+    opacity: 0.15;
+    float: right;
+    margin-top: -0.3rem;
+}
+
+.stats-card h6 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.stats-card h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+}
+
+/* Stats card border colors */
+.stats-card.blue { border-top: 3px solid #2563eb; }
+.stats-card.green { border-top: 3px solid #10b981; }
+.stats-card.purple { border-top: 3px solid #7c3aed; }
+.stats-card.orange { border-top: 3px solid #f59e0b; }
+.stats-card.red { border-top: 3px solid #ef4444; }
+.stats-card.teal { border-top: 3px solid #14b8a6; }
+
+/* ============================================
    TABLES
    ============================================ */
 .table {
     color: var(--text-primary) !important;
     background: var(--bg-card) !important;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     width: 100%;
     border-collapse: collapse;
 }
 
 .table thead th {
-    background: #f1f4f9 !important;
-    color: #475569 !important;
-    font-weight: 700 !important;
+    background: #f8fafc !important;
+    color: var(--text-secondary) !important;
+    font-weight: 600 !important;
     text-transform: uppercase !important;
-    font-size: 0.65rem !important;
+    font-size: 0.7rem !important;
     letter-spacing: 0.5px !important;
-    padding: 10px 14px !important;
-    border-bottom: 2px solid #e2e8f0 !important;
+    padding: 0.75rem 1rem !important;
+    border-bottom: 2px solid var(--border-color) !important;
     text-align: left !important;
     white-space: nowrap !important;
 }
 
 .table tbody tr {
-    border-bottom: 1px solid #f1f4f9 !important;
+    border-bottom: 1px solid var(--border-color) !important;
     transition: all 0.15s ease !important;
     background: #ffffff !important;
 }
@@ -223,14 +297,14 @@ body {
 }
 
 .table tbody tr:hover {
-    background: #eef2f7 !important;
+    background: #f1f5f9 !important;
 }
 
 .table td {
-    padding: 10px 14px !important;
+    padding: 0.75rem 1rem !important;
     vertical-align: middle !important;
     color: var(--text-primary) !important;
-    border-bottom: 1px solid #f1f4f9 !important;
+    border-bottom: 1px solid var(--border-color) !important;
     font-size: 0.85rem !important;
 }
 
@@ -238,10 +312,10 @@ body {
    BADGES
    ============================================ */
 .badge {
-    padding: 3px 12px !important;
+    padding: 0.35rem 0.8rem !important;
     font-weight: 600 !important;
     border-radius: 20px !important;
-    font-size: 0.65rem !important;
+    font-size: 0.7rem !important;
     color: #ffffff !important;
 }
 
@@ -271,40 +345,42 @@ body {
 }
 
 .badge-secondary {
-    background: #64748b !important;
-    color: white !important;
+    background: #e2e8f0 !important;
+    color: var(--text-secondary) !important;
 }
 
 /* ============================================
    BUTTONS
    ============================================ */
 .btn {
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     font-weight: 600 !important;
-    padding: 0.5rem 1.2rem !important;
+    padding: 0.6rem 1.2rem !important;
     transition: all 0.3s ease !important;
     border: none !important;
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
 }
 
 .btn-primary {
-    background: var(--primary) !important;
+    background: var(--primary-gradient) !important;
     color: white !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
 }
 
 .btn-success {
-    background: var(--success) !important;
+    background: var(--success-gradient) !important;
     color: white !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
 }
 
 .btn-success:hover {
-    background: var(--success-dark) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
 }
 
 .btn-danger {
@@ -314,7 +390,7 @@ body {
 
 .btn-danger:hover {
     background: var(--danger-dark) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .btn-warning {
@@ -324,7 +400,7 @@ body {
 
 .btn-warning:hover {
     background: var(--warning-dark) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .btn-info {
@@ -334,17 +410,16 @@ body {
 
 .btn-info:hover {
     background: var(--info-dark) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background: #94a3b8 !important;
-    color: white !important;
+    background: #e2e8f0 !important;
+    color: var(--text-primary) !important;
 }
 
 .btn-secondary:hover {
-    background: #64748b !important;
-    color: white !important;
+    background: #cbd5e1 !important;
 }
 
 /* ============================================
@@ -354,12 +429,12 @@ body {
     background: #ffffff !important;
     color: var(--text-primary) !important;
     border: 1px solid var(--border-color) !important;
-    border-radius: 8px !important;
-    padding: 0.5rem 0.8rem !important;
+    border-radius: 10px !important;
+    padding: 0.6rem 1rem !important;
     transition: all 0.3s ease !important;
-    font-size: 0.9rem !important;
+    font-size: 0.95rem !important;
     height: auto !important;
-    min-height: 40px !important;
+    min-height: 46px !important;
     width: 100% !important;
     box-sizing: border-box !important;
 }
@@ -368,7 +443,7 @@ body {
     background: #ffffff !important;
     color: var(--text-primary) !important;
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08) !important;
     outline: none !important;
 }
 
@@ -388,7 +463,7 @@ body {
    ============================================ */
 .alert {
     border: none !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     padding: 0.8rem 1rem !important;
     font-weight: 500 !important;
     font-size: 0.9rem !important;
@@ -424,14 +499,14 @@ body {
 .dropdown-menu {
     background: #ffffff !important;
     border: 1px solid var(--border-color) !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     box-shadow: var(--shadow-lg) !important;
     padding: 0.4rem !important;
 }
 
 .dropdown-item {
     color: var(--text-primary) !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     padding: 0.5rem 0.8rem !important;
     transition: all 0.2s ease !important;
     font-size: 0.85rem !important;
@@ -460,12 +535,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: #cbd5e1;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-dark);
+    background: #94a3b8;
 }
 
 /* ============================================
@@ -473,18 +548,22 @@ body {
    ============================================ */
 @media (max-width: 768px) {
     .container {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 14px;
+        padding-right: 14px;
     }
     
     .card {
-        border-radius: 10px !important;
+        border-radius: 12px !important;
     }
     
     .table thead th,
     .table td {
         padding: 6px 10px !important;
         font-size: 0.75rem !important;
+    }
+    
+    .stats-card h2 {
+        font-size: 1.3rem;
     }
 }
 
@@ -510,7 +589,7 @@ body {
    TEXT COLORS
    ============================================ */
 .text-muted {
-    color: #6b7280 !important;
+    color: #94a3b8 !important;
 }
 
 .text-success {
@@ -534,6 +613,109 @@ body {
 }
 
 /* ============================================
-   EXCLUDED: LOGIN PAGE - Keep Dark
+   HERO SECTION (Dashboard)
+   ============================================ */
+.hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2563eb 100%);
+    padding: 40px 0 50px 0;
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
+    margin: -1.5rem -1rem 0 -1rem;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-section .hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.hero-section h1 .highlight {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-section p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0.5rem 0 0 0;
+}
+
+.hero-section .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.hero-section .hero-stats .stat {
+    text-align: center;
+}
+
+.hero-section .hero-stats .stat .number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #60a5fa;
+    display: block;
+}
+
+.hero-section .hero-stats .stat .label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-hero {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white !important;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-hero:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   LOGIN PAGE - Keep Dark
    ============================================ */
 /* Login page styles remain in login.html */
+
+/* ============================================
+   FLOAT ALERT
+   ============================================ */
+.alert-warning {
+    background: #fffbeb !important;
+    border: 1px solid #fcd34d !important;
+    color: #92400e !important;
+    border-radius: 12px !important;
+}

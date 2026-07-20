@@ -4,90 +4,150 @@
 
 {% block content %}
 
-<!-- Page Header with Gradient -->
-<div class="row mb-4">
-    <div class="col-md-12">
-        <h1 class="dashboard-title"><i class="bi bi-speedometer2"></i> Dashboard</h1>
-        <hr class="dashboard-divider">
+<!-- ============================================ -->
+<!-- HERO SECTION - KAMA WAKALA PLUS -->
+<!-- ============================================ -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="hero-content">
+                    <h1>
+                        Welcome back, <span class="highlight">{{ current_user.username }}</span>
+                    </h1>
+                    <p>Manage your mobile money business efficiently. Track transactions, manage merchants, and monitor your profits all in one place.</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="number">{{ merchants_count|default(0) }}</span>
+                            <span class="label">Merchants</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number">{{ operators_count|default(0) }}</span>
+                            <span class="label">Operators</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number">{{ today_transactions|default(0) }}</span>
+                            <span class="label">Today's Transactions</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number" style="color: #fbbf24;">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</span>
+                            <span class="label">Total Balance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="hero-cta">
+                    <a href="{{ url_for('transactions.create') }}" class="btn btn-hero">
+                        <i class="bi bi-plus-circle"></i> New Transaction
+                    </a>
+                    <p class="mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                        <i class="bi bi-lightning-fill" style="color: #fbbf24;"></i> Quick action
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Stats Cards - Row 1 -->
-<div class="row" id="dashboard-stats">
+<!-- ============================================ -->
+<!-- STATS CARDS - ROW 1 -->
+<!-- ============================================ -->
+<div class="row mt-4" id="dashboard-stats">
     <div class="col-md-3 mb-3">
-        <div class="glass-card">
+        <div class="stats-card blue">
             <div class="card-body">
-                <h6><i class="bi bi-shop"></i> Total Merchants</h6>
+                <div class="icon"><i class="bi bi-shop"></i></div>
+                <h6>Total Merchants</h6>
                 <h2 id="total-merchants">{{ merchants_count|default(0) }}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="glass-card">
+        <div class="stats-card purple">
             <div class="card-body">
-                <h6><i class="bi bi-people"></i> Total Operators</h6>
+                <div class="icon"><i class="bi bi-people"></i></div>
+                <h6>Total Operators</h6>
                 <h2 id="total-operators">{{ operators_count|default(0) }}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="glass-card">
+        <div class="stats-card teal">
             <div class="card-body">
-                <h6><i class="bi bi-arrow-left-right"></i> Today's Transactions</h6>
+                <div class="icon"><i class="bi bi-arrow-left-right"></i></div>
+                <h6>Today's Transactions</h6>
                 <h2 id="today-transactions">{{ today_transactions|default(0) }}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="glass-card gold-border">
+        <div class="stats-card orange">
             <div class="card-body">
-                <h6 style="color: #b45309 !important;"><i class="bi bi-cash-stack"></i> Total Balance</h6>
-                <h2 id="total-balance" style="color: #b45309 !important;">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</h2>
+                <div class="icon"><i class="bi bi-cash-stack"></i></div>
+                <h6>Total Balance</h6>
+                <h2 id="total-balance">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</h2>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Stats Cards - Row 2 -->
+<!-- ============================================ -->
+<!-- STATS CARDS - ROW 2 -->
+<!-- ============================================ -->
 <div class="row">
     <div class="col-md-3 mb-3">
-        <div class="glass-card green-border">
+        <div class="stats-card green">
             <div class="card-body">
-                <h6 style="color: #10b981 !important;"><i class="bi bi-arrow-up"></i> Today's Deposits</h6>
-                <h2 id="today-deposits" style="color: #10b981 !important;">TSh {{ "{:,.0f}".format(today_deposits|default(0)) }}</h2>
+                <div class="icon"><i class="bi bi-arrow-up"></i></div>
+                <h6>Today's Deposits</h6>
+                <h2 id="today-deposits">TSh {{ "{:,.0f}".format(today_deposits|default(0)) }}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="glass-card red-border">
+        <div class="stats-card red">
             <div class="card-body">
-                <h6 style="color: #ef4444 !important;"><i class="bi bi-arrow-down"></i> Today's Withdrawals</h6>
-                <h2 id="today-withdrawals" style="color: #ef4444 !important;">TSh {{ "{:,.0f}".format(today_withdrawals|default(0)) }}</h2>
+                <div class="icon"><i class="bi bi-arrow-down"></i></div>
+                <h6>Today's Withdrawals</h6>
+                <h2 id="today-withdrawals">TSh {{ "{:,.0f}".format(today_withdrawals|default(0)) }}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="glass-card blue-border">
+        <div class="stats-card blue">
             <div class="card-body">
-                <h6 style="color: #2563eb !important;"><i class="bi bi-percent"></i> Today's Commission</h6>
-                <h2 id="today-commission" style="color: #2563eb !important;">TSh {{ "{:,.0f}".format(today_commission|default(0)) }}</h2>
+                <div class="icon"><i class="bi bi-percent"></i></div>
+                <h6>Today's Commission</h6>
+                <h2 id="today-commission">TSh {{ "{:,.0f}".format(today_commission|default(0)) }}</h2>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-3">
-        <div class="glass-card purple-border">
+        <div class="stats-card purple">
             <div class="card-body">
-                <h6 style="color: #7c3aed !important;"><i class="bi bi-graph-up"></i> Today's Profit</h6>
-                <h2 id="today-profit" style="color: #7c3aed !important;">TSh {{ "{:,.0f}".format(profit|default(0)) }}</h2>
+                <div class="icon"><i class="bi bi-graph-up"></i></div>
+                <h6>Today's Profit</h6>
+                <h2 id="today-profit">TSh {{ "{:,.0f}".format(profit|default(0)) }}</h2>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Quick Actions -->
+<!-- ============================================ -->
+<!-- FLOAT ALERT -->
+<!-- ============================================ -->
+<div class="alert alert-warning" id="floatAlert" style="display:none;">
+    <i class="bi bi-exclamation-triangle"></i>
+    <span id="floatAlertMessage"></span>
+</div>
+
+<!-- ============================================ -->
+<!-- QUICK ACTIONS -->
+<!-- ============================================ -->
 <div class="row mb-4">
     <div class="col-md-12">
-        <div class="glass-card">
+        <div class="card">
             <div class="card-header">
                 <h5><i class="bi bi-lightning"></i> Quick Actions</h5>
             </div>
@@ -118,10 +178,12 @@
     </div>
 </div>
 
-<!-- Charts -->
+<!-- ============================================ -->
+<!-- CHARTS -->
+<!-- ============================================ -->
 <div class="row">
     <div class="col-md-6 mb-3">
-        <div class="glass-card">
+        <div class="card">
             <div class="card-header">
                 <h5>Transaction Trends (Last 7 Days)</h5>
             </div>
@@ -131,7 +193,7 @@
         </div>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="glass-card">
+        <div class="card">
             <div class="card-header">
                 <h5>Commission Trends (Last 7 Days)</h5>
             </div>
@@ -141,13 +203,10 @@
         </div>
     </div>
 </div>
-<!-- Ongeza kwenye dashboard -->
-<div class="alert alert-warning" id="floatAlert" style="display:none;">
-    <i class="bi bi-exclamation-triangle"></i>
-    <span id="floatAlertMessage"></span>
-</div>
 
-<!-- Auto-refresh script -->
+<!-- ============================================ -->
+<!-- AUTO-REFRESH SCRIPT -->
+<!-- ============================================ -->
 <script>
 // Auto-refresh dashboard data every 10 seconds
 setInterval(function() {
@@ -286,193 +345,296 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-    /* ============================================
-       DASHBOARD STYLES
-       ============================================ */
+/* ============================================ */
+/* HERO SECTION - KAMA WAKALA PLUS */
+/* ============================================ */
+.hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2563eb 100%);
+    padding: 40px 0 50px 0;
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
+    margin: -1.5rem -1rem 0 -1rem;
+}
 
-    /* Dashboard Title - Gradient */
-    .dashboard-title {
-        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-weight: 800;
-        font-size: 2rem;
-        display: inline-block;
-    }
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    pointer-events: none;
+}
 
-    .dashboard-title i {
-        -webkit-text-fill-color: #2563eb;
-        background: none;
-    }
+.hero-section .hero-content {
+    position: relative;
+    z-index: 1;
+}
 
-    .dashboard-divider {
-        border: none;
-        height: 3px;
-        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
-        border-radius: 10px;
-        opacity: 0.6;
-    }
+.hero-section h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+}
 
-    /* Glass Card Effect - BLUR */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.65) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        border-radius: 16px !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
-        transition: all 0.3s ease !important;
-        overflow: hidden !important;
-    }
+.hero-section h1 .highlight {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-    .glass-card:hover {
-        transform: translateY(-6px) !important;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
-        background: rgba(255, 255, 255, 0.8) !important;
-    }
+.hero-section p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0.5rem 0 0 0;
+}
 
-    .glass-card .card-body {
-        padding: 1.25rem !important;
-        color: #000000 !important;
-    }
+.hero-section .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
 
-    .glass-card .card-body h6 {
-        font-size: 0.75rem !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
-        margin-bottom: 0.5rem !important;
-        font-weight: 600 !important;
-        color: #6b7280 !important;
-    }
+.hero-section .hero-stats .stat {
+    text-align: center;
+}
 
-    .glass-card .card-body h2 {
-        font-weight: 700 !important;
-        margin-bottom: 0 !important;
-        font-size: 1.8rem !important;
-        color: #000000 !important;
-    }
+.hero-section .hero-stats .stat .number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #60a5fa;
+    display: block;
+}
 
-    .glass-card .card-header {
-        background: rgba(255, 255, 255, 0.5) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-        padding: 0.8rem 1.25rem !important;
-    }
+.hero-section .hero-stats .stat .label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
-    .glass-card .card-header h5 {
-        color: #000000 !important;
-        margin: 0 !important;
-        font-weight: 600 !important;
-    }
+.hero-cta {
+    text-align: center;
+    padding: 10px;
+}
 
-    /* Border colors for different cards */
-    .gold-border {
-        border: 1px solid rgba(180, 83, 9, 0.3) !important;
-    }
-    .gold-border:hover {
-        border-color: #b45309 !important;
-    }
+.btn-hero {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white !important;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
 
-    .green-border {
-        border: 1px solid rgba(16, 185, 129, 0.3) !important;
-    }
-    .green-border:hover {
-        border-color: #10b981 !important;
-    }
+.btn-hero:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
 
-    .red-border {
-        border: 1px solid rgba(239, 68, 68, 0.3) !important;
-    }
-    .red-border:hover {
-        border-color: #ef4444 !important;
-    }
+/* ============================================ */
+/* STATS CARDS - WAKALA PLUS STYLE */
+/* ============================================ */
+.stats-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
 
-    .blue-border {
-        border: 1px solid rgba(37, 99, 235, 0.3) !important;
-    }
-    .blue-border:hover {
-        border-color: #2563eb !important;
-    }
+.stats-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
 
-    .purple-border {
-        border: 1px solid rgba(124, 58, 237, 0.3) !important;
-    }
-    .purple-border:hover {
-        border-color: #7c3aed !important;
-    }
+.stats-card .card-body {
+    padding: 0 !important;
+}
 
-    /* Quick Action Buttons */
-    .btn-primary {
-        background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
-        border: none !important;
-        color: white !important;
-        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
-    }
+.stats-card .icon {
+    font-size: 1.8rem;
+    opacity: 0.15;
+    float: right;
+    margin-top: -0.3rem;
+}
 
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4) !important;
-    }
+.stats-card h6 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
 
-    .btn-success {
-        background: linear-gradient(135deg, #10b981, #059669) !important;
-        border: none !important;
-        color: white !important;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
-    }
+.stats-card h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+}
 
-    .btn-success:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4) !important;
-    }
+/* Border colors */
+.stats-card.blue { border-top: 3px solid #2563eb; }
+.stats-card.green { border-top: 3px solid #10b981; }
+.stats-card.purple { border-top: 3px solid #7c3aed; }
+.stats-card.orange { border-top: 3px solid #f59e0b; }
+.stats-card.red { border-top: 3px solid #ef4444; }
+.stats-card.teal { border-top: 3px solid #14b8a6; }
 
-    .btn-info {
-        background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
-        border: none !important;
-        color: white !important;
-        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3) !important;
-    }
+/* ============================================ */
+/* QUICK ACTION BUTTONS */
+/* ============================================ */
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+}
 
-    .btn-info:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(6, 182, 212, 0.4) !important;
-    }
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+}
 
-    .btn-warning {
-        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-        border: none !important;
-        color: white !important;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3) !important;
-    }
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    border: none !important;
+    color: white !important;
+}
 
-    .btn-warning:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(245, 158, 11, 0.4) !important;
-    }
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+}
 
-    .btn-secondary {
-        background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
-        border: none !important;
-        color: white !important;
-        box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3) !important;
-    }
+.btn-info {
+    background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+    border: none !important;
+    color: white !important;
+}
 
-    .btn-secondary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(107, 114, 128, 0.4) !important;
-    }
+.btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4) !important;
+}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        .dashboard-title {
-            font-size: 1.5rem;
-        }
-        .glass-card .card-body h2 {
-            font-size: 1.3rem;
-        }
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4) !important;
+}
+
+/* ============================================ */
+/* CARDS */
+/* ============================================ */
+.card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.3s ease !important;
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-header {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 0.8rem 1.25rem !important;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+.card-header h5 {
+    color: #0f172a !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+
+.card-body {
+    padding: 1.25rem !important;
+}
+
+/* ============================================ */
+/* ALERT */
+/* ============================================ */
+.alert-warning {
+    background: #fffbeb !important;
+    border: 1px solid #fcd34d !important;
+    color: #92400e !important;
+    border-radius: 12px !important;
+}
+
+/* ============================================ */
+/* RESPONSIVE */
+/* ============================================ */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 30px 0 40px 0;
+        border-radius: 0 0 20px 20px;
     }
+    
+    .hero-section h1 {
+        font-size: 1.6rem;
+    }
+    
+    .hero-section .hero-stats {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .hero-section .hero-stats .stat .number {
+        font-size: 1.2rem;
+    }
+    
+    .hero-cta {
+        margin-top: 1rem;
+    }
+    
+    .stats-card h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section .hero-stats .stat {
+        flex: 1 0 45%;
+    }
+}
 </style>
 
 {% endblock %}

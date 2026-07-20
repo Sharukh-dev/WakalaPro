@@ -16,19 +16,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <!-- Custom CSS - WITH VERSION TO FORCE REFRESH -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.0">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 
 <body>
 
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <!-- NAVBAR ONLY AFTER LOGIN -->
+    <!-- ============================================ -->
+    <!-- NAVBAR - WAKALA PLUS STYLE -->
+    <!-- ============================================ -->
     {% if current_user.is_authenticated %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('dashboard.index') }}">
                 <i class="bi bi-currency-dollar"></i> WakalaPro
@@ -40,74 +43,102 @@
 
             <div class="collapse navbar-collapse" id="navbarMenu">
                 <ul class="navbar-nav me-auto">
+                    <!-- Dashboard -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('dashboard.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'dashboard.index' %}active{% endif %}" href="{{ url_for('dashboard.index') }}">
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
+
+                    <!-- Transactions -->
                     {% if current_user.has_permission('operator') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('transactions.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'transactions.index' %}active{% endif %}" href="{{ url_for('transactions.index') }}">
                             <i class="bi bi-arrow-left-right"></i> Transactions
                         </a>
                     </li>
                     {% endif %}
-                    {% if current_user.has_permission('admin') %}
-<li class="nav-item">
-    <a class="nav-link" href="{{ url_for('commission.index') }}">
-        <i class="bi bi-percent"></i> Commission
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{ url_for('commission.dashboard') }}">
-        <i class="bi bi-graph-up"></i> Commission Dashboard
-    </a>
-</li>
-{% endif %}
+
+                    <!-- Merchants -->
                     {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('merchants.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'merchants.index' %}active{% endif %}" href="{{ url_for('merchants.index') }}">
                             <i class="bi bi-shop"></i> Merchants
                         </a>
                     </li>
+                    {% endif %}
+
+                    <!-- Operators -->
+                    {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('operators.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'operators.index' %}active{% endif %}" href="{{ url_for('operators.index') }}">
                             <i class="bi bi-people"></i> Operators
                         </a>
                     </li>
+                    {% endif %}
+
+                    <!-- Commission -->
+                    {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('commission.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'commission.index' %}active{% endif %}" href="{{ url_for('commission.index') }}">
                             <i class="bi bi-percent"></i> Commission
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('expenses.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'commission.dashboard' %}active{% endif %}" href="{{ url_for('commission.dashboard') }}">
+                            <i class="bi bi-graph-up"></i> Commission Dashboard
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <!-- Expenses -->
+                    {% if current_user.has_permission('admin') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'expenses.index' %}active{% endif %}" href="{{ url_for('expenses.index') }}">
                             <i class="bi bi-receipt"></i> Expenses
                         </a>
                     </li>
+                    {% endif %}
+
+                    <!-- Cash Closing -->
+                    {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cash_closing.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'cash_closing.index' %}active{% endif %}" href="{{ url_for('cash_closing.index') }}">
                             <i class="bi bi-cash-stack"></i> Cash Closing
                         </a>
                     </li>
+                    {% endif %}
+
+                    <!-- Users -->
+                    {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('users.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'users.index' %}active{% endif %}" href="{{ url_for('users.index') }}">
                             <i class="bi bi-person-gear"></i> Users
                         </a>
                     </li>
+                    {% endif %}
+
+                    <!-- Audit -->
+                    {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('audit.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'audit.index' %}active{% endif %}" href="{{ url_for('audit.index') }}">
                             <i class="bi bi-clock-history"></i> Audit
                         </a>
                     </li>
+                    {% endif %}
+
+                    <!-- Settings -->
+                    {% if current_user.has_permission('admin') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('settings.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'settings.index' %}active{% endif %}" href="{{ url_for('settings.index') }}">
                             <i class="bi bi-gear"></i> Settings
                         </a>
                     </li>
                     {% endif %}
+
+                    <!-- Notifications -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('notifications.index') }}">
+                        <a class="nav-link {% if request.endpoint == 'notifications.index' %}active{% endif %}" href="{{ url_for('notifications.index') }}">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-danger" id="notification-badge">{{ notifications_count|default(0) }}</span>
                         </a>
@@ -152,7 +183,7 @@
                 </div>
 
                 <!-- User Info -->
-                <span class="text-white me-3">
+                <span class="user-info me-3">
                     <i class="bi bi-person-circle"></i> {{ current_user.username }}
                     <span class="role-badge">{{ current_user.role }}</span>
                 </span>
@@ -168,9 +199,10 @@
 
     {% endif %}
 
-    <!-- ALL PAGES CONTENT -->
+    <!-- ============================================ -->
+    <!-- FLASH MESSAGES -->
+    <!-- ============================================ -->
     <div class="container mt-4">
-        <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -182,9 +214,13 @@
         {% endif %}
         {% endwith %}
 
+        <!-- CONTENT -->
         {% block content %}{% endblock %}
     </div>
 
+    <!-- ============================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
