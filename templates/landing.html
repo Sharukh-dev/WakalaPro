@@ -5,295 +5,313 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- NAVBAR - LANDING PAGE (for non-logged-in users) -->
+<!-- LANDING PAGE - SINGLE GRADIENT BACKGROUND -->
 <!-- ============================================ -->
-<nav class="navbar-landing">
-    <div class="container-fluid px-4">
-        <div class="nav-content">
-            <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="35">
-                <span>WakalaPro</span>
-            </a>
-            <div class="nav-links">
+<div class="landing-wrapper">
+
+    <!-- ============================================ -->
+    <!-- NAVBAR - LANDING PAGE -->
+    <!-- ============================================ -->
+    <nav class="navbar-landing">
+        <div class="container-fluid px-4">
+            <div class="nav-content">
+                <a class="navbar-brand" href="#">
+                    <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="32">
+                    <span>WakalaPro</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How it works</a>
+                    <a href="{{ url_for('auth.login') }}" class="btn-login-nav">Log in</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn-primary-nav">Get started</a>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How it works</a>
                 <a href="{{ url_for('auth.login') }}" class="btn-login-nav">Log in</a>
                 <a href="{{ url_for('auth.register') }}" class="btn-primary-nav">Get started</a>
             </div>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="bi bi-list"></i>
-            </button>
         </div>
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How it works</a>
-            <a href="{{ url_for('auth.login') }}" class="btn-login-nav">Log in</a>
-            <a href="{{ url_for('auth.register') }}" class="btn-primary-nav">Get started</a>
-        </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- ============================================ -->
-<!-- HERO SECTION -->
-<!-- ============================================ -->
-<section class="hero-section">
-    <div class="container-fluid px-4">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="hero-content">
-                    <h1>
-                        <span class="highlight">Smart Payments,</span><br>
-                        <span class="highlight-text">Stronger Business</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        WakalaPro is a complete management system for mobile money agents in Tanzania. 
-                        Track transactions, manage multiple operators, monitor merchant balances, 
-                        and generate detailed reports — all from one powerful dashboard.
+    <!-- ============================================ -->
+    <!-- HERO SECTION -->
+    <!-- ============================================ -->
+    <section class="hero-section">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1>
+                            <span class="highlight">Smart Payments,</span><br>
+                            <span class="highlight-text">Stronger Business</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            WakalaPro is a complete management system for mobile money agents in Tanzania. 
+                            Track transactions, manage multiple operators, monitor merchant balances, 
+                            and generate detailed reports — all from one powerful dashboard.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="{{ url_for('auth.register') }}" class="btn-primary-hero">
+                                Get Started Free <i class="bi bi-arrow-right"></i>
+                            </a>
+                            <a href="{{ url_for('auth.login') }}" class="btn-outline-hero">
+                                Log In
+                            </a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">{{ merchants_count|default(0) }}+</span>
+                                <span class="stat-label">Merchants Managed</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">{{ operators_count|default(0) }}+</span>
+                                <span class="stat-label">Operators Active</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">&lt;10s</span>
+                                <span class="stat-label">Per Transaction</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">Always Available</span>
+                            </div>
+                        </div>
+                        <p class="hero-tagline">Your business. Your data. Complete control.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="hero-phone">
+                        <div class="hero-phone-content">
+                            <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
+                                 alt="WakalaPro" 
+                                 class="phone-logo">
+                            <p class="phone-tagline">Smart Payments, Stronger Business</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FEATURES SECTION - GLOSSY CARDS -->
+    <!-- ============================================ -->
+    <section class="features-section" id="features">
+        <div class="container-fluid px-4">
+            <div class="section-header">
+                <h2>Everything you need to run your business</h2>
+                <p>Complete tools for managing your mobile money agency efficiently.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="glassy-card">
+                        <div class="glassy-icon"><i class="bi bi-shop"></i></div>
+                        <h4>Merchant Management</h4>
+                        <p>Manage your merchant's details and transactions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="glassy-card">
+                        <div class="glassy-icon"><i class="bi bi-people"></i></div>
+                        <h4>Operator Management</h4>
+                        <p>Manage your operator's details and transactions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="glassy-card">
+                        <div class="glassy-icon"><i class="bi bi-arrow-left-right"></i></div>
+                        <h4>Transaction Management</h4>
+                        <p>Manage your transaction details and payments.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="glassy-card">
+                        <div class="glassy-icon"><i class="bi bi-percent"></i></div>
+                        <h4>Commission Tracking</h4>
+                        <p>Track your commission and earnings.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="glassy-card">
+                        <div class="glassy-icon"><i class="bi bi-receipt"></i></div>
+                        <h4>Expense &amp; Cash Closing</h4>
+                        <p>Manage your expenses and cash transactions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="glassy-card">
+                        <div class="glassy-icon"><i class="bi bi-graph-up"></i></div>
+                        <h4>Reports &amp; Analytics</h4>
+                        <p>Generate reports and analyze your data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- HOW IT WORKS SECTION - GLOSSY CARDS -->
+    <!-- ============================================ -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container-fluid px-4">
+            <div class="section-header">
+                <h2>Get started in 3 simple steps</h2>
+                <p>From registration to your first transaction in minutes.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glassy-card">
+                        <div class="step-number">1</div>
+                        <h4>Create your account</h4>
+                        <p>Sign up as a new user and set up your profile. You'll be the admin of your own system.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glassy-card">
+                        <div class="step-number">2</div>
+                        <h4>Add merchants &amp; operators</h4>
+                        <p>Register your merchants, assign operators, and set up their commission rates.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glassy-card">
+                        <div class="step-number">3</div>
+                        <h4>Start transacting</h4>
+                        <p>Begin processing deposits, withdrawals, and payments. Track everything in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- WORKS SECTION - GLOSSY CARDS -->
+    <!-- ============================================ -->
+    <section class="works-section">
+        <div class="container-fluid px-4">
+            <div class="section-header">
+                <h2>Works where you work</h2>
+                <p>Manage your business from any device, anywhere.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="glassy-card work-card">
+                        <div class="glassy-icon"><i class="bi bi-phone"></i></div>
+                        <h4>Mobile-ready dashboard</h4>
+                        <p>Access your full dashboard from any smartphone. Track transactions, manage operators, and monitor profits on the go.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glassy-card work-card">
+                        <div class="glassy-icon"><i class="bi bi-laptop"></i></div>
+                        <h4>Desktop web application</h4>
+                        <p>Full-featured web dashboard for back office management. Monitor all activities, generate reports, and manage your business efficiently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CTA SECTION - GLOSSY -->
+    <!-- ============================================ -->
+    <section class="cta-section">
+        <div class="container-fluid px-4">
+            <div class="cta-content">
+                <h2>Ready to take control of your business?</h2>
+                <p>Join the growing community of agents using WakalaPro to manage their mobile money business.</p>
+                <a href="{{ url_for('auth.register') }}" class="btn-primary-cta">
+                    Get Started Free <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================ -->
+    <footer class="footer-section">
+        <div class="container-fluid px-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="footer-brand">
+                        <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="28">
+                        <span>WakalaPro</span>
+                    </div>
+                    <p class="footer-desc">
+                        WakalaPro is a complete management system for mobile money agents in Tanzania — 
+                        manage transactions, operators, merchants, and reports all in one place.
                     </p>
-                    <div class="hero-buttons">
-                        <a href="{{ url_for('auth.register') }}" class="btn-primary-hero">
-                            Get Started Free <i class="bi bi-arrow-right"></i>
-                        </a>
-                        <a href="{{ url_for('auth.login') }}" class="btn-outline-hero">
-                            Log In
-                        </a>
+                </div>
+
+                <div class="col-md-2">
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How it works</a></li>
+                        <li><a href="{{ url_for('auth.register') }}">Get started</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h5>Connect</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">{{ merchants_count|default(0) }}+</span>
-                            <span class="stat-label">Merchants Managed</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">{{ operators_count|default(0) }}+</span>
-                            <span class="stat-label">Operators Active</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">&lt;10s</span>
-                            <span class="stat-label">Per Transaction</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Always Available</span>
-                        </div>
-                    </div>
-                    <p class="hero-tagline">Your business. Your data. Complete control.</p>
                 </div>
-            </div>
-            <div class="col-lg-6 text-center">
-                <div class="hero-phone">
-                    <div class="hero-phone-content">
-                        <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
-                             alt="WakalaPro" 
-                             class="phone-logo">
-                        <p class="phone-tagline">Smart Payments, Stronger Business</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- FEATURES SECTION -->
-<!-- ============================================ -->
-<section class="features-section" id="features">
-    <div class="container-fluid px-4">
-        <div class="section-header">
-            <h2>Everything you need to run your business</h2>
-            <p>Complete tools for managing your mobile money agency efficiently.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4 col-sm-6">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-shop"></i></div>
-                    <h4>Merchant Management</h4>
-                    <p>Manage your merchant's details and transactions.</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-people"></i></div>
-                    <h4>Operator Management</h4>
-                    <p>Manage your operator's details and transactions.</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-arrow-left-right"></i></div>
-                    <h4>Transaction Management</h4>
-                    <p>Manage your transaction details and payments.</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-percent"></i></div>
-                    <h4>Commission Tracking</h4>
-                    <p>Track your commission and earnings.</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-receipt"></i></div>
-                    <h4>Expense &amp; Cash Closing</h4>
-                    <p>Manage your expenses and cash transactions.</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
-                    <h4>Reports &amp; Analytics</h4>
-                    <p>Generate reports and analyze your data.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- HOW IT WORKS SECTION -->
-<!-- ============================================ -->
-<section class="how-it-works" id="how-it-works">
-    <div class="container-fluid px-4">
-        <div class="section-header">
-            <h2>Get started in 3 simple steps</h2>
-            <p>From registration to your first transaction in minutes.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h4>Create your account</h4>
-                    <p>Sign up as a new user and set up your profile. You'll be the admin of your own system.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h4>Add merchants &amp; operators</h4>
-                    <p>Register your merchants, assign operators, and set up their commission rates.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h4>Start transacting</h4>
-                    <p>Begin processing deposits, withdrawals, and payments. Track everything in real-time.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- WORKS SECTION -->
-<!-- ============================================ -->
-<section class="works-section">
-    <div class="container-fluid px-4">
-        <div class="section-header">
-            <h2>Works where you work</h2>
-            <p>Manage your business from any device, anywhere.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="work-card">
-                    <div class="work-icon"><i class="bi bi-phone"></i></div>
-                    <h4>Mobile-ready dashboard</h4>
-                    <p>Access your full dashboard from any smartphone. Track transactions, manage operators, and monitor profits on the go.</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="work-card">
-                    <div class="work-icon"><i class="bi bi-laptop"></i></div>
-                    <h4>Desktop web application</h4>
-                    <p>Full-featured web dashboard for back office management. Monitor all activities, generate reports, and manage your business efficiently.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- CTA SECTION -->
-<!-- ============================================ -->
-<section class="cta-section">
-    <div class="container-fluid px-4">
-        <div class="cta-content">
-            <h2>Ready to take control of your business?</h2>
-            <p>Join the growing community of agents using WakalaPro to manage their mobile money business.</p>
-            <a href="{{ url_for('auth.register') }}" class="btn-primary-cta">
-                Get Started Free <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================ -->
-<!-- FOOTER -->
-<!-- ============================================ -->
-<footer class="footer-section">
-    <div class="container-fluid px-4">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="footer-brand">
-                    <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="30">
-                    <span>WakalaPro</span>
-                </div>
-                <p class="footer-desc">
-                    WakalaPro is a complete management system for mobile money agents in Tanzania — 
-                    manage transactions, operators, merchants, and reports all in one place.
-                </p>
             </div>
 
-            <div class="col-md-2">
-                <h5>Product</h5>
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How it works</a></li>
-                    <li><a href="{{ url_for('auth.register') }}">Get started</a></li>
-                    <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-2">
-                <h5>Company</h5>
-                <ul>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-2">
-                <h5>Legal</h5>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-2">
-                <h5>Connect</h5>
-                <div class="social-icons">
-                    <a href="#"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
-                </div>
+            <div class="footer-bottom">
+                <p>© 2026 WakalaPro. All rights reserved.</p>
+                <p class="made-in">Made in Tanzania <i class="bi bi-heart-fill" style="color: #ec4899;"></i></p>
             </div>
         </div>
+    </footer>
 
-        <div class="footer-bottom">
-            <p>© 2026 WakalaPro. All rights reserved.</p>
-            <p class="made-in">Made in Tanzania <i class="bi bi-heart-fill" style="color: #ec4899;"></i></p>
-        </div>
-    </div>
-</footer>
+</div>
 
 <style>
 /* ============================================ */
-/* LANDING PAGE NAVBAR (for non-logged-in users) */
+/* LANDING WRAPPER - SINGLE GRADIENT */
+/* ============================================ */
+.landing-wrapper {
+    background: linear-gradient(180deg, #0f172a 0%, #1a1a3e 20%, #064e3b 45%, #065f46 70%, #7c3aed 100%);
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* ============================================ */
+/* LANDING NAVBAR */
 /* ============================================ */
 .navbar-landing {
-    background: rgba(15, 23, 42, 0.92);
+    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(20px);
     padding: 14px 0;
     position: fixed;
@@ -325,7 +343,7 @@
 }
 
 .navbar-brand img {
-    height: 35px;
+    height: 32px;
 }
 
 .nav-links {
@@ -408,8 +426,7 @@
 /* HERO SECTION */
 /* ============================================ */
 .hero-section {
-    background: linear-gradient(180deg, #0f172a 0%, #1a1a3e 25%, #064e3b 50%, #065f46 75%, #7c3aed 100%);
-    padding: 120px 0 60px 0;
+    padding: 120px 0 50px 0;
     width: 100%;
 }
 
@@ -542,101 +559,58 @@
 }
 
 /* ============================================ */
-/* FEATURES SECTION */
+/* GLOSSY / GLASSMORPHISM CARDS */
 /* ============================================ */
-.features-section {
-    padding: 60px 0;
-    background: transparent;
-    width: 100%;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: white;
-}
-
-.section-header p {
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 500px;
-    margin: 0.5rem auto 0;
-}
-
-.feature-card {
+.glassy-card {
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 2rem 1.5rem;
     text-align: center;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     height: 100%;
     color: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-.feature-card:hover {
+.glassy-card:hover {
     background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
 }
 
-.feature-icon {
+.glassy-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(124, 58, 237, 0.2));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(124, 58, 237, 0.25));
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.feature-icon i {
+.glassy-icon i {
     font-size: 1.8rem;
     color: #34d399;
 }
 
-.feature-card h4 {
+.glassy-card h4 {
     font-size: 1.1rem;
     font-weight: 600;
     color: white;
     margin-bottom: 0.5rem;
 }
 
-.feature-card p {
-    color: rgba(255, 255, 255, 0.6);
+.glassy-card p {
+    color: rgba(255, 255, 255, 0.65);
     font-size: 0.9rem;
     line-height: 1.6;
     margin: 0;
-}
-
-/* ============================================ */
-/* HOW IT WORKS SECTION */
-/* ============================================ */
-.how-it-works {
-    padding: 60px 0;
-    background: transparent;
-    width: 100%;
-}
-
-.step-card {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s;
-    height: 100%;
-    color: white;
-}
-
-.step-card:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-4px);
 }
 
 .step-number {
@@ -653,84 +627,38 @@
     margin: 0 auto 1rem auto;
 }
 
-.step-card h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.step-card p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 0;
-}
-
 /* ============================================ */
-/* WORKS SECTION */
+/* SECTIONS - ALL TRANSPARENT */
 /* ============================================ */
-.works-section {
-    padding: 60px 0;
-    background: transparent;
-    width: 100%;
-}
-
-.work-card {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 2.5rem;
-    text-align: center;
-    transition: all 0.3s;
-    height: 100%;
-    color: white;
-}
-
-.work-card:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-4px);
-}
-
-.work-icon {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(124, 58, 237, 0.2));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem auto;
-}
-
-.work-icon i {
-    font-size: 2rem;
-    color: #34d399;
-}
-
-.work-card h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.work-card p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* ============================================ */
-/* CTA SECTION */
-/* ============================================ */
+.features-section,
+.how-it-works,
+.works-section,
 .cta-section {
-    padding: 60px 0;
-    background: transparent;
+    padding: 50px 0;
+    background: transparent !important;
     width: 100%;
 }
 
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+}
+
+.section-header p {
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 500px;
+    margin: 0.5rem auto 0;
+}
+
+/* ============================================ */
+/* CTA */
+/* ============================================ */
 .cta-content {
     text-align: center;
     color: white;
@@ -739,15 +667,15 @@
 }
 
 .cta-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
 .cta-content p {
     opacity: 0.8;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .btn-primary-cta {
@@ -770,9 +698,10 @@
 /* FOOTER */
 /* ============================================ */
 .footer-section {
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
     border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 50px 0 20px 0;
+    padding: 40px 0 20px 0;
     width: 100%;
     margin-top: 0;
 }
@@ -783,17 +712,17 @@
     gap: 10px;
     color: white;
     font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
 }
 
 .footer-brand img {
-    height: 30px;
+    height: 28px;
 }
 
 .footer-desc {
     color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.6;
     max-width: 350px;
 }
@@ -801,8 +730,8 @@
 .footer-section h5 {
     color: white;
     font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
 }
 
 .footer-section ul {
@@ -812,7 +741,7 @@
 }
 
 .footer-section ul li {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
 }
 
 .footer-section ul li a {
@@ -844,7 +773,7 @@
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: 20px;
-    margin-top: 30px;
+    margin-top: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -887,20 +816,20 @@
         margin-top: 2rem;
     }
     .hero-section {
-        padding: 100px 0 40px 0;
+        padding: 100px 0 30px 0;
     }
     .features-section,
     .how-it-works,
     .works-section,
     .cta-section {
-        padding: 40px 0;
+        padding: 30px 0;
+    }
+    .section-header h2 {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .hero-section {
-        padding: 100px 0 30px 0;
-    }
     .hero-section h1 {
         font-size: 2rem;
     }
@@ -919,22 +848,22 @@
         height: 260px;
     }
     .section-header h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     .cta-content h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     .features-section,
     .how-it-works,
     .works-section,
     .cta-section {
-        padding: 30px 0;
+        padding: 25px 0;
     }
     .hero-content {
         padding: 0 15px;
     }
     .footer-section {
-        padding: 30px 0 15px 0;
+        padding: 25px 0 15px 0;
     }
     .footer-bottom {
         flex-direction: column;
@@ -972,14 +901,15 @@
     .cta-content h2 {
         font-size: 1.5rem;
     }
-    .feature-card {
-        padding: 1.5rem;
+    .glassy-card {
+        padding: 1.5rem 1rem;
     }
-    .step-card {
-        padding: 1.5rem;
+    .glassy-icon {
+        width: 50px;
+        height: 50px;
     }
-    .work-card {
-        padding: 1.5rem;
+    .glassy-icon i {
+        font-size: 1.5rem;
     }
     .navbar-landing {
         padding: 10px 0;
