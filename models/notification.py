@@ -16,3 +16,22 @@ class Notification(db.Model):
     
     def __repr__(self):
         return f'<Notification {self.title}>'
+# models/notification.py - Ongeza hii
+def check_low_float():
+    """Check all merchants for low float"""
+    merchants = Merchant.query.all()
+    for merchant in merchants:
+        # Check network balances
+        networks = ['vodacom', 'airtel', 'tigo', 'halotel', 'zantel']
+        for network in networks:
+            balance = getattr(merchant, f'balance_{network}', 0)
+            if balance < 50000:  # Low float threshold
+                # Send notification
+                notification = Notification(
+                    user_id=merchant.id,
+                    title=f'Low Float Alert - {network.capitalize()}',
+                    message=f'Balance is TSh {balance:,.0f}. Please top up.',
+                    notification_type='float_alert'
+                )
+                db.session.add(notification)
+    db.session.commit()

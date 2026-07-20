@@ -4,10 +4,10 @@ from extensions import db
 from models.commission import Commission
 from models.commission_setting import CommissionSetting
 from models.operator import Operator
+from models.user import User
 from sqlalchemy import func
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
-# Create blueprint first
 commission = Blueprint('commission', __name__)
 
 NETWORKS = ['Vodacom', 'Airtel', 'Tigo', 'Halotel', 'Zantel']
@@ -61,6 +61,72 @@ def index():
                          networks=NETWORKS,
                          banks=BANKS,
                          transaction_types=TRANSACTION_TYPES)
+
+@commission.route('/commission/dashboard')
+@login_required
+def dashboard():
+    """Commission dashboard with operator performance"""
+    if not current_user.has_permission('admin'):
+        flash('You do not have permission to view commission dashboard.', 'danger')
+        return redirect(url_for('dashboard.index'))
+    
+    today = date.today()
+    start_of_day = datetime.combine(today, datetime.min.time())
+    end_of_day = datetime.combine(today, datetime.max.time())
+    
+    # Today's commission by operator
+    operator_commissions = db.session.query(
+        Operator.full_name,
+        Operator.id,
+        func.sum(Commission.amount).label('total'),
+        func.count(Commission.id).label('count')
+    ).join(Commission, Commission.operator_id == Operator.id)\
+     .filter(Commission.created_at >= start_of_day, Commission.created_at <= end_of_day)\
+     .group_by(Operator.id)\
+     .order_by(func.sum(Commission.amount).desc()).all()
+    
+    # Weekly commission
+    week_start = today - timedelta(days=7)
+    weekly_total = db.session.query(func.sum(Commission.amount)).filter(
+        Commission.created_at >= week_start
+    ).scalar() or 0
+    
+    # Monthly commission
+    month_start = date(today.year, today.month, 1)
+    monthly_total = db.session.query(func.sum(Commission.amount)).filter(
+        Commission.created_at >= month_start
+    ).scalar() or 0
+    
+    # Top operator
+    top_operator = db.session.query(
+        Operator.full_name,
+        func.sum(Commission.amount).label('total')
+    ).join(Commission, Commission.operator_id == Operator.id)\
+     .group_by(Operator.id)\
+     .order_by(func.sum(Commission.amount).desc()).first()
+    
+    # Commission trend (last 7 days)
+    trend_labels = []
+    trend_data = []
+    for i in range(6, -1, -1):
+        day = today - timedelta(days=i)
+        start = datetime.combine(day, datetime.min.time())
+        end = datetime.combine(day, datetime.max.time())
+        trend_labels.append(day.strftime('%b %d'))
+        daily_total = db.session.query(func.sum(Commission.amount)).filter(
+            Commission.created_at >= start,
+            Commission.created_at <= end
+        ).scalar() or 0
+        trend_data.append(float(daily_total))
+    
+    return render_template('commission_dashboard.html',
+                         operator_commissions=operator_commissions,
+                         weekly_total=weekly_total,
+                         monthly_total=monthly_total,
+                         top_operator=top_operator,
+                         trend_labels=trend_labels,
+                         trend_data=trend_data,
+                         today=today)
 
 @commission.route('/commission/setting/create', methods=['POST'])
 @login_required

@@ -187,4 +187,33 @@
         }
     });
 </script>
+
+<!-- Ongeza kwenye receipts.html -->
+<button onclick="printBluetooth()" class="btn btn-info">
+    <i class="bi bi-printer"></i> Print via Bluetooth
+</button>
+
+<script>
+function printBluetooth() {
+    // Check if Bluetooth is available
+    if (!navigator.bluetooth) {
+        alert('Bluetooth not supported on this browser');
+        return;
+    }
+    
+    // Connect to Bluetooth printer
+    navigator.bluetooth.requestDevice({
+        filters: [{ services: ['000018f0-0000-1000-8000-00805f9b34fb'] }]
+    })
+    .then(device => device.gatt.connect())
+    .then(server => server.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb'))
+    .then(service => service.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb'))
+    .then(characteristic => {
+        // Send receipt data
+        const data = generateReceiptText();
+        characteristic.writeValue(new TextEncoder().encode(data));
+    })
+    .catch(error => console.error('Bluetooth error:', error));
+}
+</script>
 {% endblock %}

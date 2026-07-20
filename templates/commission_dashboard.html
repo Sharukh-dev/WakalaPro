@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}Commission Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1><i class="bi bi-graph-up"></i> Commission Dashboard</h1>
+    <div>
+        <span class="badge bg-primary" style="font-size: 1rem; padding: 8px 16px;">
+            <i class="bi bi-calendar"></i> {{ today.strftime('%Y-%m-%d') }}
+        </span>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stats-card" style="border-color: #2563eb;">
+            <div class="card-body">
+                <h6 style="color: #2563eb;">Today's Commission</h6>
+                <h2>TSh {{ "{:,.0f}".format(operator_commissions|sum(attribute='total')|default(0)) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card" style="border-color: #10b981;">
+            <div class="card-body">
+                <h6 style="color: #10b981;">This Week</h6>
+                <h2>TSh {{ "{:,.0f}".format(weekly_total) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card" style="border-color: #7c3aed;">
+            <div class="card-body">
+                <h6 style="color: #7c3aed;">This Month</h6>
+                <h2>TSh {{ "{:,.0f}".format(monthly_total) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card" style="border-color: #f59e0b;">
+            <div class="card-body">
+                <h6 style="color: #f59e0b;">Top Operator</h6>
+                <h2 style="font-size: 1.5rem;">{{ top_operator.full_name if top_operator else 'N/A' }}</h2>
+                <small style="color: #f59e0b;">
+                    TSh {{ "{:,.0f}".format(top_operator.total) if top_operator else '0' }}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Commission Trend Chart -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-bar-chart"></i> Commission Trend (Last 7 Days)</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="commissionTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Operator Performance Table -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-people"></i> Operator Performance Today</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Operator</th>
+                                <th>Transactions</th>
+                                <th>Total Commission</th>
+                                <th>Average</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for op in operator_commissions %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td><strong>{{ op.full_name }}</strong></td>
+                                <td>{{ op.count }}</td>
+                                <td style="color: #10b981; font-weight: 700;">TSh {{ "{:,.0f}".format(op.total) }}</td>
+                                <td style="color: #2563eb;">
+                                    TSh {{ "{:,.0f}".format(op.total / op.count if op.count > 0 else 0) }}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center py-4" style="color: #6b7280;">
+                                    <i class="bi bi-inbox display-4 d-block" style="color: #d1d5db;"></i>
+                                    <p class="mt-2">No commissions recorded today</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-info-circle"></i> Commission Rates</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Networks</h6>
+                        <ul class="list-unstyled">
+                            <li>Vodacom: <strong>1.5%</strong></li>
+                            <li>Airtel: <strong>1.2%</strong></li>
+                            <li>Tigo: <strong>1.0%</strong></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Banks</h6>
+                        <ul class="list-unstyled">
+                            <li>CRDB: <strong>0.8%</strong></li>
+                            <li>NMB: <strong>0.7%</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-lightning"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('commission.index') }}" class="btn btn-primary">
+                        <i class="bi bi-gear"></i> Manage Commission Settings
+                    </a>
+                    <a href="{{ url_for('transactions.index') }}" class="btn btn-success">
+                        <i class="bi bi-arrow-left-right"></i> View Transactions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const labels = {{ trend_labels|tojson }};
+    const data = {{ trend_data|tojson }};
+    
+    if (labels && labels.length > 0) {
+        const ctx = document.getElementById('commissionTrendChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Commission (TSh)',
+                    data: data,
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: 'rgba(37, 99, 235, 1)',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#000000'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#6b7280',
+                            callback: function(value) {
+                                return 'TSh ' + Number(value).toLocaleString();
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#6b7280'
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+
+<style>
+    /* Card styles */
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .card-header {
+        background: #f3f4f6 !important;
+        border-bottom: 1px solid #d1d5db !important;
+        padding: 1rem 1.25rem !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .card-header h5 {
+        color: #000000 !important;
+        margin: 0 !important;
+        font-weight: 600 !important;
+    }
+
+    .card-body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .stats-card .card-body {
+        padding: 1.25rem !important;
+        text-align: center !important;
+    }
+
+    .stats-card h6 {
+        font-size: 0.75rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        margin-bottom: 0.5rem !important;
+        font-weight: 600 !important;
+    }
+
+    .stats-card h2 {
+        font-weight: 700 !important;
+        margin-bottom: 0 !important;
+        font-size: 1.8rem !important;
+        color: #000000 !important;
+    }
+
+    body {
+        background: #f3f4f6 !important;
+        color: #000000 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+    }
+
+    .list-unstyled li {
+        padding: 4px 0;
+        color: #000000 !important;
+    }
+
+    .list-unstyled strong {
+        color: #2563eb !important;
+        float: right;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border: none !important;
+        color: white !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+</style>
+{% endblock %}
