@@ -5,7 +5,7 @@
 {% block content %}
 
 <!-- ============================================ -->
-<!-- NAVBAR - LANDING PAGE -->
+<!-- NAVBAR - LANDING PAGE (for non-logged-in users) -->
 <!-- ============================================ -->
 <nav class="navbar-landing">
     <div class="container-fluid px-4">
@@ -94,7 +94,7 @@
 </section>
 
 <!-- ============================================ -->
-<!-- FEATURES SECTION - 6 CARDS -->
+<!-- FEATURES SECTION -->
 <!-- ============================================ -->
 <section class="features-section" id="features">
     <div class="container-fluid px-4">
@@ -107,42 +107,42 @@
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-shop"></i></div>
                     <h4>Merchant Management</h4>
-                    <p>Add, edit, and manage all your merchants in one place. Track balances, networks, and transaction history for each merchant.</p>
+                    <p>Manage your merchant's details and transactions.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-people"></i></div>
                     <h4>Operator Management</h4>
-                    <p>Manage your cashiers and staff with role-based permissions. Assign merchants and track operator performance.</p>
+                    <p>Manage your operator's details and transactions.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-arrow-left-right"></i></div>
                     <h4>Transaction Management</h4>
-                    <p>Process deposits, withdrawals, transfers, and payments. Auto-calculate commissions and update balances instantly.</p>
+                    <p>Manage your transaction details and payments.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-percent"></i></div>
                     <h4>Commission Tracking</h4>
-                    <p>Set custom commission rates for each network and bank. Track earnings per operator and generate commission reports.</p>
+                    <p>Track your commission and earnings.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-receipt"></i></div>
                     <h4>Expense &amp; Cash Closing</h4>
-                    <p>Record expenses, manage daily cash closing, and get real-time profit calculations. Know your business performance daily.</p>
+                    <p>Manage your expenses and cash transactions.</p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
                     <h4>Reports &amp; Analytics</h4>
-                    <p>Generate detailed reports for transactions, commissions, expenses, and profits. Export to CSV or PDF for accounting.</p>
+                    <p>Generate reports and analyze your data.</p>
                 </div>
             </div>
         </div>
@@ -150,7 +150,7 @@
 </section>
 
 <!-- ============================================ -->
-<!-- HOW IT WORKS SECTION - 3 STEPS -->
+<!-- HOW IT WORKS SECTION -->
 <!-- ============================================ -->
 <section class="how-it-works" id="how-it-works">
     <div class="container-fluid px-4">
@@ -185,7 +185,7 @@
 </section>
 
 <!-- ============================================ -->
-<!-- WORKS WHERE YOU WORK SECTION -->
+<!-- WORKS SECTION -->
 <!-- ============================================ -->
 <section class="works-section">
     <div class="container-fluid px-4">
@@ -290,23 +290,7 @@
 
 <style>
 /* ============================================ */
-/* VARIABLES */
-/* ============================================ */
-:root {
-    --primary: #10b981;
-    --primary-dark: #059669;
-    --primary-light: #34d399;
-    --secondary: #7c3aed;
-    --secondary-light: #a78bfa;
-    --pink: #ec4899;
-    --dark: #0f172a;
-    --darker: #0a0e1a;
-    --white: #ffffff;
-    --gray: #94a3b8;
-}
-
-/* ============================================ */
-/* LANDING NAVBAR */
+/* LANDING PAGE NAVBAR (for non-logged-in users) */
 /* ============================================ */
 .navbar-landing {
     background: rgba(15, 23, 42, 0.92);
@@ -341,7 +325,7 @@
 }
 
 .navbar-brand img {
-    height: 32px;
+    height: 35px;
 }
 
 .nav-links {
@@ -351,7 +335,7 @@
 }
 
 .nav-links a {
-    color: var(--gray);
+    color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s;
@@ -364,17 +348,17 @@
 .btn-login-nav {
     color: white !important;
     padding: 8px 20px;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 30px;
     transition: all 0.3s;
 }
 
 .btn-login-nav:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-primary-nav {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: linear-gradient(135deg, #10b981, #7c3aed);
     color: white !important;
     padding: 8px 24px;
     border-radius: 30px;
@@ -401,12 +385,12 @@
     flex-direction: column;
     gap: 16px;
     padding: 20px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     margin-top: 16px;
 }
 
 .mobile-menu a {
-    color: var(--gray);
+    color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     font-size: 0.95rem;
     padding: 8px 0;
@@ -487,8 +471,8 @@
 }
 
 .btn-outline-hero {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
     padding: 12px 32px;
     border-radius: 50px;
@@ -499,7 +483,7 @@
 }
 
 .btn-outline-hero:hover {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
     transform: translateY(-3px);
 }
 
@@ -523,22 +507,22 @@
 
 .stat-label {
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .hero-tagline {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
 }
 
 .hero-phone {
     width: 280px;
     height: 450px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 40px;
-    border: 2px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -552,7 +536,7 @@
 }
 
 .phone-tagline {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.8rem;
     letter-spacing: 1px;
 }
@@ -578,14 +562,14 @@
 }
 
 .section-header p {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     max-width: 500px;
     margin: 0.5rem auto 0;
 }
 
 .feature-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 2rem;
     text-align: center;
@@ -595,15 +579,15 @@
 }
 
 .feature-card:hover {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
     transform: translateY(-6px);
-    border-color: rgba(16,185,129,0.3);
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 .feature-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(124,58,237,0.2));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(124, 58, 237, 0.2));
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -624,7 +608,7 @@
 }
 
 .feature-card p {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
     line-height: 1.6;
     margin: 0;
@@ -640,8 +624,8 @@
 }
 
 .step-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 2rem;
     text-align: center;
@@ -651,7 +635,7 @@
 }
 
 .step-card:hover {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
     transform: translateY(-4px);
 }
 
@@ -677,7 +661,7 @@
 }
 
 .step-card p {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
     line-height: 1.6;
     margin: 0;
@@ -693,8 +677,8 @@
 }
 
 .work-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     padding: 2.5rem;
     text-align: center;
@@ -704,14 +688,14 @@
 }
 
 .work-card:hover {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
     transform: translateY(-4px);
 }
 
 .work-icon {
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(124,58,237,0.2));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(124, 58, 237, 0.2));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -732,7 +716,7 @@
 }
 
 .work-card p {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
     line-height: 1.6;
     margin: 0;
@@ -779,7 +763,7 @@
 
 .btn-primary-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================ */
@@ -808,7 +792,7 @@
 }
 
 .footer-desc {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
     line-height: 1.6;
     max-width: 350px;
@@ -832,7 +816,7 @@
 }
 
 .footer-section ul li a {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     font-size: 0.85rem;
     transition: color 0.3s;
@@ -848,7 +832,7 @@
 }
 
 .social-icons a {
-    color: rgba(255,255,255,0.4);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 1.2rem;
     transition: color 0.3s;
 }
@@ -858,7 +842,7 @@
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: 20px;
     margin-top: 30px;
     display: flex;
@@ -869,7 +853,7 @@
 }
 
 .footer-bottom p {
-    color: rgba(255,255,255,0.3);
+    color: rgba(255, 255, 255, 0.3);
     font-size: 0.8rem;
     margin: 0;
 }
@@ -1011,9 +995,6 @@
     }
 }
 
-/* ============================================ */
-/* MOBILE MENU TOGGLE */
-/* ============================================ */
 .mobile-menu.show {
     display: flex;
 }
