@@ -12,15 +12,14 @@ from email.mime.multipart import MIMEMultipart
 auth = Blueprint('auth', __name__)
 
 # ============================================
-# EMAIL CONFIGURATION - CHANGE THESE!
+# EMAIL CONFIGURATION
 # ============================================
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_USER = 'your-email@gmail.com'  # Weka email yako hapa
-EMAIL_PASSWORD = 'your-app-password'  # Weka app password hapa
+EMAIL_USER = 'your-email@gmail.com'
+EMAIL_PASSWORD = 'your-app-password'
 
 def send_reset_email(email, reset_link):
-    """Send password reset email"""
     try:
         msg = MIMEMultipart()
         msg['From'] = EMAIL_USER
@@ -141,8 +140,9 @@ def register():
             flash('Password must be at least 6 characters.', 'danger')
             return render_template('register.html')
 
+        # FIXED: Check if passwords match
         if password != confirm_password:
-            flash('Passwords do not match.', 'danger')
+            flash('Passwords do not match. Please enter the same password in both fields.', 'danger')
             return render_template('register.html')
 
         # Check if username exists

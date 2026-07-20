@@ -1,254 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - WakalaPro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+{% extends "base.html" %}
 
-        body {
-            background: #0a0e1a;
-            color: #e6edf3;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
+{% block title %}Register - WakalaPro{% endblock %}
 
-        .register-container {
-            width: 100%;
-            max-width: 480px;
-            padding: 20px;
-            margin: 0 auto;
-        }
-
-        .register-card {
-            background: #141b2d;
-            border-radius: 24px;
-            padding: 40px 35px;
-            border: 1px solid #2a3a5c;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .register-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .register-header .logo {
-            display: inline-block;
-            background: rgba(255,255,255,0.06);
-            padding: 10px 14px;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-
-        .register-header .logo img {
-            height: 35px;
-        }
-
-        .register-header h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #e6edf3;
-            margin-bottom: 4px;
-        }
-
-        .register-header p {
-            color: #8b949e;
-            font-size: 0.9rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: #8b949e;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-            font-size: 0.85rem;
-        }
-
-        .form-group .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            color: #e6edf3;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group .form-control:focus {
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-            outline: none;
-        }
-
-        .form-group .form-control::placeholder {
-            color: #64748b;
-        }
-
-        .btn-register {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #10b981, #7c3aed);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
-            margin-top: 6px;
-        }
-
-        .btn-register:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 1.5rem 0;
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #2a3a5c;
-        }
-
-        .social-login {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .btn-social {
-            width: 100%;
-            padding: 12px;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            color: #e6edf3;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .btn-social:hover {
-            background: #1a2335;
-            border-color: #10b981;
-        }
-
-        .btn-social.google i { color: #ea4335; }
-
-        .register-footer {
-            margin-top: 1.5rem;
-            text-align: center;
-        }
-
-        .register-footer p {
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        .register-footer a {
-            color: #60a5fa;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .register-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            border-radius: 10px;
-            padding: 0.8rem 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            border: none;
-        }
-
-        .alert-success {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border-left: 4px solid #10b981;
-        }
-
-        .alert-danger {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border-left: 4px solid #ef4444;
-        }
-
-        .alert-info {
-            background: rgba(37, 99, 235, 0.15);
-            color: #60a5fa;
-            border-left: 4px solid #2563eb;
-        }
-
-        @media (max-width: 480px) {
-            .register-card {
-                padding: 30px 20px;
-            }
-            .register-header h1 {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* Fix for autofill */
-        .register-container input:-webkit-autofill,
-        .register-container input:-webkit-autofill:hover,
-        .register-container input:-webkit-autofill:focus {
-            -webkit-box-shadow: 0 0 0 30px #0d1117 inset !important;
-            -webkit-text-fill-color: #e6edf3 !important;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="register-container">
+{% block content %}
+<div class="register-container">
+    <div class="register-wrapper">
         <div class="register-card">
             <div class="register-header">
-                <div class="logo">
-                    <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro">
+                <div class="logo-icon">
+                    <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" alt="WakalaPro" height="40">
                 </div>
-                <h1>Create your account</h1>
-                <p>Start powering transactions in minutes</p>
+                <h2>Create Account</h2>
+                <p>
+                    {% if current_user.is_authenticated and current_user.has_permission('admin') %}
+                        Register a new user
+                    {% else %}
+                        {% if not current_user.is_authenticated %}
+                            You are registering as the <strong>first user</strong>. You will be the <strong>Admin</strong>.
+                        {% else %}
+                            Register as a new user
+                        {% endif %}
+                    {% endif %}
+                </p>
             </div>
 
-            <!-- Flash Messages -->
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -259,46 +34,306 @@
             {% endif %}
             {% endwith %}
 
-            <form method="POST">
-                <div class="form-group">
-                    <label for="full_name"><i class="bi bi-person"></i> Full name</label>
-                    <input type="text" class="form-control" id="full_name" name="username" placeholder="Amina Juma" required>
+            <div class="register-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="username"><i class="bi bi-person"></i> Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+                        <small class="text-muted">At least 3 characters</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"><i class="bi bi-envelope"></i> Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number"><i class="bi bi-phone"></i> Phone Number</label>
+                        <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="e.g. 0712345678" required>
+                    </div>
+
+                    <!-- PASSWORD FIELD -->
+                    <div class="form-group">
+                        <label for="password"><i class="bi bi-lock"></i> Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+                        <small class="text-muted">At least 6 characters</small>
+                    </div>
+
+                    <!-- CONFIRM PASSWORD FIELD - HII NDIO ILIKOSA -->
+                    <div class="form-group">
+                        <label for="confirm_password"><i class="bi bi-shield-lock"></i> Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                        <small class="text-muted">Enter the same password again</small>
+                    </div>
+
+                    {% if current_user.is_authenticated and current_user.has_permission('admin') %}
+                    <div class="form-group">
+                        <label for="role"><i class="bi bi-person-badge"></i> Role</label>
+                        <select class="form-control" id="role" name="role" style="appearance: auto; padding: 12px 16px;">
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="cashier">Cashier</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                    </div>
+                    {% else %}
+                        {% if not current_user.is_authenticated %}
+                        <div class="alert-info">
+                            <i class="bi bi-info-circle"></i>
+                            You are registering as the <strong>first user</strong>. You will automatically become the <strong>Admin</strong>.
+                        </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <button type="submit" class="btn-register">
+                        <i class="bi bi-person-plus"></i>
+                        {% if current_user.is_authenticated and current_user.has_permission('admin') %}
+                            Register User
+                        {% else %}
+                            Create Account
+                        {% endif %}
+                    </button>
+                </form>
+
+                <div class="register-footer">
+                    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Sign In</a></p>
+                    <p class="version">WakalaPro v1.0.0</p>
                 </div>
-
-                <div class="form-group">
-                    <label for="phone_number"><i class="bi bi-phone"></i> Phone number</label>
-                    <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="0712 345 678" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email"><i class="bi bi-envelope"></i> Email (optional)</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="password"><i class="bi bi-lock"></i> Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
-                </div>
-
-                <button type="submit" class="btn-register">
-                    <i class="bi bi-person-plus"></i> Create account
-                </button>
-            </form>
-
-            <div class="divider">or sign up with</div>
-
-            <div class="social-login">
-                <a href="#" class="btn-social google">
-                    <i class="bi bi-google"></i> Continue with Google
-                </a>
-            </div>
-
-            <div class="register-footer">
-                <p>Already have an account? <a href="{{ url_for('auth.login') }}">Sign In</a></p>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<style>
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0a0e1a 0%, #1a1a3e 100%);
+        padding: 20px;
+        margin: -20px -12px 0 -12px;
+    }
+
+    .register-wrapper {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .register-card {
+        background: #141b2d;
+        border-radius: 24px;
+        padding: 45px 40px;
+        border: 1px solid #2a3a5c;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .register-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .logo-icon {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .logo-icon img {
+        height: 40px;
+    }
+
+    .register-header h2 {
+        color: #e6edf3;
+        font-weight: 700;
+        font-size: 1.6rem;
+        margin-bottom: 4px;
+    }
+
+    .register-header p {
+        color: #8b949e;
+        font-size: 0.9rem;
+    }
+
+    .register-header p strong {
+        color: #60a5fa;
+    }
+
+    .alert {
+        border-radius: 10px;
+        padding: 0.8rem 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        border: none;
+    }
+
+    .alert-success {
+        background: rgba(16, 185, 129, 0.2);
+        color: #34d399;
+        border-left: 4px solid #10b981;
+    }
+
+    .alert-danger {
+        background: rgba(239, 68, 68, 0.2);
+        color: #f87171;
+        border-left: 4px solid #ef4444;
+    }
+
+    .alert-info {
+        background: rgba(37, 99, 235, 0.2);
+        color: #60a5fa;
+        border-left: 4px solid #2563eb;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+        display: block;
+        color: #8b949e;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    .form-group label i {
+        margin-right: 6px;
+    }
+
+    .form-group .form-control {
+        width: 100%;
+        padding: 12px 16px;
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        color: #e6edf3;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-group .form-control:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        outline: none;
+    }
+
+    .form-group .form-control::placeholder {
+        color: #64748b;
+    }
+
+    .form-group .text-muted {
+        font-size: 0.7rem;
+        color: #64748b !important;
+        margin-top: 4px;
+        display: block;
+    }
+
+    .form-group .form-select {
+        width: 100%;
+        padding: 12px 16px;
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+        color: #e6edf3;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        appearance: auto;
+    }
+
+    .form-group .form-select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        outline: none;
+    }
+
+    .form-group .form-select option {
+        background: #141b2d;
+        color: #e6edf3;
+    }
+
+    .alert-info {
+        background: rgba(37, 99, 235, 0.12);
+        border: 1px solid #1f6feb;
+        color: #60a5fa;
+        border-radius: 10px;
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .alert-info i {
+        margin-right: 6px;
+    }
+
+    .btn-register {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 6px;
+    }
+
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+    }
+
+    .register-footer {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .register-footer p {
+        color: #64748b;
+        font-size: 0.85rem;
+    }
+
+    .register-footer a {
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .register-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .register-footer .version {
+        margin-top: 0.4rem;
+        font-size: 0.75rem;
+        color: #475569;
+    }
+
+    @media (max-width: 480px) {
+        .register-card {
+            padding: 25px 20px;
+        }
+
+        .register-header h2 {
+            font-size: 1.3rem;
+        }
+
+        .logo-icon img {
+            height: 32px;
+        }
+    }
+
+    /* Fix for dark mode */
+    .register-container input:-webkit-autofill,
+    .register-container input:-webkit-autofill:hover,
+    .register-container input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 30px #0d1117 inset !important;
+        -webkit-text-fill-color: #e6edf3 !important;
+    }
+</style>
+{% endblock %}
