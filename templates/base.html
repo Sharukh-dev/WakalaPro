@@ -16,12 +16,70 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <!-- Custom CSS - WITH VERSION TO FORCE REFRESH -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4.0">
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        /* ============================================ */
+        /* FIX: REMOVE ALL WHITE SPACES */
+        /* ============================================ */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+        }
+
+        /* Full width container override */
+        .container {
+            max-width: 100% !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .container-fluid {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        /* Remove mt-4 from content wrapper */
+        .content-wrapper {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* Fix for landing page content */
+        .landing-content {
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Flash messages styling */
+        .flash-messages {
+            padding: 10px 20px !important;
+            margin: 0 !important;
+        }
+
+        @media (max-width: 768px) {
+            .flash-messages {
+                padding: 10px 15px !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -204,9 +262,9 @@
     {% endif %}
 
     <!-- ============================================ -->
-    <!-- FLASH MESSAGES -->
+    <!-- FLASH MESSAGES - FULL WIDTH -->
     <!-- ============================================ -->
-    <div class="container mt-4">
+    <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -217,8 +275,12 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
+    </div>
 
-        <!-- CONTENT -->
+    <!-- ============================================ -->
+    <!-- CONTENT - NO CONTAINER, FULL WIDTH -->
+    <!-- ============================================ -->
+    <div class="content-wrapper">
         {% block content %}{% endblock %}
     </div>
 
