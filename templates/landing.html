@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}WakalaPro - Mobile Money Agent Management System{% endblock %}
+{% block title %}WakalaPro - Smart Payments, Stronger Business{% endblock %}
 
 {% block content %}
 
@@ -12,10 +12,13 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
+                    <!-- Logo kubwa kwenye hero -->
+                    <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
+                         alt="WakalaPro" 
+                         style="width: 180px; max-width: 100%; margin-bottom: 1.5rem;">
                     <h1>
-                        <span class="highlight">Manage your</span><br>
-                        <span class="highlight-text">mobile money business</span><br>
-                        <span class="highlight">with ease</span>
+                        <span class="highlight">Smart Payments,</span><br>
+                        <span class="highlight-text">Stronger Business</span>
                     </h1>
                     <p class="hero-subtitle">
                         WakalaPro is a complete management system for mobile money agents in Tanzania. 
@@ -48,7 +51,7 @@
                             <span class="stat-label">Always Available</span>
                         </div>
                     </div>
-                    <p class="hero-tagline">Smart Payments, Stronger Business</p>
+                    <p class="hero-tagline">Your business. Your data. Complete control.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
@@ -56,7 +59,7 @@
                     <div class="hero-phone-content">
                         <img src="{{ url_for('static', filename='images/wakalapro_logo.png') }}" 
                              alt="WakalaPro" 
-                             style="width: 120px; max-width: 100%; margin-bottom: 0.5rem;">
+                             style="width: 140px; max-width: 100%; margin-bottom: 0.5rem;">
                         <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; letter-spacing: 1px;">
                             Smart Payments, Stronger Business
                         </p>
@@ -68,7 +71,7 @@
 </section>
 
 <!-- ============================================ -->
-<!-- FEATURES SECTION - Mfumo Wako -->
+<!-- FEATURES SECTION -->
 <!-- ============================================ -->
 <section class="features-section">
     <div class="container">

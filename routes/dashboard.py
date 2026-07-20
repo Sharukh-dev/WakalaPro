@@ -13,7 +13,8 @@ from datetime import datetime, timedelta, date
 
 dashboard = Blueprint('dashboard', __name__)
 
-@dashboard.route('/')
+# ONDOA @app.route('/') - hii sasa iko kwenye app.py
+
 @dashboard.route('/dashboard')
 @login_required
 def index():
@@ -21,46 +22,37 @@ def index():
     start_of_day = datetime.combine(today, datetime.min.time())
     end_of_day = datetime.combine(today, datetime.max.time())
 
-    # Counts
     merchants_count = Merchant.query.count()
     operators_count = Operator.query.count()
 
-    # Today's transactions
     today_transactions = Transaction.query.filter(
         Transaction.created_at >= start_of_day,
         Transaction.created_at <= end_of_day
     ).count()
 
-    # Today's deposits
     today_deposits = db.session.query(func.sum(Transaction.amount)).filter(
         Transaction.transaction_type == 'DEPOSIT',
         Transaction.created_at >= start_of_day,
         Transaction.created_at <= end_of_day
     ).scalar() or 0
 
-    # Today's withdrawals
     today_withdrawals = db.session.query(func.sum(Transaction.amount)).filter(
         Transaction.transaction_type == 'WITHDRAW',
         Transaction.created_at >= start_of_day,
         Transaction.created_at <= end_of_day
     ).scalar() or 0
 
-    # Today's commission
     today_commission = db.session.query(func.sum(Commission.amount)).filter(
         Commission.created_at >= start_of_day,
         Commission.created_at <= end_of_day
     ).scalar() or 0
 
-    # Today's expenses
     today_expenses = db.session.query(func.sum(Expense.amount)).filter(
         Expense.created_at >= start_of_day,
         Expense.created_at <= end_of_day
     ).scalar() or 0
 
-    # Profit = Commission - Expenses
     profit = today_commission - today_expenses
-
-    # Total balance
     total_balance = db.session.query(func.sum(Merchant.current_balance)).scalar() or 0
 
     # Chart data - Last 7 days
@@ -114,7 +106,6 @@ def index():
 @dashboard.route('/dashboard/stats')
 @login_required
 def get_stats():
-    """API endpoint for real-time dashboard stats"""
     today = date.today()
     start_of_day = datetime.combine(today, datetime.min.time())
     end_of_day = datetime.combine(today, datetime.max.time())
