@@ -102,12 +102,17 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    """Registration page - First user becomes admin"""
+    
+    # Check if any user exists
     user_exists = User.query.first()
     
+    # If user exists and current user is not logged in, redirect to login
     if user_exists and not current_user.is_authenticated:
         flash('System already has a user. Please login.', 'info')
         return redirect(url_for('auth.login'))
     
+    # If user exists and current user is not admin, deny access
     if user_exists and current_user.is_authenticated and not current_user.has_permission('admin'):
         flash('You do not have permission to register new users.', 'danger')
         return redirect(url_for('dashboard.index'))
@@ -119,6 +124,7 @@ def register():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
 
+        # Validation
         if not username or len(username) < 3:
             flash('Username must be at least 3 characters.', 'danger')
             return render_template('register.html')
@@ -139,20 +145,25 @@ def register():
             flash('Passwords do not match.', 'danger')
             return render_template('register.html')
 
+        # Check if username exists
         if User.query.filter_by(username=username).first():
-            flash('Username already exists.', 'danger')
+            flash('Username already exists. Please choose another.', 'danger')
             return render_template('register.html')
 
+        # Check if email exists
         if User.query.filter_by(email=email).first():
             flash('Email already registered.', 'danger')
             return render_template('register.html')
 
+        # Check if phone exists
         if User.query.filter_by(phone_number=phone_number).first():
             flash('Phone number already registered.', 'danger')
             return render_template('register.html')
 
+        # Check if this is the first user
         is_first_user = User.query.count() == 0
         
+        # If first user, make them admin
         if is_first_user:
             role = 'admin'
             is_admin = True
@@ -163,6 +174,7 @@ def register():
             role = request.form.get('role', 'cashier')
             is_admin = True if role == 'admin' else False
 
+        # Create user
         user = User(
             username=username,
             email=email,
@@ -175,6 +187,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
+        # Create operator record
         if role in ['admin', 'manager', 'cashier']:
             operator = Operator(
                 user_id=user.id,
@@ -185,6 +198,7 @@ def register():
             db.session.add(operator)
             db.session.commit()
 
+        # If first user, log them in automatically
         if is_first_user:
             login_user(user, remember=True)
             user.last_login = datetime.utcnow()
