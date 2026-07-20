@@ -30,7 +30,7 @@
                             <span class="label">Today's Transactions</span>
                         </div>
                         <div class="stat">
-                            <span class="number" style="color: #ffd200;">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</span>
+                            <span class="number gold-number">TSh {{ "{:,.0f}".format(total_balance|default(0)) }}</span>
                             <span class="label">Total Balance</span>
                         </div>
                     </div>
@@ -267,6 +267,14 @@
     display: block;
 }
 
+.hero-section .hero-stats .stat .number.gold-number {
+    color: #ffd200;
+    background: linear-gradient(135deg, #f7971e, #ffd200);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .hero-section .hero-stats .stat .label {
     font-size: 0.7rem;
     color: rgba(255, 255, 255, 0.6);
@@ -364,62 +372,76 @@
 }
 
 /* ============================================ */
-/* QUICK ACTION BUTTONS */
+/* QUICK ACTION BUTTONS - ALL WITH GOLD GRADIENT */
 /* ============================================ */
 .btn-primary {
-    background: linear-gradient(135deg, #10b981, #7c3aed) !important;
+    background: linear-gradient(135deg, #f7971e, #ffd200) !important;
     border: none !important;
-    color: white !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+    color: #0a0e1a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(247, 151, 30, 0.3) !important;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(247, 151, 30, 0.5) !important;
+    color: #0a0e1a !important;
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #059669, #10b981) !important;
+    background: linear-gradient(135deg, #f7971e, #ffd200) !important;
     border: none !important;
-    color: white !important;
+    color: #0a0e1a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(247, 151, 30, 0.3) !important;
 }
 
 .btn-success:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(247, 151, 30, 0.5) !important;
+    color: #0a0e1a !important;
 }
 
 .btn-info {
-    background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+    background: linear-gradient(135deg, #f7971e, #ffd200) !important;
     border: none !important;
-    color: white !important;
+    color: #0a0e1a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(247, 151, 30, 0.3) !important;
 }
 
 .btn-info:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(247, 151, 30, 0.5) !important;
+    color: #0a0e1a !important;
 }
 
 .btn-warning {
-    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    background: linear-gradient(135deg, #f7971e, #ffd200) !important;
     border: none !important;
-    color: white !important;
+    color: #0a0e1a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(247, 151, 30, 0.3) !important;
 }
 
 .btn-warning:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(247, 151, 30, 0.5) !important;
+    color: #0a0e1a !important;
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
+    background: linear-gradient(135deg, #f7971e, #ffd200) !important;
     border: none !important;
-    color: white !important;
+    color: #0a0e1a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 14px rgba(247, 151, 30, 0.3) !important;
 }
 
 .btn-secondary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4) !important;
+    box-shadow: 0 6px 20px rgba(247, 151, 30, 0.5) !important;
+    color: #0a0e1a !important;
 }
 
 /* ============================================ */
